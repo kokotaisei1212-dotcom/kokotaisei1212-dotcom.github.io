@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Privacy Policy · STK</title>
+<meta name="description" content="What STK keeps about you and your customers, and for how long.">
+<link rel="canonical" href="https://stk-evidence.com/privacy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/privacy">
+<meta property="og:title" content="Privacy Policy · STK">
+<meta property="og:description" content="What STK keeps about you and your customers, and for how long.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy Policy · STK">
+<meta name="twitter:description" content="What STK keeps about you and your customers, and for how long.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Privacy Policy</div>
+<h1>Privacy Policy</h1>
+<p class="muted">Last updated: November 17, 2026</p>
+
+<h2>1. Who we are</h2>
+<p>STK is provided by Taisei Izawa (井澤大成), an individual in Toyama, Japan.</p>
+<p>Contact: <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a>.<br>Email: <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></p>
+
+<h2>2. Your account</h2>
+<p>When you take a key we keep your email address, the time the account was made, and later your Stripe customer id. The key itself is not kept: only a keyed hash of it (HMAC-SHA256). We use the address to send you the key and the invoice. We do not send marketing email.</p>
+<p>To limit how many keys are taken, STK keeps the IP address of each <code>POST /v1/keys</code> for one hour, and writes it nowhere.</p>
+
+<p>When your key reports an incident (<code>POST /v1/incident</code>), we keep which account reported it, for 7 years. The public history shows the intent and the date, not who reported it.</p>
+
+<h2>3. Your customers' conversations</h2>
+<p>For these we act as your processor under the <a href="/dpa">DPA</a>. STK receives, for each ask: the conversation id, the intent, the trigger, and, if you send it, whether a person joined. No words of a conversation, no customer id, no confidence number: a request with any other field is refused. The conversation id and the intent come back in your row as you send them, so never put a person's name, contact details or health in them. STK keeps no row of an ask: each one comes back with its answer, signed, for you to keep (<a href="/ledger">The ledger</a>); STK keeps only each day's counts.</p>
+
+<h2>4. This website</h2>
+<p>The site is hosted on Vercel. It sets no tracking cookies and runs no analytics. Fonts load from Google Fonts, which receives your IP address.</p>
+
+<h2>5. Who else sees data</h2>
+<p>The companies on <a href="/subprocessors">Subprocessors</a>, and Google Fonts for website visitors. Nobody else.</p>
+
+<h2>6. How long</h2>
+<p>STK keeps no row of an ask: each answer carries its row and STK's signature of it, and you keep them. STK keeps, for each day of your account, its counts (permissions, people joining, escalate), for 7 years. Each month's bill and each report is deleted 7 years after it was written. Your account (the address, the Stripe customer id, the hashed keys) is deleted 7 years after your last call to <code>POST /v1/ask</code> (or after it was made, if it never made one), billed or not: an account in use stays. <code>GET /v1/ledger</code> gives your days' counts at any time. Stripe keeps payment records as the law requires.</p>
+
+<h2>7. Your rights</h2>
+<p>Your rows are with you: each answer brought its row and STK's signature, and stk.py or stk.mjs kept them. <code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. With ids made this way your rows hold no data about your customers, and STK keeps no row at all.</p>
+
+<h2>8. Changes</h2>
+<p>We post changes on this page with a new date.</p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

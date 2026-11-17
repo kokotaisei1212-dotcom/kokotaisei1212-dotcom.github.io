@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Amazon Connect · STK</title>
+<meta name="description" content="Where the call to STK goes in Amazon Connect, from Amazon Connect&#x27;s own documentation.">
+<link rel="canonical" href="https://stk-evidence.com/setup-amazon-connect">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/setup-amazon-connect">
+<meta property="og:title" content="Amazon Connect · STK">
+<meta property="og:description" content="Where the call to STK goes in Amazon Connect, from Amazon Connect&#x27;s own documentation.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Amazon Connect · STK">
+<meta name="twitter:description" content="Where the call to STK goes in Amazon Connect, from Amazon Connect&#x27;s own documentation.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Where it goes</div>
+<h1>Amazon Connect</h1>
+<p class="lead">In the flow, an AWS Lambda function block before the transfer to the queue. The two lines go in that Lambda.</p>
+<h2>Where</h2>
+<ol>
+<li>Make a Lambda function (Python or Node.js). Put <a href="/stk.py" download>stk.py</a> or <a href="/stk.mjs" download>stk.mjs</a> in its package, with your key.</li>
+<li>In the flow, before <strong>Transfer to queue</strong>, add the <strong>AWS Lambda function</strong> block (Integrate), Execution mode <strong>Synchronous</strong>, pointing to that Lambda.</li>
+<li>After it, <strong>Check contact attributes</strong> on <code>$.External.decision</code>: <code>finish</code> goes back to your bot; anything else, and the block's Error and Timeout branches, go on to <strong>Transfer to queue</strong>.</li>
+</ol>
+<h2>The Lambda (Python)</h2>
+<pre class="code">from stk import ask
+
+def lambda_handler(event, context):
+    a = event["Details"]["ContactData"]["Attributes"]       # set by your flow: the intent your bot gave
+    return {"decision": ask(event["Details"]["ContactData"]["ContactId"], a.get("intent", "other"), "unknown")}</pre>
+<p>Amazon Connect waits at most 8 seconds for a synchronous Lambda; stk.py itself stops waiting for STK at 300 ms and returns <code>escalate</code>.</p>
+<p>The contact id is Amazon Connect's id for the contact, not your customer's information. If you would rather not send it, pass a random id you keep with the contact.</p>
+<h2>Not known</h2><ul><li>The handover inside Amazon Lex or Amazon Q in Connect: not read.</li></ul>
+<h2>Read on 2026-11-17</h2>
+<p>From Amazon Connect's own documentation. What it does not say is under Not known, not guessed.</p>
+<ul><li><a href="https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html" rel="noopener">https://docs.aws.amazon.com/connect/latest/adminguide/invoke-lambda-function-block.html</a></li><li><a href="https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html" rel="noopener">https://docs.aws.amazon.com/connect/latest/adminguide/connect-lambda-functions.html</a></li></ul>
+<p><a href="/setup-own-code">Your own code</a> · <a href="/docs">Docs</a></p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

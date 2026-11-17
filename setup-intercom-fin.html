@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Intercom Fin · STK</title>
+<meta name="description" content="Where the call to STK goes in Intercom Fin, from Intercom Fin&#x27;s own documentation.">
+<link rel="canonical" href="https://stk-evidence.com/setup-intercom-fin">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/setup-intercom-fin">
+<meta property="og:title" content="Intercom Fin · STK">
+<meta property="og:description" content="Where the call to STK goes in Intercom Fin, from Intercom Fin&#x27;s own documentation.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Intercom Fin · STK">
+<meta name="twitter:description" content="Where the call to STK goes in Intercom Fin, from Intercom Fin&#x27;s own documentation.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Where it goes</div>
+<h1>Intercom Fin</h1>
+<p class="lead">In Workflows, a branch on Escalation after Let Fin answer, with a data connector that calls STK.</p>
+<h2>Where</h2>
+<ol>
+<li>A <strong>data connector</strong> (using API) that sends the request below, and saves <code>decision</code> to a conversation data attribute.</li>
+<li>In the workflow, after <strong>Let Fin answer</strong>, add <strong>Branches</strong> with the condition <strong>Escalation</strong>; in it, the data connector step.</li>
+<li>Workflows branch only on whether the connector succeeded or failed: the branch on <code>finish</code> is a later step on the saved attribute.</li>
+</ol>
+<h2>The request</h2>
+<pre class="code">POST https://api.stk-evidence.com/v1/ask
+X-STK-Key: &lt;your test key, then your live key&gt;
+Content-Type: application/json
+
+{"conversation_id": "&lt;a random id for this conversation&gt;", "intent": "&lt;one of the 56 ids&gt;", "trigger": "unknown"}</pre>
+<p>The answer: <code>{"decision": "finish" | "escalate", ...}</code>. Continue with your AI only on <code>finish</code>. On <code>escalate</code>, on an error, or on a timeout, transfer to a person as the flow does today.</p>
+<p>A data connector has 3 seconds to connect and 30 to answer, and cannot be set shorter. Fin does not retry.</p>
+<h2>Not known</h2><ul><li>Whether a workflow can give the conversation back to Fin after the Escalation branch, which a finish needs: the documentation does not say.</li></ul>
+<h2>Read on 2026-11-17</h2>
+<p>From Intercom Fin's own documentation. What it does not say is under Not known, not guessed.</p>
+<ul><li><a href="https://www.intercom.com/help/en/articles/12396892-manage-fin-ai-agent-s-escalation-guidance-and-rules" rel="noopener">https://www.intercom.com/help/en/articles/12396892-manage-fin-ai-agent-s-escalation-guidance-and-rules</a></li><li><a href="https://www.intercom.com/help/en/articles/6298285-using-data-connectors-for-automation" rel="noopener">https://www.intercom.com/help/en/articles/6298285-using-data-connectors-for-automation</a></li><li><a href="https://www.intercom.com/help/en/articles/6298282-how-to-set-up-data-connectors-for-workflows-and-inbox" rel="noopener">https://www.intercom.com/help/en/articles/6298282-how-to-set-up-data-connectors-for-workflows-and-inbox</a></li><li><a href="https://www.intercom.com/help/en/articles/9916507-data-connectors-faqs" rel="noopener">https://www.intercom.com/help/en/articles/9916507-data-connectors-faqs</a></li></ul>
+<p><a href="/setup-own-code">Your own code</a> · <a href="/docs">Docs</a></p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

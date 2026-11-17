@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For your vendor review · STK</title>
+<meta name="description" content="What a security review and an allowlist request ask for, on one page. What STK does not have is listed as not had.">
+<link rel="canonical" href="https://stk-evidence.com/review">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/review">
+<meta property="og:title" content="For your vendor review · STK">
+<meta property="og:description" content="What a security review and an allowlist request ask for, on one page. What STK does not have is listed as not had.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="For your vendor review · STK">
+<meta name="twitter:description" content="What a security review and an allowlist request ask for, on one page. What STK does not have is listed as not had.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Trust</div>
+<h1>For your vendor review</h1>
+<p class="lead"><strong>STK opens no connection to your network.</strong> Every connection goes from your servers to STK.</p>
+<p>Contact: <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a>.<br>Email: <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></p>
+<p>Everything here can be downloaded or copied now. No form, no request. What STK does not have is listed as not had.</p>
+
+<h2 id="receives-keeps">What STK receives and what it keeps</h2>
+<div class="table"><table>
+<tbody>
+<tr><td><strong>Receives, each ask</strong></td><td><code>conversation_id</code>, <code>intent</code>, <code>trigger</code>, and <code>human_joined</code> if your code sends it; the key in <code>X-STK-Key</code>. A call with any other field is refused (422). <a href="/docs#ask">The fields</a></td></tr>
+<tr><td><strong>Receives, at signup</strong></td><td>The email address the keys are sent to.</td></tr>
+<tr><td><strong>Keeps, each day of your account</strong></td><td>Three counts: <code>finish</code>, <code>human_joined</code>, <code>escalate</code>. 7 years.</td></tr>
+<tr><td><strong>Keeps, your account</strong></td><td>The email address, the Stripe customer id, the keys as a keyed hash (HMAC-SHA256). 7 years after your last ask.</td></tr>
+<tr><td><strong>Keeps, bills and reports</strong></td><td>Each month's billed count and amount; each report's date and intent. 7 years.</td></tr>
+<tr><td><strong>Keeps, STK's own</strong></td><td>The versions of the rules; every public signing key (never deleted); when each STK process started, last wrote and stopped; the days billed nothing.</td></tr>
+<tr><td><strong>Does not keep</strong></td><td>Any row of an ask. Each row comes back with its answer, signed, and stays with you. <a href="/ledger">The ledger</a></td></tr>
+</tbody>
+</table></div>
+<h2 id="papers">Papers</h2>
+<div class="table"><table>
+  <tbody>
+    <tr><td><strong>SOC 2 Type II</strong></td><td>None. STK has no SOC 2 report of any type.</td></tr>
+    <tr><td><strong>SIG, CAIQ</strong></td><td>None filled in.</td></tr>
+    <tr><td><strong>Penetration test</strong></td><td>None done by an outside firm. No summary to give.</td></tr>
+    <tr><td><strong>ISO 27001</strong></td><td>None.</td></tr>
+    <tr><td><strong>Data Processing Agreement</strong></td><td><a href="/dpa">DPA</a></td></tr>
+    <tr><td><strong>Subprocessors</strong></td><td>By name, what for and where: <a href="/subprocessors">Subprocessors</a></td></tr>
+    <tr><td><strong>The rules, their history, reports</strong></td><td><a href="/rules">The rules</a> · <a href="/incidents">Reports</a></td></tr>
+<tr><td><strong>Known limits, mistakes, changes</strong></td><td><a href="/limits">Known limits</a> · <a href="/mistakes">Mistakes</a> · <a href="/changelog">Changelog</a></td></tr>
+  </tbody>
+</table></div>
+
+<h2 id="countries">Asked in each country</h2>
+<p>What a regulated company's review asks a vendor like STK for, from the law or the regulator's own page, read on 2026-11-17, and what STK has. "Not known": the page could not be read or does not say.</p>
+<div class="table"><table>
+<thead><tr><th>Where</th><th>Asked</th><th>STK</th></tr></thead><tbody>
+<tr><td>United States</td><td>A HIPAA business associate agreement.</td><td>None offered.</td></tr>
+<tr><td>EU</td><td>Processor terms under GDPR Art. 28; for data leaving the EU (STK's servers are in Singapore), the Commission's standard contractual clauses (Art. 46). <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" rel="noopener">GDPR</a></td><td>The <a href="/dpa">DPA</a>. Checked against Art. 28 clause by clause: not done. Standard contractual clauses signed: none.</td></tr>
+<tr><td>EU, banks and insurers</td><td>The contract terms of DORA Art. 30 (service levels, locations, incident help, audit, exit), more for a critical or important function. <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj" rel="noopener">DORA</a></td><td>The <a href="/terms">Terms</a> only. No audit or inspection clause, no exit plan, no quantitative service level.</td></tr>
+<tr><td>EU, healthcare</td><td>Supply-chain security questions from providers under NIS2 Art. 21. <a href="https://eur-lex.europa.eu/eli/dir/2022/2555/oj" rel="noopener">NIS2</a></td><td>This page.</td></tr>
+<tr><td>UK</td><td>Processor terms under UK GDPR Art. 28; safeguards for data leaving the UK (Art. 46). <a href="https://www.legislation.gov.uk/eur/2016/679/article/28" rel="noopener">UK GDPR</a></td><td>The <a href="/dpa">DPA</a>. UK transfer agreement or addendum signed: none. What the ICO asks of it: not known.</td></tr>
+<tr><td>UK, banks and insurers</td><td>Due diligence and a written agreement with data location, access and audit rights and an exit plan (PRA SS2/21). <a href="https://www.prarulebook.co.uk/guidance/supervisory-statements/ss02-21-outsourcing-and-third-party-risk-management" rel="noopener">SS2/21</a></td><td>The <a href="/terms">Terms</a> only. No audit clause, no exit plan.</td></tr>
+<tr><td>UK, NHS</td><td>The Data Security and Protection Toolkit, for organisations with access to NHS patient data and systems. <a href="https://www.dsptoolkit.nhs.uk/" rel="noopener">DSPT</a></td><td>None. STK has no access to NHS patient data or systems.</td></tr>
+<tr><td>Japan</td><td>Supervision of an entrusted party (APPI Art. 25); provision to a party in a foreign country (Art. 28). <a href="https://www.japaneselawtranslation.go.jp/en/laws/view/4241/en" rel="noopener">APPI</a></td><td>Where STK holds data: <a href="/subprocessors">Subprocessors</a>. How Art. 28 applies to STK: not known.</td></tr>
+<tr><td>Japan, finance</td><td>Contract terms with supervision, audit and reporting rights and approval of sub-entrustment (the PPC and FSA guidelines). FISC's security standards are an industry standard, not law. <a href="https://www.japaneselawtranslation.go.jp/en/notices/view/141" rel="noopener">Guidelines</a></td><td>The <a href="/terms">Terms</a> only. No audit clause. FISC: not assessed.</td></tr>
+<tr><td>Japan, healthcare</td><td>The ministries' guidelines for medical information systems (the MHLW guideline and the METI and MIC guideline for vendors). <a href="https://www.mhlw.go.jp/stf/shingi/0000516275_00006.html" rel="noopener">MHLW</a></td><td>How they apply to STK: not known.</td></tr>
+<tr><td>Canada</td><td>A contract giving comparable protection, with security and audit rights (PIPEDA, the OPC's guidelines). <a href="https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/" rel="noopener">OPC</a></td><td>The <a href="/dpa">DPA</a>. Quebec Law 25 and Ontario PHIPA: not known.</td></tr>
+<tr><td>Canada, federal financial institutions</td><td>Audit and access for the institution and OSFI, records accessible to OSFI, incident notice, exit (OSFI B-10). <a href="https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/third-party-risk-management-guideline" rel="noopener">B-10</a></td><td>The <a href="/terms">Terms</a> only. No audit clause.</td></tr>
+<tr><td>Australia</td><td>The disclosing company answers for an overseas recipient (Privacy Act s16C). <a href="https://www.legislation.gov.au/C2004A03712/2024-12-11/2024-12-11/text/original/epub/OEBPS/document_1/document_1.html" rel="noopener">Privacy Act</a></td><td>Where STK holds data: <a href="/subprocessors">Subprocessors</a>. APP 8 and the OAIC's guidance: not known.</td></tr>
+<tr><td>Australia, APRA-regulated</td><td>For a material service provider: a formal agreement with audit access and on-site access for APRA (CPS 230); security capability and prompt incident notice (CPS 234). <a href="https://www.apra.gov.au/standard/cps-230" rel="noopener">CPS 230</a></td><td>The <a href="/terms">Terms</a> only. No audit or on-site access clause.</td></tr>
+</tbody></table></div>
+<h2 id="data">What STK receives</h2>
+<p>STK never receives the conversation. The API refuses a call that carries any field other than these (422).</p>
+<p>For each call to <code>POST /v1/ask</code>: the conversation's id, as your code sends it; the intent; the trigger (one of five words); and, if your code sends them, your AI's name or version and whether a person has joined. Nothing else: no customer id, no confidence number, no channel, no language.</p>
+<p>At signup: the email address the key is sent to. STK keeps it for the key and the invoice, until 7 years after your last call to <code>POST /v1/ask</code>. Keys are kept only as a hash, as long.</p>
+<p>STK keeps no row of an ask: each answer carries its row and STK's signature of it, and you keep them. STK keeps, for each day of your account, its counts (permissions, people joining, escalate), for 7 years. Each month's bill and each report is deleted 7 years after it was written. Your account (the address, the Stripe customer id, the hashed keys) is deleted 7 years after your last call to <code>POST /v1/ask</code> (or after it was made, if it never made one), billed or not: an account in use stays. <code>GET /v1/ledger</code> gives your days' counts at any time. STK does not encrypt the rows itself. <a href="/ledger">What a row holds</a></p>
+<p><code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. With ids made this way your rows hold no data about your customers, and STK keeps no row at all.</p>
+
+<h2 id="phi">Health information</h2>
+<p>STK's intent ids say only the kind of request (<code>request.status</code>, <code>claim.new</code>, <code>benefit.denial</code>), never what it is about. Send these ids and keep your own names, and the table from yours to these, on your side. A name that is not one of these ids is answered <code>escalate</code>, and kept as sent.</p>
+<p>What your code sends as the intent or the conversation's id comes back in your row as sent; STK keeps only counts. Those are the ways health information could reach STK: never put a person's health, a treatment or a condition in them.</p>
+
+<h2 id="allowlist">For an allowlist request</h2>
+<div class="table"><table>
+  <tbody>
+    <tr><td><strong>Destination</strong></td><td><code>api.stk-evidence.com</code>, port 443, HTTPS only</td></tr>
+    <tr><td><strong>Direction</strong></td><td>Outbound from your servers to STK only. STK opens no connection to your network.</td></tr>
+    <tr><td><strong>Calls</strong></td><td><code>POST /v1/ask</code>. If you use them: <code>GET /v1/ledger</code>, <code>POST /v1/incident</code>, <code>GET /v1/rules</code>, <code>GET /v1/health</code></td></tr>
+    <tr><td><strong>Body</strong></td><td>JSON: the fields under What STK receives, nothing else</td></tr>
+    <tr><td><strong>Addresses</strong></td><td>Its addresses are shared and can change: list the name, not the addresses.</td></tr>
+    <tr><td><strong>Timeout</strong></td><td>stk.py and stk.mjs wait at most 300 ms; without an answer they return <code>escalate</code>, and your code hands the conversation over.</td></tr>
+  </tbody>
+</table></div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

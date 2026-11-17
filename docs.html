@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Docs · STK</title>
+<meta name="description" content="One call where your code is about to hand a conversation to a person: POST /v1/ask. The six calls of STK&#x27;s API, in full.">
+<link rel="canonical" href="https://stk-evidence.com/docs">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/docs">
+<meta property="og:title" content="Docs · STK">
+<meta property="og:description" content="One call where your code is about to hand a conversation to a person: POST /v1/ask. The six calls of STK&#x27;s API, in full.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Docs · STK">
+<meta name="twitter:description" content="One call where your code is about to hand a conversation to a person: POST /v1/ask. The six calls of STK&#x27;s API, in full.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs" aria-current="page">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<style>
+table{display:block;max-width:100%;overflow-x:auto} li code,td code{overflow-wrap:anywhere}
+</style>
+<div class="doc">
+<div class="eyebrow">Docs</div>
+<h1>Plug STK in</h1>
+<ol class="steps">
+  <li>Get a key: enter your email on the <a href="/#key">home page</a>, or <code>POST /v1/keys</code>. The key comes by email.</li>
+  <li>Put <a href="/stk.py">stk.py</a> (or <a href="/stk.mjs">stk.mjs</a>) next to your AI's code, and write your key in <code>KEY</code> at its top.</li>
+  <li>Where your code is about to hand a conversation to a person: <code>if ask(conversation_id, intent, trigger) == "finish":</code> your AI goes on; else it hands the conversation over, as it does today.</li>
+  <li>When a person joins a conversation STK permitted: <code>ask(conversation_id, intent, trigger, human_joined=True)</code>. The same day (UTC), that permission is not billed.</li>
+</ol>
+<p>Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code>.</p>
+
+<h2 id="trigger">trigger</h2>
+<div class="table"><table>
+<tbody>
+<tr><td><code>unknown</code></td><td>Your AI is not sure enough. The only trigger STK can answer <code>finish</code> to.</td></tr>
+<tr><td><code>customer_asked</code></td><td>The customer asked for a person.</td></tr>
+<tr><td><code>angry</code></td><td>The customer is angry.</td></tr>
+<tr><td><code>out_of_scope</code></td><td>The request is outside what your AI may do.</td></tr>
+<tr><td><code>authority</code></td><td>It needs a person's authority.</td></tr>
+</tbody>
+</table></div>
+<p><code>intent</code> is one of the 56 ids in <a href="/rules">The rules</a>. Any other name is answered <code>escalate</code>.</p>
+
+<p>Where the call goes in your platform: <a href="/setup-zendesk">Zendesk</a> · <a href="/setup-genesys">Genesys Cloud</a> · <a href="/setup-amazon-connect">Amazon Connect</a> · <a href="/setup-agentforce">Salesforce Agentforce</a> · <a href="/setup-intercom-fin">Intercom Fin</a> · <a href="/setup-sierra">Sierra</a> · <a href="/setup-decagon">Decagon</a> · <a href="/setup-own-code">Your own code</a></p>
+
+<h2 id="reference">Reference</h2>
+<p>Base: <code>https://api.stk-evidence.com</code>. Your key goes in the header <code>X-STK-Key</code>. Bodies are JSON. These six calls are all of STK's API; a seventh address takes Stripe's events only.</p>
+
+<h3 id="ask"><code>POST /v1/ask</code></h3>
+<div class="table"><table>
+<thead><tr><th>Field</th><th></th></tr></thead>
+<tbody>
+<tr><td><code>conversation_id</code></td><td>Required. 1 to 200 characters. A random id your code makes for each conversation: never derived from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. Then the ledger holds no data about your customers, and no way to erase a row is needed; the API has none.</td></tr>
+<tr><td><code>intent</code></td><td>Required. 1 to 100 characters.</td></tr>
+<tr><td><code>trigger</code></td><td>Required. One of the five above.</td></tr>
+<tr><td><code>human_joined</code></td><td>Optional. <code>true</code> when a person has joined the conversation.</td></tr>
+</tbody>
+</table></div>
+<p>Without <code>X-STK-Key</code>: the same answer, with <code>"ask_id": null</code>. Nothing is kept and nothing is billed; 60 asks an hour from one address (more: 429). A key is for a signed row with every answer, as evidence. A key that is not one of yours is refused with 401, never taken as no key.</p>
+<p>Any other field is refused with 422. Answer:</p>
+<pre class="code">{"decision": "finish", "rule_version": "&lt;SHA-256 of the rules' full text&gt;", "ask_id": "&lt;32 hex&gt;",
+ "row": {"v": 1, "ask_id", "time_ms", "account", "conversation_id", "intent", "trigger", "rule_version", "decision",
+         "clause", "which_key", "human_joined", "kid"},
+ "sig": "&lt;Ed25519 signature, base64&gt;"}</pre>
+<p>With your key, every answer carries its row and STK's signature of it. Keep both: STK keeps no row. stk.py and stk.mjs keep them for you. <a href="/ledger">What a row holds, and how anyone checks it</a></p>
+<p><code>human_joined: true</code>: a person has joined the conversation. It is counted as a person joining, never as a permission, whatever its answer, and takes one permission of the same day (UTC) off the bill.</p>
+
+<h3 id="rules"><code>GET /v1/rules</code></h3>
+<p>No key. The rules in use: <code>{"version", "published", "text"}</code>.</p>
+<p><code>?history=1</code>: every version the rules have had, every report and every signing key made invalid, oldest first: <code>{"versions": [{"version", "published", "change", "text"}], "reports": [{"report_id", "reported", "intent"}]}</code>. <code>?history=1&amp;format=csv</code>: every report, as CSV. A version is deleted 7 years after the next one replaced it, a report 7 years after it was made; the version in use stays.</p>
+<p><code>?keys=1</code>: every public key STK has signed rows with, one a day, never deleted: <code>{"keys": [{"kid", "day", "public_key", "algorithm": "Ed25519", "invalid", "invalid_note"}]}</code>.</p>
+
+<h3 id="ledger"><code>GET /v1/ledger</code></h3>
+<p>Your account's days, one row each: <code>{"days": [{"day": "2026-11-17", "finish": 412, "human_joined": 9, "escalate": 588, "billed": 403, "zeroed": false, "test": {"finish", "human_joined", "escalate"}}]}</code>. <code>finish</code>: the permissions of your live key that day (UTC); <code>human_joined</code>: the asks that carried <code>human_joined: true</code> (never counted as permissions); <code>billed</code>: max(0, finish − human_joined), 0 on a zeroed day; <code>zeroed</code>: STK stopped that day without writing what it held, and bills that day nothing. <code>?from=2026-11-01&amp;to=2026-11-17</code>, dates (UTC), both included; a year at most (more: 422); without them, the last 31 days. STK keeps no row of an ask. <a href="/ledger">The ledger</a></p>
+<h4 id="check-the-bill">Check the invoice with your own rows</h4>
+<ol>
+<li>Gather the month's rows (UTC) from every server's <code>stk-rows</code> folder, or from the store your <code>ON_ROW</code> function writes to.</li>
+<li>Check each row's signature with <a href="/stk_verify.py" download>stk_verify.py</a>; leave out any that does not check.</li>
+<li>Keep the rows of your own <code>account</code> with <code>which_key: live</code>.</li>
+<li>For each day, count F: rows with <code>decision: finish</code> and <code>human_joined: false</code>; and H: rows with <code>human_joined: true</code> (whatever their decision).</li>
+<li>For each day, max(0, F − H); 0 for a day <code>GET /v1/ledger</code> marks <code>"zeroed": true</code>. The month's sum is the invoice's count.</li>
+<li>Put your days beside <code>GET /v1/ledger</code>'s. A day where you have more rows than STK's counts is a day STK lost some (it bills less). A day where the invoice counts more than your rows: send STK the signed rows of that day.</li>
+</ol>
+
+<h3 id="incident"><code>POST /v1/incident</code></h3>
+<p><code>{"row": {...}, "sig": "..."}</code>: the row and signature that came back with one <code>finish</code> of your live key. Leaves one dated report, public in <code>GET /v1/rules?history=1</code> with its intent and date, never your name. It changes no rule and no answer. Answer: <code>{"report_id", "reported", "intent", "already_reported"}</code>. A row that is not STK's, not your account's, or not a <code>finish</code> of your live key is refused with 422. The same row again gives the same report.</p>
+
+<h3 id="keys"><code>POST /v1/keys</code></h3>
+<p>No key. <code>{"email": "you@example.com"}</code>. Two keys are sent to that address, a test key (<code>stk_test_…</code>) and a live key (<code>stk_live_…</code>); the answer says only where: <code>{"sent_to": "y***@example.com"}</code>. The test key gets the same answers as the live key and a signed row for each call, marked <code>which_key: test</code>; nothing asked with it is billed. Only <code>live</code> rows are billed. The same address again gets two new keys for the same account: the first call with a new key stops the older keys of its kind. That is how a leaked key is replaced. 10 per hour from one address on the internet; then 429.</p>
+
+<h3 id="health"><code>GET /v1/health</code></h3>
+<p>No key: <code>{"ok": true}</code>. <code>ok</code> is <code>false</code> when STK cannot answer as it should.</p>
+<p>With your key in <code>X-STK-Key</code>, also <code>your_account</code>: the invoices not paid, and whether STK answers <code>escalate</code> to every ask of your account because one is unpaid 60 days after its due date.</p>
+
+<h3 id="stripe"><code>POST /v1/stripe/webhook</code></h3>
+<p>For Stripe only: the events about STK's invoices, refused without Stripe's signature.</p>
+
+<h2 id="errors">Errors</h2>
+<div class="table"><table>
+<tbody>
+<tr><td>401</td><td>No <code>X-STK-Key</code>, or not a key.</td></tr>
+<tr><td>422</td><td>A field missing, too long, not one of the allowed values, or a field that is not allowed.</td></tr>
+<tr><td>429</td><td><code>POST /v1/keys</code>: too many keys from one address this hour.</td></tr>
+<tr><td>502</td><td><code>POST /v1/keys</code>: the email could not be sent. No key was made.</td></tr>
+</tbody>
+</table></div>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Known limits · STK</title>
+<meta name="description" content="What STK cannot do today, or can get wrong, and who pays for it.">
+<link rel="canonical" href="https://stk-evidence.com/limits">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/limits">
+<meta property="og:title" content="Known limits · STK">
+<meta property="og:description" content="What STK cannot do today, or can get wrong, and who pays for it.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Known limits · STK">
+<meta name="twitter:description" content="What STK cannot do today, or can get wrong, and who pays for it.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Known limits</div>
+<h1>Known limits</h1>
+<p class="lead">What STK cannot do today, or can get wrong. Each one is still true.</p>
+
+<h2>Why your AI hands a conversation over</h2>
+<p><strong>What happens.</strong> STK knows the reason only from the trigger your code sends. It cannot check it. If your code sends <code>unknown</code> for a conversation where the customer asked for a person, is angry, or needs someone's authority, and the intent is permitted, STK answers <code>finish</code>.</p>
+<p><strong>Who pays.</strong> You, in that conversation.</p>
+<p><strong>What you can do.</strong> Send <code>unknown</code> only when the one reason is that your AI is not sure enough.</p>
+
+<h2>Your own names for intents</h2>
+<p><strong>What happens.</strong> STK knows only its own 56 intent ids. Any other name is answered <code>escalate</code>, so a name of your own never gets a permission.</p>
+<p><strong>Who pays.</strong> Nobody is billed; your AI gets nothing from STK for it.</p>
+<p><strong>What you can do.</strong> Send STK's own intent ids (<a href="/rules">the list</a>).</p>
+
+<h2>A person joined a permitted conversation</h2>
+<p><strong>What happens.</strong> STK knows a person joined only when your code sends <code>human_joined: true</code>. Without it, the permission is billed. Sent on a later day (UTC) than the permission, it takes nothing off: that permission stays billed.</p>
+<p><strong>Who pays.</strong> You.</p>
+<p><strong>What you can do.</strong> Send it before the month closes (its end, UTC). After the close it cannot be taken off.</p>
+
+<h2>STK does not know how a conversation ended</h2>
+<p><strong>What happens.</strong> STK does not see whether a customer came back after a permitted conversation. A permitted intent stays permitted until STK takes it off in a new version of the rules. A report does not take it off.</p>
+<p><strong>Who pays.</strong> You, in those conversations.</p>
+<p><strong>What you can do.</strong> Check your conversations against the rows you kept; stop calling STK for an intent whenever you choose. Report a <code>finish</code> that went wrong: <code>POST /v1/incident</code>, dated and public.</p>
+
+<h2>A report closes nothing</h2>
+<p><strong>What happens.</strong> A report is a dated, public row. Only STK closes an intent, in a new version of the rules, and a closed intent is never permitted again.</p>
+<p><strong>Who pays.</strong> Nobody is billed for a closed intent.</p>
+
+<h2>A leaked key works until you replace it</h2>
+<p><strong>What happens.</strong> STK cannot tell a leaked key from yours.</p>
+<p><strong>What you can do.</strong> To replace a key, leaked or not: <code>POST /v1/keys</code> with your account's email. The new key is sent there; its first call stops every older key of your account.</p>
+
+<h2 id="rows">STK cannot give a row back</h2>
+<p><strong>What happens.</strong> STK keeps no row of an ask. Each row comes back with its answer, signed, and stk.py or stk.mjs keeps it where your code runs. A row you lose, or never kept, is gone: STK has no copy, and <code>GET /v1/ledger</code> gives only each day's counts.</p>
+<p><strong>What you can do.</strong> Keep the folder stk.py and stk.mjs write to (<code>stk-rows</code>), or give them a function that puts each row in your own store. Compare your rows each day with <code>GET /v1/ledger</code>: a day with fewer rows than its counts is a day you lost some.</p>
+<p><code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only.</p>
+
+<h2 id="key-leak">A signing key that leaks</h2>
+<p><strong>What happens.</strong> STK signs with keys of one day (one, or more if STK started again that day) and lets go of them when the day ends. If a day's key leaks, someone could make rows that check as STK's for that day. STK then marks that key invalid in <code>GET /v1/rules?keys=1</code>, with the date, and lists it in <code>GET /v1/rules?history=1</code>. From then on no row of that day checks with STK's keys, yours included. The rows you keep are not touched, and no other day is: each day has its own key.</p>
+<p><strong>Who acts.</strong> A person at STK: finding out that a key leaked, and running the one command that marks it invalid. Nothing finds a leak by itself.</p>
+
+<h2 id="lost-hour">A stop that loses up to an hour</h2>
+<p><strong>What happens.</strong> STK writes each day's counts once an hour, and when it stops cleanly. If it stops without that, what it counted since its last write is lost. That day (both days, if the lost time crosses midnight UTC) is billed nothing, for every company: a lost <code>human_joined</code> could otherwise make a bill too high. <code>GET /v1/ledger</code> marks the day <code>"zeroed": true</code>. A bill can come out lower than what was asked, never higher.</p>
+
+<h2 id="no-records">STK that cannot reach its records</h2>
+<p><strong>What happens.</strong> STK signs only with keys whose public keys it has already written, seven days of them ahead. If it cannot reach where it keeps its records long enough for those to run out, or it starts again and cannot write new ones, it gives no permission: every ask with a key is answered <code>escalate</code>, with no row, and nothing is billed. Your conversations go to people, as your code does today. <code>GET /v1/health</code> says <code>"ok": false</code>. When it can write a public key again, the next ask is answered by the rules. Nobody has to do anything. The same happens for a moment when STK is deployed, until the process before it stops.</p>
+
+<h2 id="late-join">A person who joins on a later day</h2>
+<p><strong>What happens.</strong> A <code>human_joined: true</code> takes a permission of the same day (UTC) off the bill, and only of that day. A person who joins after midnight UTC takes nothing off: the permission of the day before stays billed.</p>
+
+<h2 id="servers">The same conversation on two servers</h2>
+<p><strong>What happens.</strong> stk.py and stk.mjs do not ask again for a conversation STK answered <code>finish</code> the same day, and after a restart they read that day's file again. Each server remembers only its own. If the same conversation is asked on two servers, each asks STK, and each <code>finish</code> is a permission: two. With a function of yours in place of the file (<code>ON_ROW</code>, <code>setOnRow</code>), they remember only while the process runs.</p>
+
+<h2>No real bill yet</h2>
+<p><strong>What happens.</strong> No customer has been billed. One real invoice was raised, sent by Stripe to STK's own test company on 2026-11-17, and voided; every other bill has been checked in STK's tests.</p>
+<p><strong>Who pays.</strong> Not checked.</p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

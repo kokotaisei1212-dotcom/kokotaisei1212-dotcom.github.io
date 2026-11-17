@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The ledger · STK</title>
+<meta name="description" content="Every answer comes with its row, signed by STK. You keep the rows; STK keeps a count a day.">
+<link rel="canonical" href="https://stk-evidence.com/ledger">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/ledger">
+<meta property="og:title" content="The ledger · STK">
+<meta property="og:description" content="Every answer comes with its row, signed by STK. You keep the rows; STK keeps a count a day.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The ledger · STK">
+<meta name="twitter:description" content="Every answer comes with its row, signed by STK. You keep the rows; STK keeps a count a day.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">The ledger</div>
+<h1>The ledger</h1>
+<p class="lead">Every answer to a call with your key comes with its row and STK's signature of it. stk.py and stk.mjs keep both for you. STK keeps no row.</p>
+
+<h2 id="row">What a row holds</h2>
+<div class="table"><table>
+<thead><tr><th>Field</th><th></th></tr></thead>
+<tbody>
+<tr><td><code>v</code></td><td>The form of the row: 1.</td></tr>
+<tr><td><code>ask_id</code></td><td>The answer's id: 32 hex.</td></tr>
+<tr><td><code>time_ms</code></td><td>When STK answered, in milliseconds since 1970 (UTC).</td></tr>
+<tr><td><code>account</code></td><td>Your account's id at STK. A report can be made only with a row of your own account.</td></tr>
+<tr><td><code>conversation_id</code></td><td>As your code sent it: a random id your code makes for each conversation.</td></tr>
+<tr><td><code>intent</code></td><td>As your code sent it.</td></tr>
+<tr><td><code>trigger</code></td><td>As your code sent it: one of five words.</td></tr>
+<tr><td><code>rule_version</code></td><td>The SHA-256 of the full text of the rules that gave the answer. <a href="/rules">The rules</a></td></tr>
+<tr><td><code>decision</code></td><td><code>finish</code> or <code>escalate</code>.</td></tr>
+<tr><td><code>clause</code></td><td>The numbered rule that gave the answer: 0 to 5 (0: an invoice of your account unpaid 60 days after its due date).</td></tr>
+<tr><td><code>which_key</code></td><td><code>test</code> or <code>live</code>. Only <code>live</code> answers are billed.</td></tr>
+<tr><td><code>human_joined</code></td><td><code>true</code> when your code said a person has joined the conversation.</td></tr>
+<tr><td><code>kid</code></td><td>The key that signed the row: one or more a day (UTC); a new STK process makes a new one.</td></tr>
+</tbody>
+</table></div>
+
+<h2 id="check">How anyone checks a row</h2>
+<p>The signature is Ed25519, over the row's fields in the order above, as JSON with no spaces. The public key of each <code>kid</code> is in <code>GET https://api.stk-evidence.com/v1/rules?keys=1</code>, no key needed. A row checks alone: no other row, no order, no secret. <a href="/stk_verify.py" download>stk_verify.py</a> checks a file of rows.</p>
+<p>A key is used for one day only, and STK lets go of it when the day ends; its public key stays published, so a row of years ago is checked with its day's key.</p>
+
+<h2 id="keep">Where the rows are kept</h2>
+<p>stk.py and stk.mjs write each row and its signature as one JSON line to <code>stk-rows/&lt;day&gt;.jsonl</code> next to your code, or give it to a function of yours (for a place where files are not kept, like a serverless function), or, when neither works, print it to standard output. An answer that arrives after your code stopped waiting is kept too.</p>
+<p>STK cannot give a row back: it has none. <a href="/limits#rows">Known limits</a></p>
+
+<h2 id="days">What STK keeps</h2>
+<p><code>GET /v1/ledger</code> with your key: one row a day, the day's finish and escalate counts. To compare with the rows you kept. <a href="/docs#ledger">Docs</a></p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

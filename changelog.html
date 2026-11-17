@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Changelog · STK</title>
+<meta name="description" content="One timeline, newest first: every change to the rules, every mistake STK found in itself, every report from a company.">
+<link rel="canonical" href="https://stk-evidence.com/changelog">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/changelog">
+<meta property="og:title" content="Changelog · STK">
+<meta property="og:description" content="One timeline, newest first: every change to the rules, every mistake STK found in itself, every report from a company.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Changelog · STK">
+<meta name="twitter:description" content="One timeline, newest first: every change to the rules, every mistake STK found in itself, every report from a company.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<style>
+.k{display:inline-block;min-width:7.5em;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid currentColor;text-align:center;white-space:nowrap}
+.k-rules{color:var(--ink)}
+.k-mistake{color:var(--bad)}
+.k-report{color:var(--muted)}
+</style>
+<div class="doc">
+<div class="eyebrow">Trust</div>
+<h1>Changelog</h1>
+<p class="lead">One timeline, newest first. Three kinds of row, mixed: <span class="k k-rules">Rules</span> STK changed the rules. <span class="k k-mistake">Our mistake</span> STK found a mistake of its own. <span class="k k-report">Report</span> a company reported a <code>finish</code> that went wrong.</p>
+<div class="table"><table>
+<thead><tr><th>Date (UTC)</th><th>Kind</th><th>What</th></tr></thead>
+<tbody id="rows">
+<!-- Our mistake rows go here, the day each is fixed: <tr data-at="YYYY-MM-DDTHH:MM:SSZ" data-kind="mistake"> -->
+<tr data-at="2026-11-17T05:25:00Z" data-kind="mistake"><td>2026-11-17 05:25:00</td><td><span class="k k-mistake">Our mistake</span></td><td>From about 04:25 to 05:25 UTC, STK's API answered every call with 503. STK's own work had used up the storage the API wrote to. What it could do to you: every ask got no answer, so stk.py and stk.mjs answered escalate and your code handed the conversation to a person. Fixed: since 05:25 UTC the API writes to storage of its own, and STK's own work never runs on it.</td></tr>
+<tr id="none"><td colspan="3">Nothing yet.</td></tr>
+</tbody>
+</table></div>
+<p id="more">Rules and Report rows come from <code>GET /v1/rules?history=1</code> each time this page opens: every version of the rules, and the latest 100 reports. Every report, as CSV: <a href="/v1/rules?history=1&amp;format=csv">stk-reports.csv</a>. A report changes no rule and no answer; only STK changes the rules, in a new version.</p>
+</div>
+<script>
+(function(){
+  var t = document.getElementById('rows');
+  var label = {rules: 'Rules', mistake: 'Our mistake', report: 'Report'};
+  function row(at, kind, what){
+    var tr = document.createElement('tr'); tr.setAttribute('data-at', at); tr.setAttribute('data-kind', kind);
+    var a = document.createElement('td'); a.textContent = at.replace('T', ' ').replace('Z', '');
+    var b = document.createElement('td'); var s = document.createElement('span'); s.className = 'k k-' + kind; s.textContent = label[kind]; b.appendChild(s);
+    var c = document.createElement('td'); c.textContent = what;
+    tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); return tr;
+  }
+  function sort(){
+    var rs = Array.prototype.slice.call(t.querySelectorAll('tr[data-at]'));
+    var none = document.getElementById('none'); if (none && rs.length) none.remove();
+    rs.sort(function(x, y){ return x.getAttribute('data-at') < y.getAttribute('data-at') ? 1 : -1; }).forEach(function(r){ t.appendChild(r); });
+  }
+  sort();
+  fetch('/v1/rules?history=1', {cache: 'no-store'}).then(function(r){ if (!r.ok) throw r.status; return r.json(); }).then(function(h){
+    if (!h || !Array.isArray(h.versions) || !Array.isArray(h.reports)) return;
+    h.versions.forEach(function(v, i){ t.appendChild(row(v.published, 'rules', i ? 'A new version of the rules: ' + v.change + '. Version ' + v.version.slice(0, 12) + '.' : 'The first version of the rules. Version ' + v.version.slice(0, 12) + '.')); });
+    h.reports.slice(-100).forEach(function(x){ t.appendChild(row(x.reported, 'report', 'A company reported a finish that went wrong. Intent: ' + x.intent + '.')); });
+    (h.keys_made_invalid || []).forEach(function(k){ t.appendChild(row(k.invalid, 'mistake', 'The signing key of ' + k.day + ' (' + k.kid + ') was made invalid: no row of that day checks with STK\'s keys any more. ' + (k.note || ''))); });
+    sort();
+  }, function(){});
+})();
+</script>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

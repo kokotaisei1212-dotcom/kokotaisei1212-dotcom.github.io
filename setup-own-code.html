@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your own code · STK</title>
+<meta name="description" content="Where the two lines go when your AI and its handover to a person are your own code.">
+<link rel="canonical" href="https://stk-evidence.com/setup-own-code">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/setup-own-code">
+<meta property="og:title" content="Your own code · STK">
+<meta property="og:description" content="Where the two lines go when your AI and its handover to a person are your own code.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your own code · STK">
+<meta name="twitter:description" content="Where the two lines go when your AI and its handover to a person are your own code.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Where it goes</div>
+<h1>Your own code</h1>
+<p class="lead">Your AI and the step that hands a conversation to a person are code you run. The two lines go in that step, before the handover.</p>
+<h2>Which file, where</h2>
+<p>The file where your code decides to hand a conversation to a person: the function that puts it in a queue, opens a ticket for an agent, or transfers the call. Put the call to <code>ask()</code> right before that, and do the handover only when it does not return <code>finish</code>.</p>
+<h2>Python</h2>
+<p>Put <a href="/stk.py" download>stk.py</a> next to that file. Set <code>KEY</code> in it to your test key.</p>
+<pre class="code">from stk import ask
+
+def hand_over(conversation):            # your function, as it is today
+    if ask(conversation.id, conversation.intent, "unknown") == "finish":
+        return                          # your AI goes on with the conversation
+    ...                                 # the handover, as your code does it today</pre>
+<h2>Node</h2>
+<p>Put <a href="/stk.mjs" download>stk.mjs</a> next to that file. Set <code>KEY</code> in it to your test key.</p>
+<pre class="code">import { ask } from "./stk.mjs";
+
+async function handOver(conversation) {   // your function, as it is today
+  if (await ask(conversation.id, conversation.intent, "unknown") === "finish") return;   // your AI goes on
+  // the handover, as your code does it today
+}</pre>
+<h2>What to pass</h2>
+<ul>
+  <li><code>conversation.id</code>: a random id your code makes for each conversation. Never your customer's name, email address, phone number or account number.</li>
+  <li><code>conversation.intent</code>: one of the 56 ids in <a href="/rules">The rules</a>. Map your own intent names to these on your side.</li>
+  <li>The trigger: <code>"unknown"</code> when the handover is because your AI is not sure enough. When the customer asked for a person, is angry, the request is outside what your AI may do, or it needs a person's authority, pass <code>customer_asked</code>, <code>angry</code>, <code>out_of_scope</code> or <code>authority</code>: STK answers <code>escalate</code> to those.</li>
+</ul>
+<p>Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code> and your handover runs as it does today. <a href="/docs">Docs</a></p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

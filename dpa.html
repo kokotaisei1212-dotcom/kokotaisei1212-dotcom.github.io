@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Data Processing Agreement · STK</title>
+<meta name="description" content="How STK processes personal data on your behalf.">
+<link rel="canonical" href="https://stk-evidence.com/dpa">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/dpa">
+<meta property="og:title" content="Data Processing Agreement · STK">
+<meta property="og:description" content="How STK processes personal data on your behalf.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data Processing Agreement · STK">
+<meta name="twitter:description" content="How STK processes personal data on your behalf.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc" id="dpa">
+<div class="eyebrow">DPA</div>
+<h1>Data Processing Agreement</h1>
+<p class="muted">Version of November 17, 2026</p>
+
+<h2>1. Parties and scope</h2>
+<p><strong>Controller:</strong> the person or organisation that took the STK key ("you").<br>
+<strong>Processor:</strong> Taisei Izawa (井澤大成), 富山県富山市燕の3-14, Toyama, Japan, <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a> ("we").</p>
+<p>Contact: <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a>.<br>Email: <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></p>
+<p>This agreement forms part of the <a href="/terms">Terms of Service</a> and applies from the moment a key is taken until your account is deleted. Where it conflicts with the Terms on personal data, this agreement prevails.</p>
+
+<h2>2. The processing</h2>
+<div class="table"><table>
+  <tbody>
+    <tr><td><strong>Purpose</strong></td><td>To answer your code, for each ask, <code>finish</code> or <code>escalate</code> from the published rules; to sign each answer's row, which you keep; to keep each day's counts; and to count the conversations STK permitted, for the bill.</td></tr>
+    <tr><td><strong>Data subjects</strong></td><td>The customers who contact you, only through what your code puts in the fields below.</td></tr>
+    <tr><td><strong>Personal data</strong></td><td>None is asked for. STK receives, per ask: the conversation id, the intent, the trigger, and optionally whether a person joined. These are kept as you send them; if your conversation ids or intent names identify a person, that is personal data STK keeps. No text, no audio, no customer id: a request with any other field is refused.</td></tr>
+    <tr><td><strong>Special categories</strong></td><td>Not intended. Do not put health or other special-category data in any field.</td></tr>
+    <tr><td><strong>Duration</strong></td><td>Rows of asks: none kept by STK. Each day's counts: 7 years. Each bill and report: deleted 7 years after it was written. The account: deleted 7 years after its last ask.</td></tr>
+  </tbody>
+</table></div>
+
+<h2>3. Your instructions</h2>
+<p>We process the data only on your documented instructions: your API calls. If we think an instruction breaks the law we tell you.</p>
+
+<h2>4. Confidentiality</h2>
+<p>Only the processor has access to the systems and the data. The sub-processors in section 6 hold it only to run the service. Nobody else is given access.</p>
+
+<h2>5. Security</h2>
+<ul>
+  <li>TLS on every request.</li>
+  <li>Keys kept only as a keyed hash (HMAC-SHA256).</li>
+  <li>Each account sees only its own days' counts, by its key.</li>
+  <li>Each row is signed by STK when it is answered; a changed row no longer checks with STK's public key.</li>
+  <li>STK does not encrypt the rows itself.</li>
+</ul>
+
+<h2>6. Sub-processors</h2>
+<p>You authorise the sub-processors listed on <a href="/subprocessors">Subprocessors</a>. Before adding or replacing one we update that list with a new date at least 14 days ahead. If you object you may leave (section 9).</p>
+
+<h2>7. Helping you with requests</h2>
+<p>Your rows are with you: each answer brought its row and STK's signature, and stk.py or stk.mjs kept them. <code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. With ids made this way your rows hold no data about your customers, and STK keeps no row at all.</p>
+
+<h2>8. Personal data breach</h2>
+<p>We post it on the <a href="/trust">Trust</a> page without undue delay after becoming aware of a breach affecting your data, with what we know and what we are doing.</p>
+
+<h2>9. End of processing</h2>
+<p>STK keeps no row of an ask: each answer carries its row and STK's signature of it, and you keep them. STK keeps, for each day of your account, its counts (permissions, people joining, escalate), for 7 years. Each month's bill and each report is deleted 7 years after it was written. Your account (the address, the Stripe customer id, the hashed keys) is deleted 7 years after your last call to <code>POST /v1/ask</code> (or after it was made, if it never made one), billed or not: an account in use stays. <code>GET /v1/ledger</code> gives your days' counts at any time. Stripe keeps its payment records as the law requires.</p>
+
+<h2>10. Information and audit</h2>
+<p>We answer written questions about this processing. <code>GET /v1/ledger</code> shows your account's days' counts; STK holds no row of an ask. <code>GET /v1/rules?history=1</code> shows every rule used, with its date.</p>
+
+<h2>11. Law and courts</h2>
+<p>This agreement is governed by the laws of Japan. The Tokyo District Court has exclusive jurisdiction in the first instance.</p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

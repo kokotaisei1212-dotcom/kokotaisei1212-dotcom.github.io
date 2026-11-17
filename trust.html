@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trust · STK</title>
+<meta name="description" content="What STK records, receives, runs on and gets wrong, and what happens when something breaks.">
+<link rel="canonical" href="https://stk-evidence.com/trust">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/trust">
+<meta property="og:title" content="Trust · STK">
+<meta property="og:description" content="What STK records, receives, runs on and gets wrong, and what happens when something breaks.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trust · STK">
+<meta name="twitter:description" content="What STK records, receives, runs on and gets wrong, and what happens when something breaks.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust" aria-current="page">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="eyebrow">Trust</div>
+<h1>Trust</h1>
+<div class="table"><table>
+  <tr><td><strong>Vendor review</strong></td><td>SOC 2, SIG and CAIQ, penetration test, DPA, subprocessors, health information, the allowlist request: what STK has and what it does not. <a href="/review">For your vendor review</a></td></tr>
+  <tr><td><strong>The rules</strong></td><td>One text, the same for every company. Every change dated. <a href="/rules">Rules</a></td></tr>
+  <tr><td><strong>Reports</strong></td><td>Every report, with its intent and date, and every intent STK closed. <a href="/incidents">Reports</a></td></tr>
+  <tr><td><strong>The ledger</strong></td><td>Every answer comes with its row, signed by STK; you keep the rows, STK keeps a count a day. <a href="/ledger">The ledger</a></td></tr>
+  <tr><td><strong>What STK receives</strong></td><td>The conversation id, the intent, the trigger, and optionally whether a person joined. No words of a conversation. <a href="/security">Security</a></td></tr>
+  <tr><td><strong>Where it runs</strong></td><td><a href="/subprocessors">Subprocessors</a></td></tr>
+  <tr><td><strong>What STK cannot do</strong></td><td>Listed one by one, each still true. <a href="/limits">Known limits</a></td></tr>
+  <tr><td><strong>What went wrong</strong></td><td>Every mistake that reached production, the day it was fixed. <a href="/mistakes">Mistakes</a></td></tr>
+  <tr><td><strong>What changed</strong></td><td>By date. <a href="/changelog">Changelog</a></td></tr>
+</table></div>
+
+<h2 id="breaks">When something breaks</h2>
+<div class="table"><table>
+  <tr><th>What breaks</th><th>What happens</th><th>What you do</th></tr>
+  <tr><td>STK does not answer</td><td>Your code does what it was about to do: it hands the conversation to a person. If STK answered <code>finish</code> after your code stopped waiting, stk.py and stk.mjs keep that row and tell STK a person has the conversation, so it is not billed that day.</td><td>Nothing.</td></tr>
+  <tr><td>A permitted conversation goes wrong</td><td><code>POST /v1/incident</code> with its row and signature leaves a dated, public report. It changes no answer.</td><td>Send the row you kept.</td></tr>
+  <tr><td>A person joins a conversation STK permitted</td><td>Send another ask for it with <code>human_joined: true</code> the same day (UTC): that permission is not billed. A later day: it stays billed.</td><td>Send it the same day.</td></tr>
+  <tr><td>An invoice looks wrong</td><td>Each billed permission is a signed row you kept.</td><td>Compare the invoice with the rows you kept.</td></tr>
+  <tr><td>Your key leaks</td><td>It works until you replace it.</td><td><code>POST /v1/keys</code> with your account's email; the new key's first call stops every older key.</td></tr>
+</table></div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

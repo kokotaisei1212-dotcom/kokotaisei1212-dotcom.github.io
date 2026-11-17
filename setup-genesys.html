@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Genesys Cloud · STK</title>
+<meta name="description" content="Where the call to STK goes in Genesys Cloud, from Genesys Cloud&#x27;s own documentation.">
+<link rel="canonical" href="https://stk-evidence.com/setup-genesys">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/setup-genesys">
+<meta property="og:title" content="Genesys Cloud · STK">
+<meta property="og:description" content="Where the call to STK goes in Genesys Cloud, from Genesys Cloud&#x27;s own documentation.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Genesys Cloud · STK">
+<meta name="twitter:description" content="Where the call to STK goes in Genesys Cloud, from Genesys Cloud&#x27;s own documentation.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Where it goes</div>
+<h1>Genesys Cloud</h1>
+<p class="lead">In Architect, a Call Data action before Transfer to ACD, then a Decision on its answer.</p>
+<h2>Where</h2>
+<ol>
+<li>Integrations: add a <strong>Web Services Data Actions</strong> integration and a data action that sends the request below; map <code>decision</code> to a success output.</li>
+<li>In the flow (an inbound message, chat or email flow, or a digital bot flow), before <strong>Transfer to ACD</strong>, add <strong>Call Data</strong> with that action.</li>
+<li>Call Data does not look at the answer: add a <strong>Decision</strong> (or <strong>Switch</strong>) on the output. <code>finish</code> goes back to your bot; anything else, and the Failure and Timeout paths, go to <strong>Transfer to ACD</strong>.</li>
+</ol>
+<h2>The request</h2>
+<pre class="code">POST https://api.stk-evidence.com/v1/ask
+X-STK-Key: &lt;your test key, then your live key&gt;
+Content-Type: application/json
+
+{"conversation_id": "&lt;a random id for this conversation&gt;", "intent": "&lt;one of the 56 ids&gt;", "trigger": "unknown"}</pre>
+<p>The answer: <code>{"decision": "finish" | "escalate", ...}</code>. Continue with your AI only on <code>finish</code>. On <code>escalate</code>, on an error, or on a timeout, transfer to a person as the flow does today.</p>
+<p>Genesys waits for a data action for 1 to 60 seconds (60 by default; set it in the flow). It cannot stop at 300 ms: set the shortest it allows, 1 second.</p>
+<h2>Not known</h2><ul><li>Whether a message flow goes on after a bot flow exits: the documentation does not say.</li><li>The actions of voice bot flows: not read.</li></ul>
+<h2>Read on 2026-11-17</h2>
+<p>From Genesys Cloud's own documentation. What it does not say is under Not known, not guessed.</p>
+<ul><li><a href="https://help.genesys.cloud/?p=129208" rel="noopener">https://help.genesys.cloud/?p=129208</a></li><li><a href="https://help.genesys.cloud/170124" rel="noopener">https://help.genesys.cloud/170124</a></li><li><a href="https://help.genesys.cloud/283057" rel="noopener">https://help.genesys.cloud/283057</a></li></ul>
+<p><a href="/setup-own-code">Your own code</a> · <a href="/docs">Docs</a></p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>

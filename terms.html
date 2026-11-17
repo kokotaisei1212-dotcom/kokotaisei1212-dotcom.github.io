@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Terms of Service · STK</title>
+<meta name="description" content="The terms you accept by taking an STK key.">
+<link rel="canonical" href="https://stk-evidence.com/terms">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/terms">
+<meta property="og:title" content="Terms of Service · STK">
+<meta property="og:description" content="The terms you accept by taking an STK key.">
+<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="STK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Terms of Service · STK">
+<meta name="twitter:description" content="The terms you accept by taking an STK key.">
+<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/site.css">
+<script src="/copy.js" defer></script>
+</head>
+<body>
+<nav class="sitebar"><div class="wrap">
+  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
+  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
+</div></nav>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Terms of Service</div>
+<h1>Terms of Service</h1>
+<p class="muted">Last updated: November 17, 2026</p>
+
+<h2>1. Who we are</h2>
+<p>STK is provided by Taisei Izawa (井澤大成), an individual in Toyama, Japan ("we").</p>
+<p>Contact: <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a>.<br>Email: <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></p>
+
+<h2>2. Agreement</h2>
+<p>Taking an STK key with <code>POST /v1/keys</code> means you accept these terms and the <a href="/dpa">Data Processing Agreement</a>. If you take a key for an organisation, you confirm you may bind it.</p>
+
+<h2>3. The service</h2>
+<p>An API at <code>api.stk-evidence.com</code>. Before your AI hands a conversation to a person, your code asks <code>POST /v1/ask</code> with the conversation's id, its intent and why it would hand it over (the trigger). STK answers <code>finish</code> or <code>escalate</code> from one set of rules, the same for every company, published in full at <a href="/rules">Rules</a> and <code>GET /v1/rules</code>. Every change to the rules is dated in <code>GET /v1/rules?history=1</code>. Each answer to a call with your key comes with its row, signed by STK, which you keep (<a href="/ledger">The ledger</a>). STK receives no words of a conversation: a request with any field other than those listed in the <a href="/docs">docs</a> is refused.</p>
+
+<h2>4. Keys</h2>
+<p><code>POST /v1/keys</code> with your email sends a key to that address. The key is never shown on a page or in the answer. Keep it confidential; you are responsible for use under it. The same address can take another key; the first call with a new key stops every older key of the account.</p>
+<p><code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. With ids made this way your rows hold no data about your customers, and STK keeps no row at all.</p>
+
+<h2>5. What STK permits</h2>
+<p>STK answers <code>escalate</code> whenever the trigger is not <code>unknown</code>, for the intents it never permits, for any intent not on its list, and for an intent STK closed in a version of the rules. Otherwise it answers <code>finish</code>. There is no setting per company. STK never writes to your systems; your code acts on the answer.</p>
+
+<h2>6. Reports</h2>
+<p><code>POST /v1/incident</code> with the row and signature of one <code>finish</code> of your own live key leaves one dated report. Every report is public in <code>GET /v1/rules?history=1</code>, with its intent and date, never the company. A report changes no rule and no answer, for you or anyone. Only STK closes an intent, in a new version of the rules, dated in the history. A new version of the rules can take a permitted intent away; it can never add one.</p>
+
+<h2 id="fees">7. Fees</h2>
+<p>$5 for each permission: each ask with your live key that STK answered <code>finish</code>. For each day (UTC), the permissions of that day less the asks of that day that carried <code>human_joined: true</code>, never below 0: a person who joins the same day (UTC) takes that permission off the bill; one who joins on a later day does not, and the permission stays billed. An ask that carries <code>human_joined: true</code> is counted as a person joining, never as a permission, whatever its answer. The same conversation answered <code>finish</code> twice is two permissions; stk.py and stk.mjs do not ask again for a conversation answered <code>finish</code> the same day. Calls with your test key get the same answers and a signed row each, marked <code>which_key: test</code>, and are never billed. Everything STK answered <code>escalate</code> on is not billed. A day on which STK stopped without writing what it held (its counts of up to the last hour were lost) is billed nothing, for every company: the bill can come out lower than what was asked, never higher. The price is the same for every company; nothing you send changes it.</p>
+<p>Each month is closed at its end (UTC). On the 1st, Stripe emails the invoice for the month before to your account's address, due in 30 days, paid by card from its link. No card is asked for beforehand or kept. An invoice still unpaid 60 days after its due date: STK answers <code>escalate</code> to every ask of your account (rule 0 of the rules) until it is paid; nothing is billed meanwhile; the next ask after the payment is answered by the rules again. <code>GET /v1/health</code> with your key says whether your account is in that state. Each billed permission is a signed row you kept; <code>GET /v1/ledger</code> gives each day's counts and bill. Fees for closed months remain payable.</p>
+
+<h2>8. What reaches other companies</h2>
+<p>What you send is not shown to other companies, not sold, and not used to rank or score anyone. One thing is shown to every company: a report you make with <code>POST /v1/incident</code>, as its intent and date, never who made it.</p>
+
+<h2>9. Acceptable use</h2>
+<p>Use the service only for conversations you are entitled to process. Do not try to extract other companies' data, resell the service, or use it for decisions the law reserves for people. Do not use STK's output (its permissions, its rules or your ledger) to build, train or improve a product or model that competes with STK.</p>
+
+<h2>10. Your AI and your customers</h2>
+<p>STK returns an answer and never writes to your systems; your AI and your staff act on it. You remain responsible for what is said to your customers.</p>
+
+<h2>11. Availability</h2>
+<p>The service has no uptime commitment. Your code must do what it was about to do with a conversation when STK does not answer.</p>
+
+<h2>12. Leaving and ending</h2>
+<p>To leave, stop calling STK. Nothing is billed for months with no permission. STK keeps no row of an ask: each answer carries its row and STK's signature of it, and you keep them. STK keeps, for each day of your account, its counts (permissions, people joining, escalate), for 7 years. Each month's bill and each report is deleted 7 years after it was written. Your account (the address, the Stripe customer id, the hashed keys) is deleted 7 years after your last call to <code>POST /v1/ask</code> (or after it was made, if it never made one), billed or not: an account in use stays. <code>GET /v1/ledger</code> gives your days' counts at any time. We may end these terms with a notice on the <a href="/trust">Trust</a> page. Fees for closed months remain payable.</p>
+
+<h2>13. Warranty and liability</h2>
+<p>The service is provided as described, without other warranties. To the extent the law allows, each party's liability under these terms is limited to the fees paid in the twelve months before the claim, and neither party is liable for indirect or consequential loss. Nothing limits liability for fraud, wilful misconduct, or breach of confidentiality or data obligations.</p>
+
+<h2>14. Changes</h2>
+<p>We post changes on this page with a new date. Changes to the rules are dated in <code>GET /v1/rules?history=1</code>.</p>
+
+<h2>15. Law and courts</h2>
+<p>These terms are governed by the laws of Japan. The Tokyo District Court has exclusive jurisdiction in the first instance.</p>
+</div>
+</main>
+<footer><div class="wrap">
+  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
+  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+</div>
+</div></footer>
+</body>
+</html>
