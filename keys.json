@@ -9,9 +9,33 @@
    "invalid_note": null
   },
   {
+   "kid": "20261117-9af0c2ef",
+   "day": "2026-11-17",
+   "public_key": "IskO3O7YnRVLD7Jn8HeI/dJbREPa2o6Zz2oEdHvOz30=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261118-079f87cb",
+   "day": "2026-11-18",
+   "public_key": "mYsuPjaxM1TQdQUVzhUnXCyq3VDgsZjQfC1eIBbmPFs=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261118-2ca6221a",
    "day": "2026-11-18",
    "public_key": "wPismSGx6K1eTVgsY12hpHMMciOPqlmZLGtjCbATwtI=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261119-8d6ec201",
+   "day": "2026-11-19",
+   "public_key": "R32C+Hpfx5Eqd24KOn5UI3vw43gWj9nDgz7cZR94ba0=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -33,6 +57,22 @@
    "invalid_note": null
   },
   {
+   "kid": "20261120-cc166d16",
+   "day": "2026-11-20",
+   "public_key": "lPVfla0hi074OBQtKq/lO/S+wz0SQBzEAa/xffnVPD0=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261121-0d088644",
+   "day": "2026-11-21",
+   "public_key": "oWaTI/brpj2By7urieiEsFL35o6k5dXqPI2QjWLxec4=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261121-854f1ba2",
    "day": "2026-11-21",
    "public_key": "q99+vyeikuPJPurOzkfJMenefZ5rmHTYyrcNDSe5mRw=",
@@ -44,6 +84,22 @@
    "kid": "20261122-0ca725ea",
    "day": "2026-11-22",
    "public_key": "s2AB/Hgb4LFwtstsoruAfOtYPBx86pjcKOdEi4uuQk0=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261122-e2dd63a0",
+   "day": "2026-11-22",
+   "public_key": "5O8uwW6m12g0futkDHi07I8v5r2Ape1CuUUPn5lEiDU=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261123-1e668079",
+   "day": "2026-11-23",
+   "public_key": "o/XUjpb4TslG8/OpkJJjb+T7+xBTTq9xWbZ+i/6um4k=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
