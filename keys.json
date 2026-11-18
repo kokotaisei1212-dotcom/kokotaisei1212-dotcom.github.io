@@ -49,6 +49,54 @@
    "invalid_note": null
   },
   {
+   "kid": "20261118-8fe33989",
+   "day": "2026-11-18",
+   "public_key": "jTtXUxffKmYuM6oE5Vra2cQJiabXqZDzejJ7pf2lPcE=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261118-af1cb68a",
+   "day": "2026-11-18",
+   "public_key": "M4sY1Jnxz26QfWmFmEPlHbezNy7vD2B38UI/Qbxtg74=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261118-e90d0229",
+   "day": "2026-11-18",
+   "public_key": "cnZIM3TPXXAuAYqigexuedkYRUo8/DlU6Y0dCMMz+TQ=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261118-e92e080f",
+   "day": "2026-11-18",
+   "public_key": "WK5ro/8V81k5POu4NNzRHA1m2mvtvqo84lAY1+r3mUQ=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261119-6150e28d",
+   "day": "2026-11-19",
+   "public_key": "4WTYoRGlcaR1hnAccqW3ynD5TrA06PcYNA7REXGe9tU=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261119-8afd6289",
+   "day": "2026-11-19",
+   "public_key": "vEeNabd1MZH1oHvmIAEUQvKAWG7FUnCu4fhaxgJ9iZg=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261119-8d6ec201",
    "day": "2026-11-19",
    "public_key": "R32C+Hpfx5Eqd24KOn5UI3vw43gWj9nDgz7cZR94ba0=",
@@ -73,9 +121,41 @@
    "invalid_note": null
   },
   {
+   "kid": "20261119-a2730bd5",
+   "day": "2026-11-19",
+   "public_key": "KelyYztZKkZvmqE7Ogp4h8mtao4Ijkh3WoC0aotM4pQ=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261119-d048add5",
    "day": "2026-11-19",
    "public_key": "5HZbKQXGRylehLU7z407rEoMdUXO2tpXf5X1AuC0arA=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261119-f60babdd",
+   "day": "2026-11-19",
+   "public_key": "kUZuG2uDWgbkAAStFmDBFNM3imbO4dFQBsyveb6mfas=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261120-08871f5e",
+   "day": "2026-11-20",
+   "public_key": "p+i8KmibU+GArrjw+k8jOlMf5JrzLt2t1w4XSYxBui4=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261120-099818e3",
+   "day": "2026-11-20",
+   "public_key": "SDaeLMTBzMH+Q4qeRfjR9nIEI5RPGg8p69IUj5S/2b0=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -92,6 +172,22 @@
    "kid": "20261120-80c2b266",
    "day": "2026-11-20",
    "public_key": "7uEM7disbASznA9ptjq76t5XuJ7ZHSzNOcfOVGcbqk8=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261120-83a20920",
+   "day": "2026-11-20",
+   "public_key": "nRs5Q/YIIJQz8NvO9qmiPNNQR1bcbNxvw1NkIQ/FXzU=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261120-89d45a39",
+   "day": "2026-11-20",
+   "public_key": "VRFFGihRijsQHs1NbOBYOjw5YNbhMRByKMrNA6Futco=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -121,6 +217,14 @@
    "invalid_note": null
   },
   {
+   "kid": "20261121-6daf1e9f",
+   "day": "2026-11-21",
+   "public_key": "fQuD9VXDdXhmg4mjYeQ2hlwwSQ7C8pK2H38czyKlDxg=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261121-7ab7d4e2",
    "day": "2026-11-21",
    "public_key": "pfF1kMKGxvOHwaIELlUq7Hb+GX5Pe3G4LdMq/UoLw1k=",
@@ -137,9 +241,33 @@
    "invalid_note": null
   },
   {
+   "kid": "20261121-a545aa57",
+   "day": "2026-11-21",
+   "public_key": "GZxjVDtky4ClFc1igtuBZTnfI3/JKnYhXx+bvIk23OI=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261121-ae91cff5",
    "day": "2026-11-21",
    "public_key": "6zlwXHRBFbMVwswKRoXYgIRZWsSpT9/oeu+Fyvp1aq4=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261121-c4a4b0c0",
+   "day": "2026-11-21",
+   "public_key": "TW9HUpPLXCpjfQUdWs3pkNMcbY1icnpiEDe7vJfBt5Y=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261121-cc45e2be",
+   "day": "2026-11-21",
+   "public_key": "nMJzXbSBGzY6MYuUUzgoPVyuS2dvVwDhSod1GLGTx6Y=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -153,9 +281,33 @@
    "invalid_note": null
   },
   {
+   "kid": "20261122-1f8a2d5b",
+   "day": "2026-11-22",
+   "public_key": "ApuKcxRscNCMg53O5DbYC04Mb49S8OBMOQ8TROhiyUQ=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261122-2fda936c",
+   "day": "2026-11-22",
+   "public_key": "lwMFGahHAjotKoMBkMFpp3pITJryjy/RiymGw5Lv/kM=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261122-7751f838",
    "day": "2026-11-22",
    "public_key": "K1pClaYL9sSk6KKL3c9dh22viDlz44gfZUQPuMLMeB4=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261122-b9c6c5a2",
+   "day": "2026-11-22",
+   "public_key": "LIpi8EmATIzhz4UxDfPfK0vCK6uj87Q9Q951X9NX72E=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -177,9 +329,25 @@
    "invalid_note": null
   },
   {
+   "kid": "20261122-fee044cf",
+   "day": "2026-11-22",
+   "public_key": "vNUDm8DHLF240bAYDwMUuOOfL0KVjCPMfKSD10rQY94=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261123-1e668079",
    "day": "2026-11-23",
    "public_key": "o/XUjpb4TslG8/OpkJJjb+T7+xBTTq9xWbZ+i/6um4k=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261123-27f1a391",
+   "day": "2026-11-23",
+   "public_key": "Um0BNiNkiqLaLzBIb40OxKz6peIBrlskj1VxkIOXB20=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -193,6 +361,22 @@
    "invalid_note": null
   },
   {
+   "kid": "20261123-5d1b9ee8",
+   "day": "2026-11-23",
+   "public_key": "2CV2CZmiJc3K+cxgy2l4J4xOlaihMK4sVoVFKV7S/os=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261123-84e6abd3",
+   "day": "2026-11-23",
+   "public_key": "CCo4/oK0rJ7R9eISH8oKp2z6ys+saiD4Qr0b81ovYvU=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261123-e8f844aa",
    "day": "2026-11-23",
    "public_key": "CctNOoljar+dn/aBNko7e4SyECbPWLa3945UsgMtjr4=",
@@ -201,9 +385,25 @@
    "invalid_note": null
   },
   {
+   "kid": "20261123-ec5015d2",
+   "day": "2026-11-23",
+   "public_key": "yTW3sgt47w8SuQh+druai0KcsVz0HtnpJSAcmE3idKE=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261123-ee0c17fe",
    "day": "2026-11-23",
    "public_key": "tOmtPWC+sOm/Op7LuYnVyDHBHYAI3mGCxwmgb8RDnv4=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261124-265738bb",
+   "day": "2026-11-24",
+   "public_key": "HIHkVGjGuRN1uAVBcok+Gyn2uJuucfPGWJ7gAY8+tuo=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
@@ -225,9 +425,33 @@
    "invalid_note": null
   },
   {
+   "kid": "20261124-b4e4f9b0",
+   "day": "2026-11-24",
+   "public_key": "4TkGuqfgl3qL0z1SNXIF+pRP8yaa+Kur6NSl4G5JNhc=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
    "kid": "20261124-c4f1c811",
    "day": "2026-11-24",
    "public_key": "b/3aFrWUfRv++wmASlfGzas29hkOAk+9EoNU2PFxsLE=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261124-c544d9bd",
+   "day": "2026-11-24",
+   "public_key": "ojE+bUf0i516axZsVFwSJRsIjO5k+ro/u2icyznALfA=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
+  },
+  {
+   "kid": "20261124-cdea48c2",
+   "day": "2026-11-24",
+   "public_key": "xPepzCsUfIQB821OJEHQE56uNzcrJzr6Ozk7znIZnsY=",
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
