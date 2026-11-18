@@ -1,7 +1,7 @@
 # STK's own watch (CEO 2026-11-18): every hour, api.stk-evidence.com/v1/health must say ok true. When it says false,
 # or does not answer, this run fails and GitHub emails the repository's owner. ok false stands for: no published
 # signing key for today, fewer than 3 days of published keys ahead (in Stripe or in this site's keys.json), the
-# clock 3 seconds off Stripe's, the unpaid state not read, a month's close not done, and the other problems the admin
+# clock 3 seconds off Stripe's, a second unexpected stop of the server in 250 days (for 24 hours after it), the unpaid state not read, a month's close not done, and the other problems the admin
 # health lists. Nothing secret is here: the public answer only.
 name: watch
 on:
