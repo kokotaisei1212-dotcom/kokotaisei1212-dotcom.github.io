@@ -111,6 +111,14 @@
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
+  },
+  {
+   "kid": "20261124-6e4434df",
+   "day": "2026-11-24",
+   "public_key": "di/ir0BuhgLZzwSDJJ43Omy5zPZ5RH9f2GiX625cbkA=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
   }
  ]
 }
