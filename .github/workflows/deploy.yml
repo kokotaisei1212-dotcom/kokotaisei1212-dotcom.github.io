@@ -1,0 +1,63 @@
+# STK's planned deploys (CEO 2026-11-19): at 00:00:30 UTC, from GitHub's servers instead of the operator's computer.
+# deploy/next.json names the day, the engine commit and the version of the rules it serves. The job starts at 23:40 UTC,
+# waits for 00:00:30, deploys that commit through Render's API, checks the version is served, then publishes the site
+# built for it (branch next-site) to Vercel (until 2026-11-30). A missed window (later than 00:14) fails the run, and
+# GitHub emails the owner. Secrets: RENDER_API_KEY, RENDER_SERVICE_ID, VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
+name: deploy
+on:
+  schedule:
+    - cron: "40 23 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Is a deploy planned for the coming 00:00:30 UTC?
+        id: plan
+        run: |
+          day=$(python3 -c "import json;print(json.load(open('deploy/next.json')).get('day',''))")
+          next=$(date -u -d "+30 minutes" +%Y-%m-%d)
+          echo "planned=$day next=$next"
+          if [ "$day" = "$next" ]; then echo "go=1" >> "$GITHUB_OUTPUT"; else echo "go=0" >> "$GITHUB_OUTPUT"; fi
+      - name: Wait for 00:00:30 UTC, deploy, check
+        if: steps.plan.outputs.go == '1'
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          set -eu
+          day=$(python3 -c "import json;print(json.load(open('deploy/next.json'))['day'])")
+          commit=$(python3 -c "import json;print(json.load(open('deploy/next.json'))['commit'])")
+          rule=$(python3 -c "import json;print(json.load(open('deploy/next.json'))['rule'])")
+          t=$(date -u -d "$day 00:00:30" +%s)
+          while [ "$(date -u +%s)" -lt "$t" ]; do sleep 5; done
+          [ "$(date -u +%s)" -le $((t + 810)) ] || { echo "::error::missed the 00:00:30 window"; exit 1; }
+          cur=$(curl -s https://api.stk-evidence.com/v1/rules | python3 -c "import json,sys;print(json.load(sys.stdin)['number'])")
+          if [ "$cur" = "$rule" ]; then echo "already serving rule $rule"; exit 0; fi
+          curl -sf -X POST -H "Authorization: Bearer $RENDER_API_KEY" -H "Content-Type: application/json" \
+            -d "{\"commitId\":\"$commit\"}" "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" > /dev/null
+          echo "deploy of $commit sent at $(date -u +%FT%TZ)"
+          for i in $(seq 1 90); do
+            v=$(curl -s https://api.stk-evidence.com/v1/rules | python3 -c "import json,sys;print(json.load(sys.stdin)['number'])" || true)
+            [ "$v" = "$rule" ] && break; sleep 10
+          done
+          [ "$v" = "$rule" ] || { echo "::error::rule $rule not served"; exit 1; }
+          curl -s https://api.stk-evidence.com/v1/health | grep -q '"ok":true' || { echo "::error::health not ok"; exit 1; }
+          echo "rule $rule served at $(date -u +%FT%TZ)"
+      - name: Publish the site built for it
+        if: steps.plan.outputs.go == '1'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set -eu
+          [ "$(date -u +%Y-%m-%d)" \< "2026-12-01" ] || { echo "from 2026-12-01 the site is GitHub Pages: nothing to do here"; exit 0; }
+          git fetch -q origin next-site
+          mkdir -p /tmp/site && git --work-tree=/tmp/site checkout origin/next-site -- .
+          cd /tmp/site && npx --yes vercel@58.11.0 deploy --prod --yes --token "$VERCEL_TOKEN" > /dev/null
+          echo "site published"
