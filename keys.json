@@ -807,6 +807,14 @@
    "algorithm": "Ed25519",
    "invalid": null,
    "invalid_note": null
+  },
+  {
+   "kid": "20261127-934dbaf7",
+   "day": "2026-11-27",
+   "public_key": "UTWp3JTiHkWDRKeB/e0Ja4jANurTXvyIBID+mO/dvNM=",
+   "algorithm": "Ed25519",
+   "invalid": null,
+   "invalid_note": null
   }
  ]
 }
