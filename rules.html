@@ -4,146 +4,154 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The rules · STK</title>
-<meta name="description" content="The full text of the rules STK permits by, the same for every company, with its version. Anyone can read it, without a key.">
+<meta name="description" content="Every action, which side it is on, and why: a law names a person, or no law does. The same for every company.">
 <link rel="canonical" href="https://stk-evidence.com/rules">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/rules">
 <meta property="og:title" content="The rules · STK">
-<meta property="og:description" content="The full text of the rules STK permits by, the same for every company, with its version. Anyone can read it, without a key.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:description" content="Every action, which side it is on, and why: a law names a person, or no law does. The same for every company.">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The rules · STK">
-<meta name="twitter:description" content="The full text of the rules STK permits by, the same for every company, with its version. Anyone can read it, without a key.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="twitter:description" content="Every action, which side it is on, and why: a law names a person, or no law does. The same for every company.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules" aria-current="page">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules" aria-current="page">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <div class="doc">
 <div class="eyebrow">The rules</div>
 <h1>The rules</h1>
-<p class="lead">STK answers every call by this text and by nothing else. It is the same for every company. There is no setting per company.</p>
-<p>Version: <code id="rv">55caab19309b7d59b51132d7cf0cadd35472af414db3b9636834016406278b56</code>, the SHA-256 of the whole text below. Every answer STK gives carries the version it came from (<code>rule_version</code>).</p>
-<p id="rp">Published: <span id="rd">when the API that uses it first starts</span>. The same text, its version and its date: <code>GET https://api.stk-evidence.com/v1/rules</code>, no key.</p>
-<pre class="code" id="rt">STK permission rules
-
-These rules are the same for every company. STK answers from these rules and from nothing else: not the
-words of the conversation (STK never receives them), not a confidence number.
-
-0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
-1. trigger is not unknown: escalate. (customer_asked: the customer asked for a person. angry: the customer is
-   angry. out_of_scope: the request is outside what your AI may do. authority: it needs a person's authority.)
-2. intent is on the Never list: escalate.
-3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
-4. intent is on the Closed list: escalate.
-5. Otherwise: finish.
-
-Never (27): account.close, account.open, account.update, benefit.denial, billing.dispute, billing.payment_arrangement, claim.new, claim.status, collections.dispute, complaint.escalation, complaint.general, contact.agent, credit.denial, credit.loan, decision.appeal, insurance.coverage, other, payment.failed, payment.method, payment.transfer, privacy.data_request, refund.request, security.card_lost, security.fraud, subscription.cancel, subscription.change, transfer.error
-
-Permitted (29): account.login, account.password_reset, account.username, appointment.book, appointment.change, balance.inquiry, billing.question, booking.cancel, booking.change, booking.new, card.activate, delivery.issue, feedback.general, info.hours_location, loyalty.rewards, order.cancel, order.change, order.new, order.status, pricing.promotion, product.availability, product.defect, product.question, refund.status, request.status, return.exchange, service.outage, tech.setup, tech.troubleshoot
-This list can only get shorter: a new version of these rules may take an intent off it, never add one.
-
-Closed (0): none
-</pre>
-<!-- intents: from permit/vocab.json -->
-<h2 id="intents">Who STK is for</h2>
-<p>A company whose AI holds the conversations below. This list is the same in every industry; it is the whole of what STK answers about.</p>
-<h3 id="permitted">Permitted (29)</h3>
-<div class="table"><table><thead><tr><th>Intent</th><th>What the customer asks</th></tr></thead><tbody>
-<tr><td><code>account.login</code><br>Login and access</td><td>Cannot sign in to online banking or the member portal: locked out, or a one-time code that does not arrive.</td></tr>
-<tr><td><code>account.password_reset</code><br>Password reset</td><td>Forgot the password for online banking or the member portal, or wants to change it.</td></tr>
-<tr><td><code>account.username</code><br>Username or ID recovery</td><td>Forgot the member number, the user ID or the email used to sign in.</td></tr>
-<tr><td><code>appointment.book</code><br>Book an appointment</td><td>Wants an appointment: a visit at a branch, a call with an adviser, a health check the plan offers.</td></tr>
-<tr><td><code>appointment.change</code><br>Reschedule</td><td>Wants to move or cancel an appointment already booked.</td></tr>
-<tr><td><code>balance.inquiry</code><br>Balance inquiry</td><td>The balance of an account or a card, or how much of an annual limit or of the member's own share is left.</td></tr>
-<tr><td><code>billing.question</code><br>Billing question</td><td>What an item on a statement means, or when a payment is due.</td></tr>
-<tr><td><code>booking.cancel</code><br>Cancel a booking</td><td>Cancel a reservation already made: a slot for a vaccination or a health check, a safe-deposit box.</td></tr>
-<tr><td><code>booking.change</code><br>Change a booking</td><td>Change a reservation already made: its date or its place.</td></tr>
-<tr><td><code>booking.new</code><br>New booking</td><td>Reserve something offered through the plan or the bank: a vaccination slot, a health check, a safe-deposit box.</td></tr>
-<tr><td><code>card.activate</code><br>Activate a card</td><td>Activate a new debit or credit card, or a new insurance card.</td></tr>
-<tr><td><code>delivery.issue</code><br>Delivery problem</td><td>A card, a statement, an insurance card or a prescription sent by post that is late, lost or sent to the wrong address.</td></tr>
-<tr><td><code>feedback.general</code><br>Feedback and general questions</td><td>Feedback, thanks, or a general question about the bank or the plan.</td></tr>
-<tr><td><code>info.hours_location</code><br>Hours and locations</td><td>Opening hours, and where a branch, a cash machine or a pharmacy or clinic the plan works with is.</td></tr>
-<tr><td><code>loyalty.rewards</code><br>Loyalty and rewards</td><td>Card points, cashback, or the rewards of a wellness programme.</td></tr>
-<tr><td><code>order.cancel</code><br>Cancel an order</td><td>Cancel something ordered: a cheque book, a replacement card, a prescription refill.</td></tr>
-<tr><td><code>order.change</code><br>Change an order</td><td>Change something already ordered: the quantity of a refill, the address a new card goes to.</td></tr>
-<tr><td><code>order.new</code><br>Place an order</td><td>Order something: a cheque book, a replacement insurance card, a prescription refill.</td></tr>
-<tr><td><code>order.status</code><br>Order status</td><td>Where something ordered is: a new card, a cheque book, a prescription sent by post.</td></tr>
-<tr><td><code>pricing.promotion</code><br>Price, discount, coupon</td><td>An offer or a discount: an interest-rate offer, a premium discount, a code that does not work.</td></tr>
-<tr><td><code>product.availability</code><br>Availability</td><td>Whether an account type, a card or a plan can be had now, or where the customer lives.</td></tr>
-<tr><td><code>product.defect</code><br>Product defect</td><td>Something the customer was given does not work: a card the reader does not take, a device from the plan.</td></tr>
-<tr><td><code>product.question</code><br>Product question</td><td>How a product works and which to choose: account types, card features, how to use the app.</td></tr>
-<tr><td><code>refund.status</code><br>Refund status</td><td>Where a refund already agreed is, and when it arrives.</td></tr>
-<tr><td><code>request.status</code><br>Status of a request</td><td>The status of a request already made, of any kind, without its detail.</td></tr>
-<tr><td><code>return.exchange</code><br>Return or exchange</td><td>Send back or exchange something received: a card reader, a device from the plan, an insurance card printed wrong.</td></tr>
-<tr><td><code>service.outage</code><br>Service down</td><td>Online banking, the app, card payments or the member portal does not work for anyone.</td></tr>
-<tr><td><code>tech.setup</code><br>Setup and activation</td><td>Set up the app, online banking, a card reader or a device from the plan.</td></tr>
-<tr><td><code>tech.troubleshoot</code><br>App or website problem</td><td>An error in the app or the portal, a page that does not load, a feature that does not work.</td></tr>
+<p class="lead">Rule 5 / 2026-11-19 · 5c595a16bfbfe775885845c6d57002a379d88593fe9d34d12a6eef5a36dad3e5</p>
+<p>Each action, which side it is on, and why. Each links to its own page with the law, the clock and the duties. Everything else: <a href="/rules-full">The rules in full</a>. The US states whose laws have been read: <a href="/rules-full#states-read">which</a>.</p>
+<div class="table"><table><thead><tr><th>Action</th><th>Side</th><th>Why</th></tr></thead><tbody>
+<tr id="a-account.close"><td><a href="/act-account.close">Close account</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.login"><td><a href="/act-account.login">Login and access</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.open"><td><a href="/act-account.open">Open an account</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.password_reset"><td><a href="/act-account.password_reset">Password reset</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.transactions"><td><a href="/act-account.transactions">Transaction history</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.update"><td><a href="/act-account.update">Account details change</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.username"><td><a href="/act-account.username">Username or ID recovery</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-appointment.book"><td><a href="/act-appointment.book">Book an appointment</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-appointment.change"><td><a href="/act-appointment.change">Reschedule</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-balance.inquiry"><td><a href="/act-balance.inquiry">Balance inquiry</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-billing.payment_arrangement"><td><a href="/act-billing.payment_arrangement">Payment arrangement</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-billing.question"><td><a href="/act-billing.question">Billing question</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-booking.cancel"><td><a href="/act-booking.cancel">Cancel a booking</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-booking.change"><td><a href="/act-booking.change">Change a booking</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-booking.new"><td><a href="/act-booking.new">New booking</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-card.activate"><td><a href="/act-card.activate">Activate a card</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-card.block"><td><a href="/act-card.block">Block a lost card</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-claim.decide"><td><a href="/act-claim.decide">Claim paid</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-claim.new"><td><a href="/act-claim.new">File a claim</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-claim.status"><td><a href="/act-claim.status">Claim status</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-collections.balance"><td><a href="/act-collections.balance">Debt in collection</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-collections.dispute"><td><a href="/act-collections.dispute">Debt dispute upheld</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-complaint.record"><td><a href="/act-complaint.record">Complaint</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-coverage.benefits"><td><a href="/act-coverage.benefits">Benefits of the plan</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-coverage.decide"><td><a href="/act-coverage.decide">Coverage granted</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-credit.decide"><td><a href="/act-credit.decide">Give credit</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-delivery.issue"><td><a href="/act-delivery.issue">Delivery problem</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-denial.reason"><td><a href="/act-denial.reason">Reason of a decision</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-dispute.decide"><td><a href="/act-dispute.decide">Dispute upheld</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-dispute.file"><td><a href="/act-dispute.file">Dispute a charge</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-eligibility.check"><td><a href="/act-eligibility.check">Who is covered</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-feedback.general"><td><a href="/act-feedback.general">Feedback and general questions</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-fraud.decide"><td><a href="/act-fraud.decide">Fraud paid back</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-fraud.report"><td><a href="/act-fraud.report">Report fraud</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-info.hours_location"><td><a href="/act-info.hours_location">Hours and locations</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-limit.change"><td><a href="/act-limit.change">Raise a credit limit</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-loan.details"><td><a href="/act-loan.details">Loan details</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-loyalty.rewards"><td><a href="/act-loyalty.rewards">Loyalty and rewards</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-order.cancel"><td><a href="/act-order.cancel">Cancel an order</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-order.change"><td><a href="/act-order.change">Change an order</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-order.new"><td><a href="/act-order.new">Place an order</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-order.status"><td><a href="/act-order.status">Order status</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-payment.method"><td><a href="/act-payment.method">Payment method</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-payment.status"><td><a href="/act-payment.status">Payment status</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-payment.stop"><td><a href="/act-payment.stop">Stop a payment</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-pricing.promotion"><td><a href="/act-pricing.promotion">Price, discount, coupon</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-priorauth.decide"><td><a href="/act-priorauth.decide">Prior approval granted</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-priorauth.status"><td><a href="/act-priorauth.status">Prior approval status</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-privacy.change"><td><a href="/act-privacy.change">Data request</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-privacy.read"><td><a href="/act-privacy.read">Data kept</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-product.availability"><td><a href="/act-product.availability">Availability</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-product.defect"><td><a href="/act-product.defect">Product defect</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-product.question"><td><a href="/act-product.question">Product question</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-provider.find"><td><a href="/act-provider.find">Find a provider</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-refund.request"><td><a href="/act-refund.request">Refund</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-refund.status"><td><a href="/act-refund.status">Refund status</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-request.status"><td><a href="/act-request.status">Status of a request</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-return.exchange"><td><a href="/act-return.exchange">Return or exchange</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-service.outage"><td><a href="/act-service.outage">Service down</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-subscription.cancel"><td><a href="/act-subscription.cancel">Cancel</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-subscription.change"><td><a href="/act-subscription.change">Change plan</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-tech.setup"><td><a href="/act-tech.setup">Setup and activation</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-tech.troubleshoot"><td><a href="/act-tech.troubleshoot">App or website problem</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-transfer.error_decide"><td><a href="/act-transfer.error_decide">Transfer error corrected</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-transfer.send"><td><a href="/act-transfer.send">Send money</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-transfer.status"><td><a href="/act-transfer.status">Transfer status</a></td><td>Completed without human review</td><td>No law names a person</td></tr>
+<tr id="a-account.refuse"><td><a href="/act-account.refuse">Account refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-claim.deny_medical"><td><a href="/act-claim.deny_medical">Claim refused: medical necessity</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-claim.refuse"><td><a href="/act-claim.refuse">Claim refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-collections.refuse"><td><a href="/act-collections.refuse">Debt dispute refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-coverage.deny_medical"><td><a href="/act-coverage.deny_medical">Coverage refused: medical necessity</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-coverage.refuse"><td><a href="/act-coverage.refuse">Coverage refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-credit.refuse"><td><a href="/act-credit.refuse">Credit refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-decision.appeal"><td><a href="/act-decision.appeal">Appeal: medical necessity</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-decision.review"><td><a href="/act-decision.review">Contest a decision</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-dispute.refuse"><td><a href="/act-dispute.refuse">Dispute refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-fraud.refuse"><td><a href="/act-fraud.refuse">Fraud claim refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-limit.lower"><td><a href="/act-limit.lower">Credit limit lowered or refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-payment_arrangement.refuse"><td><a href="/act-payment_arrangement.refuse">Payment arrangement refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-priorauth.deny_medical"><td><a href="/act-priorauth.deny_medical">Prior approval refused: medical necessity</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-priorauth.refuse"><td><a href="/act-priorauth.refuse">Prior approval refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-refund.refuse"><td><a href="/act-refund.refuse">Refund refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
+<tr id="a-transfer.error_refuse"><td><a href="/act-transfer.error_refuse">Transfer error refused</a></td><td>Human review required</td><td>A law names a person</td></tr>
 </tbody></table></div>
-<h3 id="never">Never (27)</h3>
-<div class="table"><table><thead><tr><th>Intent</th><th>What the customer asks</th><th>Why never</th></tr></thead><tbody>
-<tr><td><code>account.close</code><br>Close account</td><td>Close an account or end a membership entirely.</td><td>Contract</td></tr>
-<tr><td><code>account.open</code><br>Open an account</td><td>Open an account, or apply for a plan or a policy: the person's identity is checked.</td><td>Law</td></tr>
-<tr><td><code>account.update</code><br>Account details change</td><td>Change the address, the phone number, the email or the name on the account.</td><td>Responsibility</td></tr>
-<tr><td><code>benefit.denial</code><br>Benefit or claim refused</td><td>A claim or a benefit was refused, and the customer asks about it.</td><td>Insurance</td></tr>
-<tr><td><code>billing.dispute</code><br>Billing dispute</td><td>A charge the customer disputes: charged twice, a wrong amount, a charge not recognised.</td><td>Money</td></tr>
-<tr><td><code>billing.payment_arrangement</code><br>Payment arrangement</td><td>Pay in instalments or move a due date: a premium, a card bill, a loan payment.</td><td>Money</td></tr>
-<tr><td><code>claim.new</code><br>File a claim</td><td>Make a claim: a medical bill for the plan to pay, an incident to report.</td><td>Insurance</td></tr>
-<tr><td><code>claim.status</code><br>Claim status</td><td>How far a claim has gone, and when it will be paid.</td><td>Insurance</td></tr>
-<tr><td><code>collections.dispute</code><br>Debt in collection disputed</td><td>Disputes a debt being collected, or its amount.</td><td>Law</td></tr>
-<tr><td><code>complaint.escalation</code><br>Escalation</td><td>Asks for a supervisor or a manager.</td><td>Complaint</td></tr>
-<tr><td><code>complaint.general</code><br>Complaint</td><td>A complaint about the service.</td><td>Complaint</td></tr>
-<tr><td><code>contact.agent</code><br>Wants a person</td><td>Asks for a person, or refuses the AI.</td><td>Law</td></tr>
-<tr><td><code>credit.denial</code><br>Credit refused</td><td>An application for credit, a loan or a card was refused.</td><td>Credit</td></tr>
-<tr><td><code>credit.loan</code><br>Loan, credit and limits</td><td>A loan application or its status, a credit limit, interest, repayment.</td><td>Credit</td></tr>
-<tr><td><code>decision.appeal</code><br>Appeal a decision</td><td>Appeals a decision or asks for it to be looked at again: an approval asked for in advance, a claim, a credit decision.</td><td>Approval</td></tr>
-<tr><td><code>insurance.coverage</code><br>Coverage and policy terms</td><td>What the plan covers: the benefits, whether an approval is needed in advance, the providers it works with, the member's own share.</td><td>Insurance</td></tr>
-<tr><td><code>other</code><br>Other</td><td>Anything that fits none of the other intents.</td><td>Approval</td></tr>
-<tr><td><code>payment.failed</code><br>Payment failed</td><td>A payment did not go through, or is late: a premium, a card bill, a direct debit.</td><td>Money</td></tr>
-<tr><td><code>payment.method</code><br>Payment method</td><td>Change the card or the bank account a payment is taken from.</td><td>Responsibility</td></tr>
-<tr><td><code>payment.transfer</code><br>Transfers and transactions</td><td>Send money, a transfer that failed, a question about a transaction.</td><td>Money</td></tr>
-<tr><td><code>privacy.data_request</code><br>Data and privacy</td><td>See or delete personal data, consent to marketing, a complaint about privacy.</td><td>Law</td></tr>
-<tr><td><code>refund.request</code><br>Refund request</td><td>Asks for money back.</td><td>Money</td></tr>
-<tr><td><code>security.card_lost</code><br>Lost or stolen card</td><td>A lost or stolen bank card or insurance card; block a card.</td><td>Responsibility</td></tr>
-<tr><td><code>security.fraud</code><br>Fraud and security</td><td>Activity the customer does not recognise, an account taken over, phishing.</td><td>Responsibility</td></tr>
-<tr><td><code>subscription.cancel</code><br>Cancel subscription or service</td><td>Cancel a plan, a policy or a service.</td><td>Contract</td></tr>
-<tr><td><code>subscription.change</code><br>Change plan</td><td>Change the plan or the policy: a higher or lower level, a cover added or taken off, a renewal.</td><td>Contract</td></tr>
-<tr><td><code>transfer.error</code><br>Transfer error claim</td><td>Says an electronic transfer went wrong: not received, a wrong amount, not authorised.</td><td>Law</td></tr>
-</tbody></table></div>
-<!-- /intents -->
-<h2 id="history">Every change</h2>
-<p>STK's code writes every change to the history, with its date, before the changed text answers a call. The history: <code>GET https://api.stk-evidence.com/v1/rules?history=1</code>, no key. Every report and every intent STK closed: <a href="/changelog">Reports</a>.</p>
-<p><strong>The permitted list can only get shorter.</strong> A new version of these rules may take an intent off it; it can never add one. Only STK makes a new version; no call does.</p>
 </div>
+</main>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
+</div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
+</div></footer>
 <script>
 (function(){
-  // the rules in use, when the API answers with them; else the text above (the text in the code)
-  fetch('/v1/rules', {cache: 'no-store'}).then(function(r){ if (!r.ok) throw r.status; return r.json(); }).then(function(j){
-    if (!j || !j.text || !j.version) return;
-    document.getElementById('rt').textContent = j.text; document.getElementById('rv').textContent = j.version;
-    document.getElementById('rd').textContent = j.published;
-  }, function(){});
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
 })();
 </script>
-</main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
-</div>
-</div></footer>
 </body>
 </html>

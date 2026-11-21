@@ -3,116 +3,154 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>For your vendor review · STK</title>
-<meta name="description" content="What a security review and an allowlist request ask for, on one page. What STK does not have is listed as not had.">
+<title>Review · STK</title>
+<meta name="description" content="Answers to the questions a security, privacy, legal or vendor-risk review asks, taken from STK&#x27;s code and its pages.">
 <link rel="canonical" href="https://stk-evidence.com/review">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/review">
-<meta property="og:title" content="For your vendor review · STK">
-<meta property="og:description" content="What a security review and an allowlist request ask for, on one page. What STK does not have is listed as not had.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="For your vendor review · STK">
-<meta name="twitter:description" content="What a security review and an allowlist request ask for, on one page. What STK does not have is listed as not had.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="Review · STK">
+<meta property="og:description" content="Answers to the questions a security, privacy, legal or vendor-risk review asks, taken from STK&#x27;s code and its pages.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Review · STK">
+<meta name="twitter:description" content="Answers to the questions a security, privacy, legal or vendor-risk review asks, taken from STK&#x27;s code and its pages.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <div class="doc">
-<div class="eyebrow">Trust</div>
-<h1>For your vendor review</h1>
-<p class="lead"><strong>STK opens no connection to your network.</strong> Every connection goes from your servers to STK.</p>
-<p>Contact: <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a>.<br>Email: <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></p>
-<p>Everything here can be downloaded or copied now. No form, no request. What STK does not have is listed as not had.</p>
+<div class="eyebrow">Review</div>
+<h1>Review</h1>
+<p class="lead">The questions a security, privacy, legal or vendor-risk review asks, each with STK's answer. Each answer comes from STK's code or from another page of this site, linked beside it. Where STK has nothing, the answer says so.</p>
 
-<h2 id="receives-keeps">What STK receives and what it keeps</h2>
-<div class="table"><table>
-<tbody>
-<tr><td><strong>Receives, each ask</strong></td><td><code>conversation_id</code>, <code>intent</code>, <code>trigger</code>, and <code>human_joined</code> if your code sends it; the key in <code>X-STK-Key</code>. A call with any other field is refused (422). <a href="/docs#ask">The fields</a></td></tr>
-<tr><td><strong>Receives, at signup</strong></td><td>The email address the keys are sent to.</td></tr>
-<tr><td><strong>Keeps, each day of your account</strong></td><td>Three counts: <code>finish</code>, <code>human_joined</code>, <code>escalate</code>. 7 years.</td></tr>
-<tr><td><strong>Keeps, your account</strong></td><td>The email address, the Stripe customer id, the keys as a keyed hash (HMAC-SHA256). 7 years after your last ask.</td></tr>
-<tr><td><strong>Keeps, bills and reports</strong></td><td>Each month's billed count and amount; each report's date and intent. 7 years.</td></tr>
-<tr><td><strong>Keeps, STK's own</strong></td><td>The versions of the rules; every public signing key (never deleted); when each STK process started, last wrote and stopped; the days billed nothing.</td></tr>
-<tr><td><strong>Does not keep</strong></td><td>Any row of an ask. Each row comes back with its answer, signed, and stays with you. <a href="/ledger">The ledger</a></td></tr>
-</tbody>
-</table></div>
-<h2 id="papers">Papers</h2>
-<div class="table"><table>
-  <tbody>
-    <tr><td><strong>SOC 2 Type II</strong></td><td>None. STK has no SOC 2 report of any type.</td></tr>
-    <tr><td><strong>SIG, CAIQ</strong></td><td>None filled in.</td></tr>
-    <tr><td><strong>Penetration test</strong></td><td>None done by an outside firm. No summary to give.</td></tr>
-    <tr><td><strong>ISO 27001</strong></td><td>None.</td></tr>
-    <tr><td><strong>Data Processing Agreement</strong></td><td><a href="/dpa">DPA</a></td></tr>
-    <tr><td><strong>Subprocessors</strong></td><td>By name, what for and where: <a href="/subprocessors">Subprocessors</a></td></tr>
-    <tr><td><strong>The rules, their history, reports</strong></td><td><a href="/rules">The rules</a> · <a href="/incidents">Reports</a></td></tr>
-<tr><td><strong>Known limits, mistakes, changes</strong></td><td><a href="/limits">Known limits</a> · <a href="/mistakes">Mistakes</a> · <a href="/changelog">Changelog</a></td></tr>
-  </tbody>
-</table></div>
+<h2 id="receive">What STK receives</h2>
+<p><strong>Q. How many bytes does STK receive for one permission, and what are they?</strong><br>
+A. The body of <code>POST /v1/ask</code> is <code>{"seal": "&lt;64 hex characters&gt;", "recorded_ms": &lt;13 digits&gt;}</code>: 106 bytes when stk.py sends it, 103 when stk.mjs sends it. The seal is 32 bytes, SHA-256 of 32 random bytes and the customer's row; <code>recorded_ms</code> is when the library recorded the action. A seal sent from the library's queue also carries the grant STK signed. A request with any other field is refused with 422. The key comes in the <code>X-STK-Key</code> header. The request carries what every HTTPS request carries: the address it comes from and its headers. One request as it reached STK, byte for byte: <a href="/receive">What we receive</a>.</p>
+<p><strong>Q. What does STK not receive?</strong><br>
+A. None of these reaches STK:</p>
+<ul>
+<li>The words of the conversation, as text.</li>
+<li>The audio of the conversation.</li>
+<li>The customer's name.</li>
+<li>A member number or any other id of the customer.</li>
+<li>Medical or health information.</li>
+<li>An account number.</li>
+<li>The intent and the trigger of the conversation (the intent only if the company reports a permission with <code>POST /v1/incident</code>).</li>
+</ul>
+<p><strong>Q. How can STK sign without knowing what was decided?</strong><br>
+A. The decision is made inside the company's own process. stk.py or stk.mjs reads STK's public rules, applies them to the intent and the trigger, and calls STK only when the rules answer <code>finish</code>. It then sends the seal of the row, not the row. STK signs the seal with the time and the version of the rules. SHA-256 cannot be run backwards, and the 32 random bytes stay with the company, so the seal tells STK nothing of the row. Anyone with the row and its random bytes can check that the row is the one sealed: <a href="/ledger">How to check a row</a>.</p>
 
-<h2 id="countries">Asked in each country</h2>
-<p>What a regulated company's review asks a vendor like STK for, from the law or the regulator's own page, read on 2026-11-17, and what STK has. "Not known": the page could not be read or does not say.</p>
-<div class="table"><table>
-<thead><tr><th>Where</th><th>Asked</th><th>STK</th></tr></thead><tbody>
-<tr><td>United States</td><td>A HIPAA business associate agreement.</td><td>None offered.</td></tr>
-<tr><td>EU</td><td>Processor terms under GDPR Art. 28; for data leaving the EU (STK's servers are in Singapore), the Commission's standard contractual clauses (Art. 46). <a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" rel="noopener">GDPR</a></td><td>The <a href="/dpa">DPA</a>. Checked against Art. 28 clause by clause: not done. Standard contractual clauses signed: none.</td></tr>
-<tr><td>EU, banks and insurers</td><td>The contract terms of DORA Art. 30 (service levels, locations, incident help, audit, exit), more for a critical or important function. <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj" rel="noopener">DORA</a></td><td>The <a href="/terms">Terms</a> only. No audit or inspection clause, no exit plan, no quantitative service level.</td></tr>
-<tr><td>EU, healthcare</td><td>Supply-chain security questions from providers under NIS2 Art. 21. <a href="https://eur-lex.europa.eu/eli/dir/2022/2555/oj" rel="noopener">NIS2</a></td><td>This page.</td></tr>
-<tr><td>UK</td><td>Processor terms under UK GDPR Art. 28; safeguards for data leaving the UK (Art. 46). <a href="https://www.legislation.gov.uk/eur/2016/679/article/28" rel="noopener">UK GDPR</a></td><td>The <a href="/dpa">DPA</a>. UK transfer agreement or addendum signed: none. What the ICO asks of it: not known.</td></tr>
-<tr><td>UK, banks and insurers</td><td>Due diligence and a written agreement with data location, access and audit rights and an exit plan (PRA SS2/21). <a href="https://www.prarulebook.co.uk/guidance/supervisory-statements/ss02-21-outsourcing-and-third-party-risk-management" rel="noopener">SS2/21</a></td><td>The <a href="/terms">Terms</a> only. No audit clause, no exit plan.</td></tr>
-<tr><td>UK, NHS</td><td>The Data Security and Protection Toolkit, for organisations with access to NHS patient data and systems. <a href="https://www.dsptoolkit.nhs.uk/" rel="noopener">DSPT</a></td><td>None. STK has no access to NHS patient data or systems.</td></tr>
-<tr><td>Japan</td><td>Supervision of an entrusted party (APPI Art. 25); provision to a party in a foreign country (Art. 28). <a href="https://www.japaneselawtranslation.go.jp/en/laws/view/4241/en" rel="noopener">APPI</a></td><td>Where STK holds data: <a href="/subprocessors">Subprocessors</a>. How Art. 28 applies to STK: not known.</td></tr>
-<tr><td>Japan, finance</td><td>Contract terms with supervision, audit and reporting rights and approval of sub-entrustment (the PPC and FSA guidelines). FISC's security standards are an industry standard, not law. <a href="https://www.japaneselawtranslation.go.jp/en/notices/view/141" rel="noopener">Guidelines</a></td><td>The <a href="/terms">Terms</a> only. No audit clause. FISC: not assessed.</td></tr>
-<tr><td>Japan, healthcare</td><td>The ministries' guidelines for medical information systems (the MHLW guideline and the METI and MIC guideline for vendors). <a href="https://www.mhlw.go.jp/stf/shingi/0000516275_00006.html" rel="noopener">MHLW</a></td><td>How they apply to STK: not known.</td></tr>
-<tr><td>Canada</td><td>A contract giving comparable protection, with security and audit rights (PIPEDA, the OPC's guidelines). <a href="https://www.priv.gc.ca/en/privacy-topics/airports-and-borders/gl_dab_090127/" rel="noopener">OPC</a></td><td>The <a href="/dpa">DPA</a>. Quebec Law 25 and Ontario PHIPA: not known.</td></tr>
-<tr><td>Canada, federal financial institutions</td><td>Audit and access for the institution and OSFI, records accessible to OSFI, incident notice, exit (OSFI B-10). <a href="https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/third-party-risk-management-guideline" rel="noopener">B-10</a></td><td>The <a href="/terms">Terms</a> only. No audit clause.</td></tr>
-<tr><td>Australia</td><td>The disclosing company answers for an overseas recipient (Privacy Act s16C). <a href="https://www.legislation.gov.au/C2004A03712/2024-12-11/2024-12-11/text/original/epub/OEBPS/document_1/document_1.html" rel="noopener">Privacy Act</a></td><td>Where STK holds data: <a href="/subprocessors">Subprocessors</a>. APP 8 and the OAIC's guidance: not known.</td></tr>
-<tr><td>Australia, APRA-regulated</td><td>For a material service provider: a formal agreement with audit access and on-site access for APRA (CPS 230); security capability and prompt incident notice (CPS 234). <a href="https://www.apra.gov.au/standard/cps-230" rel="noopener">CPS 230</a></td><td>The <a href="/terms">Terms</a> only. No audit or on-site access clause.</td></tr>
+<h2 id="keep">What STK keeps</h2>
+<p><strong>Q. How long does STK keep a seal, and where?</strong><br>
+A. A seal is not written down, unless the company reports it. In memory, the first 8 bytes of the SHA-256 of the account and the seal are kept for its day (UTC), so the same seal sent twice that day is counted once. No seal can be read back from them. They are let go 10 minutes after the day ends. The receipt STK returns is not kept by STK.</p>
+<p><strong>Q. Where does STK keep records?</strong><br>
+A. In Stripe only. STK runs no store of its own. Stripe holds the account (email address, the keys' hashes), each billed day's counts and amount, the invoices, STK's public keys and the reports. <a href="/subprocessors">Subprocessors</a></p>
+<p><strong>Q. Does STK hold the company's rows?</strong><br>
+A. No. The rows and their random bytes are written where the company's code runs. STK never received them. If anyone asks STK for a conversation, a row or an intent, STK has none to give.</p>
+
+<h2 id="privacy">Personal data and health information</h2>
+<p><strong>Q. Is STK a processor of personal data or of protected health information?</strong><br>
+A. STK receives what is listed above, and only that. Whether that falls under your company's rules for personal data or protected health information is for your company's legal team to decide. STK does not offer a HIPAA business associate agreement; it does not have one today, and a company that concludes one is needed can write to <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a>. The account's email address is personal data, and the <a href="/dpa">DPA</a> covers it.</p>
+<p>This is not legal advice.</p>
+
+<h2 id="where">Where STK runs, and who it uses</h2>
+<p><strong>Q. Where does STK run, and on whose servers?</strong><br>
+A. STK's API runs on Render, in Singapore. The operator of STK is Taisei Izawa, an individual in Toyama, Japan (<a href="/terms">Terms</a>, section 1).</p>
+<p><strong>Q. Which companies does STK use, and what of the company's reaches each?</strong><br>
+A.</p>
+<div class="table"><table><thead><tr><th>Company</th><th>What it does for STK</th><th>What of the company's reaches it</th></tr></thead><tbody>
+<tr><td>Render</td><td>Runs STK's API, in Singapore. STK's signing keys and the receipts are made there.</td><td>Each request passes through it: the seal (32 bytes, as 64 hex characters), the time the library recorded the action (and, from the queue, the grant), the key in <code>X-STK-Key</code>, the address the request comes from and its headers, and the receipt and signature STK returns. At signup, the email address. No words of a conversation.</td></tr>
+<tr><td>Stripe</td><td>Keeps STK's records and makes the invoices.</td><td>The account's email address, the keys' hashes, each billed day's count of permissions and of people joining and its amount, the invoices and their payment (the card is entered on Stripe's own page). Of a permission the company reports: its date, the intent given with it and its seal. STK asks for no company name. No seal of a permission that is not reported, no row, no conversation.</td></tr>
+<tr><td>GitHub</td><td>Holds this website's public repository, with its copy of STK's public keys; serves this website from 2026-12-01.</td><td>Nothing of the company's. The repository holds only the public rules, the site and the public keys. From 2026-12-01, requests to this website pass through it.</td></tr>
+<tr><td>Vercel</td><td>Serves this website and answers the domain's DNS, until 2026-11-30. From 2026-12-01 the website moves to GitHub and the DNS to Name.com.</td><td>Nothing of the company's. Until 2026-11-30, requests to this website pass through it.</td></tr>
+<tr><td>Name.com</td><td>The domain's registration, and its DNS from 2026-12-01.</td><td>No account or customer data.</td></tr>
 </tbody></table></div>
-<h2 id="data">What STK receives</h2>
-<p>STK never receives the conversation. The API refuses a call that carries any field other than these (422).</p>
-<p>For each call to <code>POST /v1/ask</code>: the conversation's id, as your code sends it; the intent; the trigger (one of five words); and, if your code sends them, your AI's name or version and whether a person has joined. Nothing else: no customer id, no confidence number, no channel, no language.</p>
-<p>At signup: the email address the key is sent to. STK keeps it for the key and the invoice, until 7 years after your last call to <code>POST /v1/ask</code>. Keys are kept only as a hash, as long.</p>
-<p>STK keeps no row of an ask: each answer carries its row and STK's signature of it, and you keep them. STK keeps, for each day of your account, its counts (permissions, people joining, escalate), for 7 years. Each month's bill and each report is deleted 7 years after it was written. Your account (the address, the Stripe customer id, the hashed keys) is deleted 7 years after your last call to <code>POST /v1/ask</code> (or after it was made, if it never made one), billed or not: an account in use stays. <code>GET /v1/ledger</code> gives your days' counts at any time. STK does not encrypt the rows itself. <a href="/ledger">What a row holds</a></p>
-<p><code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. With ids made this way your rows hold no data about your customers, and STK keeps no row at all.</p>
+<p>None of these companies receives the words of a conversation, a customer's name, a member number, medical information or an account number. What reaches each is as above. The full list: <a href="/subprocessors">Subprocessors</a>.</p>
+<p><strong>Q. How much notice before a company is added or replaced?</strong><br>
+A. At least 14 days. The new company is listed on <a href="/subprocessors">Subprocessors</a> before it starts.</p>
 
-<h2 id="phi">Health information</h2>
-<p>STK's intent ids say only the kind of request (<code>request.status</code>, <code>claim.new</code>, <code>benefit.denial</code>), never what it is about. Send these ids and keep your own names, and the table from yours to these, on your side. A name that is not one of these ids is answered <code>escalate</code>, and kept as sent.</p>
-<p>What your code sends as the intent or the conversation's id comes back in your row as sent; STK keeps only counts. Those are the ways health information could reach STK: never put a person's health, a treatment or a condition in them.</p>
+<h2 id="keys">Keys and signatures</h2>
+<p><strong>Q. How are receipts signed?</strong><br>
+A. Ed25519, with keys of one day (one key, or more if STK's server started again that day). The signature covers the receipt's fields in a fixed order, as a JSON array with no spaces. Anyone checks it with the public key of its day, from <code>GET /v1/rules?keys=1</code>, with no secret.</p>
+<p><strong>Q. When is a public key published?</strong><br>
+A. Seven days ahead. STK signs only with keys whose public keys it has already written to Stripe. Every hour the public keys are copied into this site's public repository, and none is ever deleted. <code>/v1/health</code> says <code>ok</code> false when fewer than 3 days of keys are published ahead.</p>
+<p><strong>Q. What happens if a signing key leaks?</strong><br>
+A. STK marks that key invalid in <code>GET /v1/rules?keys=1</code>, with the date, and lists it in <code>GET /v1/rules?history=1</code>. From then on no row signed with that key checks, and that day is billed nothing for every company. If STK signs again that day, it is with a new key. A person at STK must find out about the leak and run the command that marks the key invalid; nothing finds a leak by itself. <a href="/limits">Known limits</a></p>
+<p><strong>Q. What if a company's own key leaks?</strong><br>
+A. STK cannot tell a leaked key from the company's. The company replaces its keys with <code>POST /v1/keys</code>, its account's email and its live key; the old keys stop at once. Until then, permissions signed with the leaked live key are billed to the company. <a href="/limits">Known limits</a></p>
 
-<h2 id="allowlist">For an allowlist request</h2>
-<div class="table"><table>
-  <tbody>
-    <tr><td><strong>Destination</strong></td><td><code>api.stk-evidence.com</code>, port 443, HTTPS only</td></tr>
-    <tr><td><strong>Direction</strong></td><td>Outbound from your servers to STK only. STK opens no connection to your network.</td></tr>
-    <tr><td><strong>Calls</strong></td><td><code>POST /v1/ask</code>. If you use them: <code>GET /v1/ledger</code>, <code>POST /v1/incident</code>, <code>GET /v1/rules</code>, <code>GET /v1/health</code></td></tr>
-    <tr><td><strong>Body</strong></td><td>JSON: the fields under What STK receives, nothing else</td></tr>
-    <tr><td><strong>Addresses</strong></td><td>Its addresses are shared and can change: list the name, not the addresses.</td></tr>
-    <tr><td><strong>Timeout</strong></td><td>stk.py and stk.mjs wait at most 300 ms; without an answer they return <code>escalate</code>, and your code hands the conversation over.</td></tr>
-  </tbody>
-</table></div>
+<h2 id="down">When STK stops</h2>
+<p><strong>Q. What does the company's AI do when STK does not answer?</strong><br>
+A. Without an answer within 300 ms, or on any error, stk.py and stk.mjs return <code>escalate</code>: the company's code hands the conversation to a person, as it does today. When STK cannot be reached, no receipt is made and nothing is billed. The one exception: while <a href="/rules-full#else">a grant</a> from STK's last answer holds (10 minutes), they return <code>finish</code> for what the rules say finish, and send the seal when STK answers again; it is then signed and billed, and its receipt shows both times. When STK signs after the 300 ms, the file tells STK a person has the conversation, and that permission is not billed; if STK cannot be told, it stays billed and the file keeps a <code>not_told</code> line. The conversation itself does not stop. <a href="/when">What happens when</a></p>
+<p><strong>Q. Where can the state of STK be seen?</strong><br>
+A. <code>GET https://api.stk-evidence.com/v1/health</code>, no key, answers <code>{"ok": true}</code> or <code>false</code>. STK checks it every hour from this site's public repository. STK has no status page.</p>
+
+<h2 id="rules">The rules</h2>
+<p><strong>Q. Can the rules be set for one company?</strong><br>
+A. No. One text, the same for every company. There is no setting per company. <a href="/rules">The rules</a></p>
+<p><strong>Q. Who can change them, and what is published when they change?</strong><br>
+A. Only STK, in its code; no call changes them. A new version is written to the history with its date before it answers a call. Each version's full text, its SHA-256 and STK's signature are published at <code>GET /v1/rules?history=1</code>, and every change is in the <a href="/changelog">Changelog</a>. Every receipt names the version it was signed under.</p>
+<p><strong>Q. Why is an intent sent to a person?</strong><br>
+A. For two reasons only: a law names a person for its act, or a trigger happened. The law, its section and the address of its official text are written beside each intent on the Never list, as STK reads them; that reading is not legal advice. A conversation that could not be told as any act (<code>other</code>) is sent to a person too. STK's server does not start with a version that puts an intent on the Never list without such a law, takes a trigger off or changes its words, or adds an intent to the Permitted list without publishing why: that it is not a refusal or a contest, which laws were checked, and whether it came from <code>other</code>. <a href="/rules-full#locks">The rules</a></p>
+<p><strong>Q. Can STK check that the company's code gives the intent and the trigger truthfully?</strong><br>
+A. No. STK does not see the conversation, so it cannot check what the company's code puts in the row. What STK signs is that this company declared this row, sealed, at this time, under this version of the rules. Whether the declaration was true is the responsibility of the company that made it. The company's own records keep exactly what was declared: the row, its random bytes and STK's receipt, which together show the intent and the trigger as declared. <a href="/limits">Known limits</a></p>
+
+<p><strong>Q. Can a person affected by an act of the company's AI check it?</strong><br>
+A. Yes. With a receipt and its signature only, anyone can check that STK signed it, when, and under which version of the rules, without the network: <a href="/ledger#receipt">A receipt and its signature only</a>. With five things the company can give (the row, its random bytes, the receipt, the signature and the version of the rules), the person can check, asking neither the company nor STK, whether the row the company declared was permitted by the rules (<a href="/ledger#proves">what a receipt proves, and what it does not</a>): <a href="/ledger#for-a-person">What a company can give a person</a>.</p>
+
+<h2 id="money">Price and terms</h2>
+<p><strong>Q. What does STK cost?</strong><br>
+A. Under the rules for conversations, $5 for each permission. A permission a person joins the same day (UTC) is not billed. Nothing else is charged. <a href="/price">Price</a></p>
+<p><strong>Q. Why a card, and why Stripe?</strong><br>
+A. <a href="/price#why-card">Why a card, not an invoice</a> · <a href="/price#why-stripe">Why Stripe</a> · <a href="/price#holds">What STK holds</a></p>
+<p><strong>Q. How is it billed and paid?</strong><br>
+A. The live key is given only after a card is registered on Stripe's page; the test key needs none. Each Monday Stripe makes the invoice for the week before (Monday to Sunday, UTC), due when issued, and charges it that day to that card, in US dollars. STK adds no tax to it. A declined card: Stripe tries again, and the invoice stays open until paid. An invoice still unpaid 60 days after it was issued stops STK signing for that account until it is paid.</p>
+<p><strong>Q. Is there a signed contract?</strong><br>
+A. No. Taking a key means accepting the <a href="/terms">Terms</a> and the <a href="/dpa">DPA</a>. What STK binds itself to is in those, in the published rules and their history, and in <a href="/limits">Known limits</a>. STK offers no audit or inspection clause, no exit plan and no quantitative service level.</p>
 </div>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

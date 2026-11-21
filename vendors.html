@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For AI vendors · STK</title>
+<meta name="description" content="When your product is the AI a company runs: where stk.py goes, whose key, what STK receives.">
+<link rel="canonical" href="https://stk-evidence.com/vendors">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/vendors">
+<meta property="og:title" content="For AI vendors · STK">
+<meta property="og:description" content="When your product is the AI a company runs: where stk.py goes, whose key, what STK receives.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="For AI vendors · STK">
+<meta name="twitter:description" content="When your product is the AI a company runs: where stk.py goes, whose key, what STK receives.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors" aria-current="page">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Build</div>
+<h1>For AI vendors</h1>
+<p class="lead">When your product is the AI a company runs: STK goes where your product is about to hand a conversation to a person.</p>
+
+<h2 id="where">Where it goes</h2>
+<ol>
+<li>Put <a href="/stk.py">stk.py</a> (or <a href="/stk.mjs">stk.mjs</a>) next to the code that hands a conversation to a person.</li>
+<li>There: <code>stk.ask(intent, trigger, conversation_id=cid)</code>. On <code>finish</code> your AI goes on; on anything else it hands the conversation over, as it does today.</li>
+<li>When a person joins a conversation that got <code>finish</code>: <code>stk.joined(cid)</code>.</li>
+</ol>
+<p>Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code>, unless <a href="/rules-full#else">a grant</a> holds. <a href="/docs">Docs</a> · <a href="/docs#setup">Setup guides</a></p>
+
+<h2 id="key">Whose key</h2>
+<p>Keys are taken with an email address, in <a href="/docs#get-keys">Docs</a> or with <code>POST /v1/keys</code>. Permissions made with a live key are billed to the account that key belongs to; a test key is never billed. One key used for several companies' conversations bills one account for all of them. <a href="/price">Price</a></p>
+
+<h2 id="receives">What STK receives</h2>
+<p>The seal and the time the file recorded the action, and nothing else: the seal is SHA-256 of 32 random bytes followed by the row. The row and the random bytes stay on your side, with the receipt STK signs. <a href="/receive">What we receive</a></p>
+
+<h2 id="rules">The rules</h2>
+<p>The same for every company, published and signed by STK: <code>GET https://api.stk-evidence.com/v1/rules</code>. The file applies them on your side. <a href="/rules">The rules</a></p>
+</div>
+</main>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
+</div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
+</div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
+</body>
+</html>

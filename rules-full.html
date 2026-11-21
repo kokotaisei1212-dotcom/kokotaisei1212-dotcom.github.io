@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The rules in full · STK</title>
+<meta name="description" content="The full text of the rules, every version, the triggers, the locks, what else decides whether STK signs, and how a version is published.">
+<link rel="canonical" href="https://stk-evidence.com/rules-full">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/rules-full">
+<meta property="og:title" content="The rules in full · STK">
+<meta property="og:description" content="The full text of the rules, every version, the triggers, the locks, what else decides whether STK signs, and how a version is published.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The rules in full · STK">
+<meta name="twitter:description" content="The full text of the rules, every version, the triggers, the locks, what else decides whether STK signs, and how a version is published.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
+<main class="wrap">
+<style>.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:720px){.two{grid-template-columns:1fr}} .alias{font-size:.9em}</style>
+<div class="doc">
+<div class="eyebrow"><a href="/docs">Docs</a></div>
+<h1>The rules in full</h1>
+<p class="lead">Rule 5 / 2026-11-19. The same text for every company. There is no setting per company.</p>
+<p>This page, with the list at <a href="#else">What else decides whether STK signs</a>, is everything that decides whether STK signs. Nothing else does. The list of actions, each on one line: <a href="/rules">The rules</a>; each action in detail on its own page, linked from there.</p>
+<p>Rule 5 / 2026-11-19 is the name of this version: its number and the day it was published. Below the name, the text is fixed by its SHA-256: Rule 5 · 5c595a16bfbfe775885845c6d57002a379d88593fe9d34d12a6eef5a36dad3e5. <code>GET https://api.stk-evidence.com/v1/rules</code> gives the same text, its number, its hash, its date and STK's signature of them, no key. Every receipt names the Rule it was signed under.</p>
+<pre class="code" id="rt">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something. decide: make a
+decision. A conversation goes to a person for two reasons only: a law names a person for its act, or a trigger
+happened. An intent is on the Never list only when a law names a person for that act; the law, its section and
+the address of its official text, as STK reads them, are written beside it below. These rules are the same for
+every company, so where laws differ the strictest is followed. Every other intent is on the Permitted list.
+
+Every intent below is of the domain conversation: an act of an AI in a conversation with a customer. Its full
+name is conversation. followed by the name listed (conversation.claim.status); either form is read as the same.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is other: escalate. other is a conversation that could not be told as any act, so it is not known what
+   it would do.
+3. intent is on the Never list: escalate.
+4. intent is on no list (a name these rules do not have): escalate.
+5. intent is on the Closed list: escalate.
+6. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (17): account.refuse, claim.deny_medical, claim.refuse, collections.refuse, coverage.deny_medical, coverage.refuse, credit.refuse, decision.appeal, decision.review, dispute.refuse, fraud.refuse, limit.lower, payment_arrangement.refuse, priorauth.deny_medical, priorauth.refuse, refund.refuse, transfer.error_refuse
+
+The law that names a person, for each intent on the Never list:
+- account.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- claim.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- claim.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- collections.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- coverage.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- coverage.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- credit.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- decision.appeal: 29 CFR § 2560.503-1(h)(3)(iii) and (h)(4); 42 CFR § 422.590; Cal. Health &amp; Safety Code § 1367.01; GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.590 https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XXV/subchapter-F/part-2560/section-2560.503-1 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- decision.review: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C; C.R.S. § 6-1-1705(1)(a)(II) (Colorado SB 26-189: applies to decisions made on or after 2027-01-01; the attorney general&#x27;s rules under § 6-1-1705(3) not adopted as of 2026-11-18) [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80 https://leg.colorado.gov/bills/SB26-189]
+- dispute.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- fraud.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- limit.lower: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- payment_arrangement.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- priorauth.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- priorauth.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- refund.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- transfer.error_refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+
+Permitted (66): account.close, account.login, account.open, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.payment_arrangement, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.decide, claim.new, claim.status, collections.balance, collections.dispute, complaint.record, coverage.benefits, coverage.decide, credit.decide, delivery.issue, denial.reason, dispute.decide, dispute.file, eligibility.check, feedback.general, fraud.decide, fraud.report, info.hours_location, limit.change, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, payment.stop, pricing.promotion, priorauth.decide, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.request, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.error_decide, transfer.send, transfer.status
+
+Closed (14): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+No longer named by law: none
+
+Added to the Permitted list in this version: none
+
+Two locks. STK&#x27;s server does not start with a version of these rules that breaks either:
+- Lock 1, the law: an intent is on the Never list only with a law that names a person for it, its section and the
+  address of its official text written beside it. An intent with no such law is not on the Never list. When that
+  law stops naming a person, the version lists the intent under &quot;No longer named by law&quot; and it is on the
+  Permitted list in that version. Every intent a version adds to the Permitted list is listed under &quot;Added to the
+  Permitted list&quot;, with its two reasons: it is not a refusal or a contest, and no law names a person for it (the
+  laws checked); and whether it was taken from other.
+- Lock 2: the Triggers list can only get longer: a new version may add a trigger, never take one off or change its
+  words. It goes against STK&#x27;s revenue: STK is paid for each permission, and a trigger only lowers their number.
+So every intent is where it is because of a law or its absence, and anyone can check each one against the
+official text and the reasons published with it.
+</pre>
+
+<h2 id="scope">What these rules cover</h2>
+<p>These rules cover the acts of an AI in a conversation with a customer, and no other act. They send an act to a person for two reasons only: a law names a person for that act, or a trigger happened. Neither reason belongs to conversations; each applies to any act an AI does. A rule for any other kind of act would rest on the same two reasons, written in the same form.</p>
+
+<p>A person affected by an act can check it: with a receipt and its signature, that STK signed it (<a href="/ledger#receipt">how</a>); with the five things a company can give, whether the rules permitted the row the company declared (<a href="/ledger#for-a-person">how</a>). <a href="/ledger#proves">What a receipt proves, and what it does not</a>.</p>
+
+<h2 id="versions">Every Rule</h2>
+<div class="table"><table><thead><tr><th>Rule</th><th>Published</th><th>What changed</th></tr></thead><tbody>
+<tr><td>Rule 1 · adb2f2efc4e0</td><td>2026-11-17 05:23:01 UTC</td><td>the first version</td></tr>
+<tr><td>Rule 2 · 55caab19309b</td><td>2026-11-17 06:26:10 UTC</td><td>seven intents taken off the permitted list</td></tr>
+<tr><td>Rule 3 · 0d0af34c3e90</td><td>2026-11-18 15:55:50 UTC</td><td>intents divided by act (read, change, decide) instead of by topic, which put 37 more on the permitted list; Never only where a law names a person (US, EU, UK), the law beside it; the triggers, locked to only grow</td></tr>
+<tr><td>Rule 4 · dc25df5c4fbf</td><td>2026-11-18 16:36:06 UTC</td><td>a Colorado law added beside decision.review</td></tr>
+<tr><td>Rule 5 · 5c595a16bfbf</td><td>2026-11-19 04:41:08 UTC</td><td>a person only where a law names one or a trigger happened; other its own clause; official texts; reasons for every intent added; approved by the CEO</td></tr>
+</tbody></table></div>
+<h3 id="taken-off">Taken off the Permitted list</h3>
+<p>Before the locks. From the third version, an intent leaves the Permitted list only for the Never list, with its law.</p>
+<p>Each intent a Rule took off the Permitted list, the day, and the full SHA-256 of that Rule and of the Rule before it. Read from the signed texts; the texts are not changed.</p>
+<p style="overflow-wrap:anywhere">Taken off on 2026-11-17, by Rule 2 · 55caab19309b7d59b51132d7cf0cadd35472af414db3b9636834016406278b56<br>The Rule before: Rule 1 · adb2f2efc4e088a424b2a49b09678e3f917c75b75314570ff9464bc7ce527801</p>
+<ul><li><code>account.open</code></li><li><code>account.update</code></li><li><code>claim.status</code></li><li><code>other</code></li><li><code>payment.failed</code></li><li><code>payment.method</code></li><li><code>subscription.change</code></li></ul>
+<p>Every text in full, signed: <code>GET /v1/rules?history=1</code>. The numbers go 1, 2, 3 with no gap. The second version could only permit fewer intents than the first; from the third, the locks below hold.</p>
+
+<h2 id="change">When the Rule changes</h2>
+<p>A conversation your code is in the middle of is decided by the Rule stk.py or stk.mjs holds. When STK's answer names a newer Rule, the file reads it and applies it again at once: if the newer Rule says <code>escalate</code>, the file returns <code>escalate</code>, your code hands the conversation over, and that permission is taken off the bill. From then on every ask is decided by the newer Rule. <a href="/when">What happens when</a></p>
+
+<h2 id="triggers">The 6 triggers</h2>
+<p>Whatever the intent, a conversation in which one of these happened is answered <code>escalate</code>. Your code passes the trigger's name; it passes <code>unknown</code> only when none of them happened. Each one says what counts, so that no one reads it wider or narrower.</p>
+<div class="table"><table><thead><tr><th>Trigger</th><th>Pass it when</th></tr></thead><tbody>
+<tr><td><code>customer_asked</code></td><td>the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.</td></tr>
+<tr><td><code>distressed</code></td><td>the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.</td></tr>
+<tr><td><code>angry</code></td><td>the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.</td></tr>
+<tr><td><code>bereavement</code></td><td>the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.</td></tr>
+<tr><td><code>threat</code></td><td>the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.</td></tr>
+<tr><td><code>legal_claim</code></td><td>the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.</td></tr>
+</tbody></table></div>
+
+<!-- intents: from permit/vocab.json -->
+<h2 id="intents">The 83 intents</h2>
+<p>And 14 closed names, below the lists, each answered <code>escalate</code>.</p>
+<p>What the customer asks, for each intent. Every intent here is of the domain <code>conversation</code>: an act of an AI in a conversation with a customer. Its full name is <code>conversation.</code> and the rest, as below; the rules also read it without <code>conversation.</code> in front.</p>
+<h2 id="applies">Which version applies</h2>
+<p>The version that applies to an action is the version named in its receipt, fixed at the time STK signed it. A later version does not change the answer to an action already signed.</p>
+
+<h2 id="two-industries">Two industries, built differently</h2>
+<p>The two industries are built differently. In US health plan rules, the law names the person who must decide. In US federal financial rules, the law sets the duty to investigate, the deadline, and the notice, but does not name a person. For financial actions a person is named by European and British law and, in the United States, by two state laws from 2027-01-01: Colorado's (C.R.S. § 6-1-1705(1)(a)(II), meaningful human review of a consequential decision on request, a financial or lending service among them) and California's rules under the CCPA (11 CCR § 7221(b), an appeal to a human reviewer, which a business may offer in place of an opt-out, for financial and lending decisions). This rule puts an action on the person's side only where a person is named.</p>
+<p>So each action below shows two things apart: the citation that names a person, which is why an action requires human review, and the clock and duties that attach to the action without naming a person.</p>
+
+<div class="two">
+<div id="health"><h3>Health plans</h3><p>The actions by the names a health plan uses:</p><ul>
+<li>CMS universe GRV_C: <a href="/act-complaint.record"><code>conversation.complaint.record</code></a></li>
+<li>CMS universe OD: <a href="/act-coverage.decide"><code>conversation.coverage.decide</code></a></li>
+<li>CMS universe OD: <a href="/act-coverage.refuse"><code>conversation.coverage.refuse</code></a></li>
+<li>X12 270/271: <a href="/act-eligibility.check"><code>conversation.eligibility.check</code></a></li>
+<li>X12 276/277: <a href="/act-claim.status"><code>conversation.claim.status</code></a></li>
+<li>X12 278: <a href="/act-priorauth.status"><code>conversation.priorauth.status</code></a></li>
+<li>X12 278, auto-approved, CMS universe OD: <a href="/act-priorauth.decide"><code>conversation.priorauth.decide</code></a></li>
+<li>X12 278, CMS universe OD: <a href="/act-priorauth.refuse"><code>conversation.priorauth.refuse</code></a></li>
+<li>X12 278, physician review, peer-to-peer, CMS universe OD: <a href="/act-priorauth.deny_medical"><code>conversation.priorauth.deny_medical</code></a></li>
+<li>X12 835, auto-adjudicated, CMS universe PYMT_C: <a href="/act-claim.decide"><code>conversation.claim.decide</code></a></li>
+<li>X12 835, CMS universe PYMT_C: <a href="/act-claim.refuse"><code>conversation.claim.refuse</code></a></li>
+<li>X12 835, physician review, Medical Director review, CMS universe PYMT_C: <a href="/act-claim.deny_medical"><code>conversation.claim.deny_medical</code></a></li>
+<li>X12 837: <a href="/act-claim.new"><code>conversation.claim.new</code></a></li>
+<li>physician review, Medical Director review, CMS universe OD: <a href="/act-coverage.deny_medical"><code>conversation.coverage.deny_medical</code></a></li>
+<li>physician review, CMS universe RECON: <a href="/act-decision.appeal"><code>conversation.decision.appeal</code></a></li>
+</ul></div>
+<div id="finance"><h3>Banks, card issuers, lenders, insurers</h3><p>The actions by the names a financial institution uses:</p><ul>
+<li>Reg E 1005.11, Visa dispute category 10 (fraud), ACH R10: <a href="/act-fraud.report"><code>conversation.fraud.report</code></a></li>
+<li>Reg E 1005.11, Visa dispute category 10 (fraud), ACH R10: <a href="/act-fraud.decide"><code>conversation.fraud.decide</code></a></li>
+<li>Reg E 1005.11, Visa dispute category 10 (fraud), manual review: <a href="/act-fraud.refuse"><code>conversation.fraud.refuse</code></a></li>
+<li>Reg E 1005.11: <a href="/act-transfer.error_decide"><code>conversation.transfer.error_decide</code></a></li>
+<li>Reg E 1005.11, manual review: <a href="/act-transfer.error_refuse"><code>conversation.transfer.error_refuse</code></a></li>
+<li>Reg Z 1026.13, Visa dispute categories 12 and 13: <a href="/act-dispute.file"><code>conversation.dispute.file</code></a></li>
+<li>Reg Z 1026.13, Visa dispute categories 12 and 13: <a href="/act-dispute.decide"><code>conversation.dispute.decide</code></a></li>
+<li>Reg Z 1026.13, Visa dispute categories 12 and 13, manual review: <a href="/act-dispute.refuse"><code>conversation.dispute.refuse</code></a></li>
+<li>refer to underwriter: <a href="/act-credit.refuse"><code>conversation.credit.refuse</code></a></li>
+<li>refer to underwriter: <a href="/act-limit.lower"><code>conversation.limit.lower</code></a></li>
+<li>second-level review: <a href="/act-decision.review"><code>conversation.decision.review</code></a></li>
+<li>straight-through (STP): <a href="/act-transfer.send"><code>conversation.transfer.send</code></a></li>
+<li>straight-through (STP): <a href="/act-transfer.status"><code>conversation.transfer.status</code></a></li>
+<li>straight-through (STP): <a href="/act-credit.decide"><code>conversation.credit.decide</code></a></li>
+</ul></div>
+</div>
+
+<h3 id="permitted">Completed without human review (66)</h3>
+<p>An action here may be completed without human review, unless a trigger happened. In health plans the same is called auto-adjudicated (claims) or auto-approved (prior authorization); in financial services, straight-through (STP). Each action keeps its ID in every later version.</p>
+<ul>
+<li><a href="/act-account.close"><code>conversation.account.close</code></a>: Close account</li>
+<li><a href="/act-account.login"><code>conversation.account.login</code></a>: Login and access</li>
+<li><a href="/act-account.open"><code>conversation.account.open</code></a>: Open an account</li>
+<li><a href="/act-account.password_reset"><code>conversation.account.password_reset</code></a>: Password reset</li>
+<li><a href="/act-account.transactions"><code>conversation.account.transactions</code></a>: Transaction history</li>
+<li><a href="/act-account.update"><code>conversation.account.update</code></a>: Account details change</li>
+<li><a href="/act-account.username"><code>conversation.account.username</code></a>: Username or ID recovery</li>
+<li><a href="/act-appointment.book"><code>conversation.appointment.book</code></a>: Book an appointment</li>
+<li><a href="/act-appointment.change"><code>conversation.appointment.change</code></a>: Reschedule</li>
+<li><a href="/act-balance.inquiry"><code>conversation.balance.inquiry</code></a>: Balance inquiry</li>
+<li><a href="/act-billing.payment_arrangement"><code>conversation.billing.payment_arrangement</code></a>: Payment arrangement</li>
+<li><a href="/act-billing.question"><code>conversation.billing.question</code></a>: Billing question</li>
+<li><a href="/act-booking.cancel"><code>conversation.booking.cancel</code></a>: Cancel a booking</li>
+<li><a href="/act-booking.change"><code>conversation.booking.change</code></a>: Change a booking</li>
+<li><a href="/act-booking.new"><code>conversation.booking.new</code></a>: New booking</li>
+<li><a href="/act-card.activate"><code>conversation.card.activate</code></a>: Activate a card</li>
+<li><a href="/act-card.block"><code>conversation.card.block</code></a>: Block a lost card</li>
+<li><a href="/act-claim.decide"><code>conversation.claim.decide</code></a>: Claim paid</li>
+<li><a href="/act-claim.new"><code>conversation.claim.new</code></a>: File a claim</li>
+<li><a href="/act-claim.status"><code>conversation.claim.status</code></a>: Claim status</li>
+<li><a href="/act-collections.balance"><code>conversation.collections.balance</code></a>: Debt in collection</li>
+<li><a href="/act-collections.dispute"><code>conversation.collections.dispute</code></a>: Debt dispute upheld</li>
+<li><a href="/act-complaint.record"><code>conversation.complaint.record</code></a>: Complaint</li>
+<li><a href="/act-coverage.benefits"><code>conversation.coverage.benefits</code></a>: Benefits of the plan</li>
+<li><a href="/act-coverage.decide"><code>conversation.coverage.decide</code></a>: Coverage granted</li>
+<li><a href="/act-credit.decide"><code>conversation.credit.decide</code></a>: Give credit</li>
+<li><a href="/act-delivery.issue"><code>conversation.delivery.issue</code></a>: Delivery problem</li>
+<li><a href="/act-denial.reason"><code>conversation.denial.reason</code></a>: Reason of a decision</li>
+<li><a href="/act-dispute.decide"><code>conversation.dispute.decide</code></a>: Dispute upheld</li>
+<li><a href="/act-dispute.file"><code>conversation.dispute.file</code></a>: Dispute a charge</li>
+<li><a href="/act-eligibility.check"><code>conversation.eligibility.check</code></a>: Who is covered</li>
+<li><a href="/act-feedback.general"><code>conversation.feedback.general</code></a>: Feedback and general questions</li>
+<li><a href="/act-fraud.decide"><code>conversation.fraud.decide</code></a>: Fraud paid back</li>
+<li><a href="/act-fraud.report"><code>conversation.fraud.report</code></a>: Report fraud</li>
+<li><a href="/act-info.hours_location"><code>conversation.info.hours_location</code></a>: Hours and locations</li>
+<li><a href="/act-limit.change"><code>conversation.limit.change</code></a>: Raise a credit limit</li>
+<li><a href="/act-loan.details"><code>conversation.loan.details</code></a>: Loan details</li>
+<li><a href="/act-loyalty.rewards"><code>conversation.loyalty.rewards</code></a>: Loyalty and rewards</li>
+<li><a href="/act-order.cancel"><code>conversation.order.cancel</code></a>: Cancel an order</li>
+<li><a href="/act-order.change"><code>conversation.order.change</code></a>: Change an order</li>
+<li><a href="/act-order.new"><code>conversation.order.new</code></a>: Place an order</li>
+<li><a href="/act-order.status"><code>conversation.order.status</code></a>: Order status</li>
+<li><a href="/act-payment.method"><code>conversation.payment.method</code></a>: Payment method</li>
+<li><a href="/act-payment.status"><code>conversation.payment.status</code></a>: Payment status</li>
+<li><a href="/act-payment.stop"><code>conversation.payment.stop</code></a>: Stop a payment</li>
+<li><a href="/act-pricing.promotion"><code>conversation.pricing.promotion</code></a>: Price, discount, coupon</li>
+<li><a href="/act-priorauth.decide"><code>conversation.priorauth.decide</code></a>: Prior approval granted</li>
+<li><a href="/act-priorauth.status"><code>conversation.priorauth.status</code></a>: Prior approval status</li>
+<li><a href="/act-privacy.change"><code>conversation.privacy.change</code></a>: Data request</li>
+<li><a href="/act-privacy.read"><code>conversation.privacy.read</code></a>: Data kept</li>
+<li><a href="/act-product.availability"><code>conversation.product.availability</code></a>: Availability</li>
+<li><a href="/act-product.defect"><code>conversation.product.defect</code></a>: Product defect</li>
+<li><a href="/act-product.question"><code>conversation.product.question</code></a>: Product question</li>
+<li><a href="/act-provider.find"><code>conversation.provider.find</code></a>: Find a provider</li>
+<li><a href="/act-refund.request"><code>conversation.refund.request</code></a>: Refund</li>
+<li><a href="/act-refund.status"><code>conversation.refund.status</code></a>: Refund status</li>
+<li><a href="/act-request.status"><code>conversation.request.status</code></a>: Status of a request</li>
+<li><a href="/act-return.exchange"><code>conversation.return.exchange</code></a>: Return or exchange</li>
+<li><a href="/act-service.outage"><code>conversation.service.outage</code></a>: Service down</li>
+<li><a href="/act-subscription.cancel"><code>conversation.subscription.cancel</code></a>: Cancel</li>
+<li><a href="/act-subscription.change"><code>conversation.subscription.change</code></a>: Change plan</li>
+<li><a href="/act-tech.setup"><code>conversation.tech.setup</code></a>: Setup and activation</li>
+<li><a href="/act-tech.troubleshoot"><code>conversation.tech.troubleshoot</code></a>: App or website problem</li>
+<li><a href="/act-transfer.error_decide"><code>conversation.transfer.error_decide</code></a>: Transfer error corrected</li>
+<li><a href="/act-transfer.send"><code>conversation.transfer.send</code></a>: Send money</li>
+<li><a href="/act-transfer.status"><code>conversation.transfer.status</code></a>: Transfer status</li>
+</ul>
+<h3 id="never">Human review required (17)</h3>
+<p>No adverse determination is completed without human review. That is what makes the other 66 defensible.</p>
+<p>The law's own words are human intervention (UK GDPR Art. 22C, in force from 2026-02-05 by SI 2026/82; for credit in the EU, Art. 18(8) of Directive (EU) 2023/2225, applied from 2026-11-20). In health plans the same is called physician review, Medical Director review or peer-to-peer; in financial services, refer to underwriter, second-level review or manual review. The laws are STK's reading, not legal advice. Where laws differ, the strictest is followed.</p>
+<ul>
+<li><a href="/act-account.refuse"><code>conversation.account.refuse</code></a>: Account refused</li>
+<li><a href="/act-claim.deny_medical"><code>conversation.claim.deny_medical</code></a>: Claim refused: medical necessity</li>
+<li><a href="/act-claim.refuse"><code>conversation.claim.refuse</code></a>: Claim refused</li>
+<li><a href="/act-collections.refuse"><code>conversation.collections.refuse</code></a>: Debt dispute refused</li>
+<li><a href="/act-coverage.deny_medical"><code>conversation.coverage.deny_medical</code></a>: Coverage refused: medical necessity</li>
+<li><a href="/act-coverage.refuse"><code>conversation.coverage.refuse</code></a>: Coverage refused</li>
+<li><a href="/act-credit.refuse"><code>conversation.credit.refuse</code></a>: Credit refused</li>
+<li><a href="/act-decision.appeal"><code>conversation.decision.appeal</code></a>: Appeal: medical necessity</li>
+<li><a href="/act-decision.review"><code>conversation.decision.review</code></a>: Contest a decision</li>
+<li><a href="/act-dispute.refuse"><code>conversation.dispute.refuse</code></a>: Dispute refused</li>
+<li><a href="/act-fraud.refuse"><code>conversation.fraud.refuse</code></a>: Fraud claim refused</li>
+<li><a href="/act-limit.lower"><code>conversation.limit.lower</code></a>: Credit limit lowered or refused</li>
+<li><a href="/act-payment_arrangement.refuse"><code>conversation.payment_arrangement.refuse</code></a>: Payment arrangement refused</li>
+<li><a href="/act-priorauth.deny_medical"><code>conversation.priorauth.deny_medical</code></a>: Prior approval refused: medical necessity</li>
+<li><a href="/act-priorauth.refuse"><code>conversation.priorauth.refuse</code></a>: Prior approval refused</li>
+<li><a href="/act-refund.refuse"><code>conversation.refund.refuse</code></a>: Refund refused</li>
+<li><a href="/act-transfer.error_refuse"><code>conversation.transfer.error_refuse</code></a>: Transfer error refused</li>
+</ul>
+<p id="states-read"><strong>Which US states have been read.</strong> The US state laws these rules cite: California and Colorado. The laws of the other states and the District of Columbia on who decides a denial of care (their utilization review laws) are being read one by one; until each has been read, STK does not say that these rules follow every law that names a person.</p>
+<p>The official text of each law named on the action pages:</p>
+<ul>
+<li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj">GDPR (Regulation (EU) 2016/679)</a></li>
+<li><a href="https://leg.colorado.gov/bills/SB26-189">Colorado SB 26-189 (C.R.S. § 6-1-1705)</a></li>
+<li><a href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120">California SB 1120 (Health &amp; Safety Code § 1367.01; Ins. Code § 10123.135)</a></li>
+<li><a href="https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XXV/subchapter-F/part-2560/section-2560.503-1">29 CFR § 2560.503-1</a></li>
+<li><a href="https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566">42 CFR § 422.566</a></li>
+<li><a href="https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.590">42 CFR § 422.590</a></li>
+<li><a href="https://www.legislation.gov.uk/ukpga/2025/18/section/80">UK Data (Use and Access) Act 2025, s. 80 (UK GDPR Arts. 22A–22D)</a></li>
+</ul>
+<h3 id="other"><code>other</code></h3>
+<p>A conversation that could not be told as any act is passed as <code>other</code>, and the rules answer <code>escalate</code>: it is not known what it would do. It is on no list. A name the rules do not have is answered <code>escalate</code> too, by a clause of its own. Anything not on either list goes to a person.</p>
+<h3 id="closed">Closed</h3>
+<p>Intents of the second version, closed by the third on 2026-11-18, that mixed a read and a decision, or that were a trigger: each is answered <code>escalate</code>. Use the intents above instead.</p>
+<p><code>conversation.benefit.denial</code>, <code>conversation.billing.dispute</code>, <code>conversation.complaint.escalation</code>, <code>conversation.complaint.general</code>, <code>conversation.contact.agent</code>, <code>conversation.credit.denial</code>, <code>conversation.credit.loan</code>, <code>conversation.insurance.coverage</code>, <code>conversation.payment.failed</code>, <code>conversation.payment.transfer</code>, <code>conversation.privacy.data_request</code>, <code>conversation.security.card_lost</code>, <code>conversation.security.fraud</code>, <code>conversation.transfer.error</code></p>
+<!-- /intents -->
+<h2 id="history">Every change</h2>
+<p>STK's code writes every change to the history, with its date, before the changed text answers a call. The history: <code>GET https://api.stk-evidence.com/v1/rules?history=1</code>, no key. Every change to the rules and every report: <a href="/changelog">Changelog</a>.</p>
+<h3 id="locks">Two locks</h3>
+<p>A conversation goes to a person for two reasons only: a law names a person for its act, or a trigger happened. STK's server does not start with a new version of these rules that breaks either lock.</p>
+<ul>
+<li><strong>Lock 1, the law.</strong> An intent is on the Never list only with a law that names a person for it: its section and the address of its official text, written beside it. An intent with no such law is not on the Never list. When that law stops naming a person, the version lists the intent under "No longer named by law" and permits it in that version. Every intent a version adds to the Permitted list is published with two reasons: it is not a refusal or a contest, and no law names a person for it, with the laws checked; and whether it was taken from <code>other</code>.</li>
+<li><strong>Lock 2. The Triggers list can only get longer.</strong> A new version may add a trigger, never take one off or change its words. A longer list can only lower what STK is paid.</li>
+</ul>
+<p>So every intent is where it is because of a law or its absence, and anyone can check each one against the official text and the reasons published with it. Only STK makes a new version; no call does.</p>
+<h2 id="else">What else decides whether STK signs</h2>
+<ul>
+<li>The limits of a day (UTC): a live key, 20,000,000 permissions a day, 10,000 until an invoice of its account has been paid; a test key, 1,000 a day. Past the limit, STK does not sign.</li>
+<li>STK does not sign when it has no published signing key for today, while a starting server has not yet read its records in Stripe, or when it has not read from Stripe for 2 hours whether the account is unpaid.</li>
+<li>When a signing key is declared invalid, every day it signed is billed nothing.</li>
+<li>stk.py and stk.mjs: without an answer within 300 ms, <code>escalate</code>, unless a grant holds; the same conversation and intent are not asked again the same day.</li>
+<li>A grant: with each answer STK signs one for the account and the version of the rules, valid for 10 minutes from when STK issued it. While it holds and STK cannot be reached, stk.py and stk.mjs finish what the rules say finish and keep the seal in a queue (at most 10,000 seals), then send it when STK answers again; STK signs it under the version the grant named. When the grant has expired, or the queue is full, <code>escalate</code>, as without a grant.</li>
+<li>The seals of a day, of all accounts together, are each counted once, up to 46,930,325 in a day (UTC) (46,930,325 seals in 511 MB, filled once on 2026-11-21 on a Mac; the next one was refused). Past that, STK does not sign a new seal that day and stk.py and stk.mjs return <code>escalate</code>. The seals of the day are kept in the API's memory only: when the API restarts, they are lost, and a seal signed before the restart that is sent again the same day is counted again in the count after the restart. The day is billed the larger of the counts before and after the restart, not their sum: such a seal is not billed twice, and the day can be billed less than the actions STK permitted.</li>
+<li>The full texts of earlier versions are below on this page, under <a href="#all-texts">Every version in full</a>, and at <code>GET /v1/rules?history=1</code>.</li>
+<li>A key must be one of the account's current keys: keys replaced stop at once.</li>
+<li>The request must carry only the seal, the time the library recorded the action and, for a seal from the queue, the grant it finished under, in at most 16,384 bytes. A grant STK did not sign for this account, an action recorded outside its 10 minutes, or without a grant a recorded time more than a minute from STK's clock: refused.</li>
+<li>An address that sends more than 120 calls a minute with a key that is not one of STK's is answered 429 for the rest of that minute.</li>
+</ul>
+
+<h2 id="release">How a new version is published</h2>
+<ul>
+<li><strong>Additions, on the day they are made:</strong> an intent added to the Permitted list, a trigger added, a clause, reason or explanation added, an error corrected, a new domain added.</li>
+<li><strong>Restrictions, twice a year:</strong> a change that makes an act permitted yesterday no longer permitted (an intent taken off the Permitted list, an intent moved to the person side, a clause narrowed) takes effect only on April 15 or October 15. It is published in the <a href="/changelog">Changelog</a> 30 days before, on March 15 or September 15.</li>
+<li><strong>The one exception, a law:</strong> when a law takes effect or a court decides, a restriction can take effect on another day. The Changelog then marks it "an urgent change by law", with the provision and the date it takes effect. Example: Colorado SB 26-189 applies to decisions made on or after 2027-01-01.</li>
+</ul>
+
+<h2 id="table">Every version</h2>
+<div class="table"><table><thead><tr><th>Version</th><th>Permitted</th><th>Why it changed</th></tr></thead><tbody>
+<tr><td>Rule 1 / 2026-11-17</td><td>36</td><td>the first version</td></tr>
+<tr><td>Rule 2 / 2026-11-17</td><td>29</td><td>seven intents taken off the permitted list</td></tr>
+<tr><td>Rule 3 / 2026-11-18</td><td>66</td><td>intents divided by act (read, change, decide) instead of by topic, which put 37 more on the permitted list; Never only where a law names a person (US, EU, UK), the law beside it; the triggers, locked to only grow</td></tr>
+<tr><td>Rule 4 / 2026-11-18</td><td>66</td><td>a Colorado law added beside decision.review</td></tr>
+<tr><td>Rule 5 / 2026-11-19</td><td>66</td><td>a person only where a law names one or a trigger happened; other its own clause; official texts; reasons for every intent added; approved by the CEO</td></tr>
+</tbody></table></div>
+<p>The same, with each change, in the <a href="/changelog">Changelog</a>.</p>
+
+<h2 id="all-texts">Every version in full</h2>
+<p>The text of every version, as published, with its SHA-256. The hash of each text can be computed again from the text shown, without asking STK, and compared with the hash beside it and with the version named in a receipt.</p>
+<details id="rule-1"><summary>Rule 1 / 2026-11-17</summary>
+<p class="hash">Rule 1 · adb2f2efc4e088a424b2a49b09678e3f917c75b75314570ff9464bc7ce527801<br>Published 2026-11-17 05:23:01 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. (customer_asked: the customer asked for a person. angry: the customer is
+   angry. out_of_scope: the request is outside what your AI may do. authority: it needs a person&#x27;s authority.)
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Never (20): account.close, benefit.denial, billing.dispute, billing.payment_arrangement, claim.new, collections.dispute, complaint.escalation, complaint.general, contact.agent, credit.denial, credit.loan, decision.appeal, insurance.coverage, payment.transfer, privacy.data_request, refund.request, security.card_lost, security.fraud, subscription.cancel, transfer.error
+
+Permitted (36): account.login, account.open, account.password_reset, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.question, booking.cancel, booking.change, booking.new, card.activate, claim.status, delivery.issue, feedback.general, info.hours_location, loyalty.rewards, order.cancel, order.change, order.new, order.status, other, payment.failed, payment.method, pricing.promotion, product.availability, product.defect, product.question, refund.status, request.status, return.exchange, service.outage, subscription.change, tech.setup, tech.troubleshoot
+This list can only get shorter: a new version of these rules may take an intent off it, never add one.
+
+Closed (0): none
+</pre></details>
+<details id="rule-2"><summary>Rule 2 / 2026-11-17</summary>
+<p class="hash">Rule 2 · 55caab19309b7d59b51132d7cf0cadd35472af414db3b9636834016406278b56<br>Published 2026-11-17 06:26:10 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. (customer_asked: the customer asked for a person. angry: the customer is
+   angry. out_of_scope: the request is outside what your AI may do. authority: it needs a person&#x27;s authority.)
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Never (27): account.close, account.open, account.update, benefit.denial, billing.dispute, billing.payment_arrangement, claim.new, claim.status, collections.dispute, complaint.escalation, complaint.general, contact.agent, credit.denial, credit.loan, decision.appeal, insurance.coverage, other, payment.failed, payment.method, payment.transfer, privacy.data_request, refund.request, security.card_lost, security.fraud, subscription.cancel, subscription.change, transfer.error
+
+Permitted (29): account.login, account.password_reset, account.username, appointment.book, appointment.change, balance.inquiry, billing.question, booking.cancel, booking.change, booking.new, card.activate, delivery.issue, feedback.general, info.hours_location, loyalty.rewards, order.cancel, order.change, order.new, order.status, pricing.promotion, product.availability, product.defect, product.question, refund.status, request.status, return.exchange, service.outage, tech.setup, tech.troubleshoot
+This list can only get shorter: a new version of these rules may take an intent off it, never add one.
+
+Closed (0): none
+</pre></details>
+<details id="rule-3"><summary>Rule 3 / 2026-11-18</summary>
+<p class="hash">Rule 3 · 0d0af34c3e904f1a37db30c8870cca5aee15a586fd2f40b8361c243b4ff687d6<br>Published 2026-11-18 15:55:50 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something. decide: make a
+decision. An intent is on the Never list only when a law names a person for that act; the law and its section,
+as STK reads them, are written beside it below. These rules are the same for every company, so where laws
+differ the strictest is followed. Every other intent is on the Permitted list. Whatever the intent, a trigger
+is a customer&#x27;s right to a person.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (17): account.refuse, claim.deny_medical, claim.refuse, collections.refuse, coverage.deny_medical, coverage.refuse, credit.refuse, decision.appeal, decision.review, dispute.refuse, fraud.refuse, limit.lower, payment_arrangement.refuse, priorauth.deny_medical, priorauth.refuse, refund.refuse, transfer.error_refuse
+
+The law that names a person, for each intent on the Never list:
+- account.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- claim.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- claim.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- collections.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- coverage.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- coverage.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- credit.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- decision.appeal: 29 CFR § 2560.503-1(h)(3)(iii) and (h)(4); 42 CFR § 422.590; Cal. Health &amp; Safety Code § 1367.01; GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- decision.review: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- dispute.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- fraud.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- limit.lower: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- payment_arrangement.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- priorauth.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- priorauth.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- refund.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- transfer.error_refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+
+Permitted (66): account.close, account.login, account.open, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.payment_arrangement, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.decide, claim.new, claim.status, collections.balance, collections.dispute, complaint.record, coverage.benefits, coverage.decide, credit.decide, delivery.issue, denial.reason, dispute.decide, dispute.file, eligibility.check, feedback.general, fraud.decide, fraud.report, info.hours_location, limit.change, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, payment.stop, pricing.promotion, priorauth.decide, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.request, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.error_decide, transfer.send, transfer.status
+
+Closed (15): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), other (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+One lock and one bond, counted from Rule 3. STK&#x27;s server does not start with a version of these rules that
+breaks either:
+- The bond: an intent is on the Never list only with a law that names a person for it, its name and section
+  written beside it. While that law names a person, the intent cannot be moved to the Permitted list: a new
+  version that moves it must say, under &quot;No longer named by law&quot;, which law stopped naming a person. An intent
+  with no such law cannot be on the Never list.
+- The lock: the Triggers list can only get longer: a new version may add a trigger, never take one off or
+  change its words. It goes against STK&#x27;s revenue: STK is paid for each permission, and a trigger only lowers
+  their number.
+So STK can move an intent either way only by pointing to a law, and anyone can check each one against it.
+</pre></details>
+<details id="rule-4"><summary>Rule 4 / 2026-11-18</summary>
+<p class="hash">Rule 4 · dc25df5c4fbf750b8ad2a028eeb2442b49f4fcb27bc5f807164114fdcef05627<br>Published 2026-11-18 16:36:06 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something. decide: make a
+decision. An intent is on the Never list only when a law names a person for that act; the law and its section,
+as STK reads them, are written beside it below. These rules are the same for every company, so where laws
+differ the strictest is followed. Every other intent is on the Permitted list. Whatever the intent, a trigger
+is a customer&#x27;s right to a person.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (17): account.refuse, claim.deny_medical, claim.refuse, collections.refuse, coverage.deny_medical, coverage.refuse, credit.refuse, decision.appeal, decision.review, dispute.refuse, fraud.refuse, limit.lower, payment_arrangement.refuse, priorauth.deny_medical, priorauth.refuse, refund.refuse, transfer.error_refuse
+
+The law that names a person, for each intent on the Never list:
+- account.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- claim.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- claim.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- collections.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- coverage.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- coverage.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- credit.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- decision.appeal: 29 CFR § 2560.503-1(h)(3)(iii) and (h)(4); 42 CFR § 422.590; Cal. Health &amp; Safety Code § 1367.01; GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- decision.review: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C; C.R.S. § 6-1-1705(1)(a)(II) (Colorado SB 26-189: applies to decisions made on or after 2027-01-01; the attorney general&#x27;s rules under § 6-1-1705(3) not adopted as of 2026-11-18)
+- dispute.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- fraud.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- limit.lower: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- payment_arrangement.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- priorauth.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- priorauth.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- refund.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+- transfer.error_refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C
+
+Permitted (66): account.close, account.login, account.open, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.payment_arrangement, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.decide, claim.new, claim.status, collections.balance, collections.dispute, complaint.record, coverage.benefits, coverage.decide, credit.decide, delivery.issue, denial.reason, dispute.decide, dispute.file, eligibility.check, feedback.general, fraud.decide, fraud.report, info.hours_location, limit.change, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, payment.stop, pricing.promotion, priorauth.decide, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.request, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.error_decide, transfer.send, transfer.status
+
+Closed (15): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), other (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+One lock and one bond, counted from Rule 3. STK&#x27;s server does not start with a version of these rules that
+breaks either:
+- The bond: an intent is on the Never list only with a law that names a person for it, its name and section
+  written beside it. While that law names a person, the intent cannot be moved to the Permitted list: a new
+  version that moves it must say, under &quot;No longer named by law&quot;, which law stopped naming a person. An intent
+  with no such law cannot be on the Never list.
+- The lock: the Triggers list can only get longer: a new version may add a trigger, never take one off or
+  change its words. It goes against STK&#x27;s revenue: STK is paid for each permission, and a trigger only lowers
+  their number.
+So STK can move an intent either way only by pointing to a law, and anyone can check each one against it.
+</pre></details>
+<details id="rule-5"><summary>Rule 5 / 2026-11-19</summary>
+<p class="hash">Rule 5 · 5c595a16bfbfe775885845c6d57002a379d88593fe9d34d12a6eef5a36dad3e5<br>Published 2026-11-19 04:41:08 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something. decide: make a
+decision. A conversation goes to a person for two reasons only: a law names a person for its act, or a trigger
+happened. An intent is on the Never list only when a law names a person for that act; the law, its section and
+the address of its official text, as STK reads them, are written beside it below. These rules are the same for
+every company, so where laws differ the strictest is followed. Every other intent is on the Permitted list.
+
+Every intent below is of the domain conversation: an act of an AI in a conversation with a customer. Its full
+name is conversation. followed by the name listed (conversation.claim.status); either form is read as the same.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is other: escalate. other is a conversation that could not be told as any act, so it is not known what
+   it would do.
+3. intent is on the Never list: escalate.
+4. intent is on no list (a name these rules do not have): escalate.
+5. intent is on the Closed list: escalate.
+6. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (17): account.refuse, claim.deny_medical, claim.refuse, collections.refuse, coverage.deny_medical, coverage.refuse, credit.refuse, decision.appeal, decision.review, dispute.refuse, fraud.refuse, limit.lower, payment_arrangement.refuse, priorauth.deny_medical, priorauth.refuse, refund.refuse, transfer.error_refuse
+
+The law that names a person, for each intent on the Never list:
+- account.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- claim.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- claim.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- collections.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- coverage.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- coverage.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- credit.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- decision.appeal: 29 CFR § 2560.503-1(h)(3)(iii) and (h)(4); 42 CFR § 422.590; Cal. Health &amp; Safety Code § 1367.01; GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.590 https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XXV/subchapter-F/part-2560/section-2560.503-1 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- decision.review: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C; C.R.S. § 6-1-1705(1)(a)(II) (Colorado SB 26-189: applies to decisions made on or after 2027-01-01; the attorney general&#x27;s rules under § 6-1-1705(3) not adopted as of 2026-11-18) [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80 https://leg.colorado.gov/bills/SB26-189]
+- dispute.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- fraud.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- limit.lower: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- payment_arrangement.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- priorauth.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- priorauth.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- refund.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- transfer.error_refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+
+Permitted (66): account.close, account.login, account.open, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.payment_arrangement, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.decide, claim.new, claim.status, collections.balance, collections.dispute, complaint.record, coverage.benefits, coverage.decide, credit.decide, delivery.issue, denial.reason, dispute.decide, dispute.file, eligibility.check, feedback.general, fraud.decide, fraud.report, info.hours_location, limit.change, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, payment.stop, pricing.promotion, priorauth.decide, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.request, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.error_decide, transfer.send, transfer.status
+
+Closed (14): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+No longer named by law: none
+
+Added to the Permitted list in this version: none
+
+Two locks. STK&#x27;s server does not start with a version of these rules that breaks either:
+- Lock 1, the law: an intent is on the Never list only with a law that names a person for it, its section and the
+  address of its official text written beside it. An intent with no such law is not on the Never list. When that
+  law stops naming a person, the version lists the intent under &quot;No longer named by law&quot; and it is on the
+  Permitted list in that version. Every intent a version adds to the Permitted list is listed under &quot;Added to the
+  Permitted list&quot;, with its two reasons: it is not a refusal or a contest, and no law names a person for it (the
+  laws checked); and whether it was taken from other.
+- Lock 2: the Triggers list can only get longer: a new version may add a trigger, never take one off or change its
+  words. It goes against STK&#x27;s revenue: STK is paid for each permission, and a trigger only lowers their number.
+So every intent is where it is because of a law or its absence, and anyone can check each one against the
+official text and the reasons published with it.
+</pre></details>
+<h3 id="withdrawn">Replaced or withdrawn</h3>
+<p>Three texts were published and then replaced or withdrawn, before STK had a customer: two versions of the third Rule on 2026-11-18, and a version of the fifth on 2026-11-19. The history of the API keeps their hashes; their texts, from STK's code, are here, each with the hash it was published under.</p>
+<details><summary>Rule 3 / 2026-11-18, replaced the same day</summary>
+<p class="hash">Rule 3 · 4c8288c2f662df4e8756f4d839ea77b4a4cba99a6fc34a8281114e0cf2fab1a9<br>Published 2026-11-18 14:54:49 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something that needs no one&#x27;s
+approval. decide: an act someone must answer for. read and change are on the Permitted list; decide is Never.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (14): account.open, billing.payment_arrangement, claim.decide, collections.dispute, coverage.decide, credit.decide, decision.appeal, dispute.decide, fraud.decide, limit.change, payment.stop, priorauth.decide, refund.request, transfer.error_decide
+
+Permitted (53): account.close, account.login, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.new, claim.status, collections.balance, complaint.record, coverage.benefits, delivery.issue, denial.reason, dispute.file, eligibility.check, feedback.general, fraud.report, info.hours_location, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, pricing.promotion, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.send, transfer.status
+
+Closed (15): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), other (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+Two locks, counted from Rule 3. STK&#x27;s server does not start with a version of these rules that breaks either:
+- The Permitted list can only get shorter: a new version may take an intent off it, never add one.
+- The Triggers list can only get longer: a new version may add a trigger, never take one off or change its words.
+Both go against STK&#x27;s revenue: STK is paid for each permission, and each lock can only lower their number.
+So STK cannot move what is permitted for its own revenue.
+</pre></details>
+<details><summary>Rule 3 / 2026-11-18, replaced the same day</summary>
+<p class="hash">Rule 3 · dc7bd08370abcdff85203f1d98ae989f6f2d22457dd0277a58b9eed51668ed5c<br>Published 2026-11-18 15:42:53 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something. decide: make a
+decision. An intent is on the Never list only when a law names a person for that act; the law and its section
+are written beside it below. Every other intent is on the Permitted list. Whatever the intent, a trigger is a
+customer&#x27;s right to a person.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (4): claim.deny_medical, coverage.deny_medical, decision.appeal, priorauth.deny_medical
+
+The law that names a person, for each intent on the Never list:
+- claim.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d)
+- coverage.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d)
+- decision.appeal: 29 CFR § 2560.503-1(h)(3)(iii) and (h)(4); 42 CFR § 422.590; Cal. Health &amp; Safety Code § 1367.01
+- priorauth.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d)
+
+Permitted (67): account.close, account.login, account.open, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.payment_arrangement, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.decide, claim.new, claim.status, collections.balance, collections.dispute, complaint.record, coverage.benefits, coverage.decide, credit.decide, decision.review, delivery.issue, denial.reason, dispute.decide, dispute.file, eligibility.check, feedback.general, fraud.decide, fraud.report, info.hours_location, limit.change, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, payment.stop, pricing.promotion, priorauth.decide, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.request, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.error_decide, transfer.send, transfer.status
+
+Closed (15): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), other (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+Two locks and one bond, counted from Rule 3. STK&#x27;s server does not start with a version of these rules that
+breaks any of them:
+- The Permitted list can only get shorter: a new version may take an intent off it, never add one.
+- The Triggers list can only get longer: a new version may add a trigger, never take one off or change its words.
+- An intent is on the Never list only with a law that names a person for it, written beside it. An intent taken
+  off the Permitted list goes to the Never list with its law.
+Both locks go against STK&#x27;s revenue: STK is paid for each permission, and each lock can only lower their number.
+The bond means STK can take an intent off the Permitted list only by showing a law that names a person, and
+anyone can check each intent on the Never list against its law.
+</pre></details>
+<details><summary>Rule 5 / 2026-11-19, withdrawn: published before the CEO&#x27;s review</summary>
+<p class="hash">Rule 5 · e4fbd81cd79081b00befc231d79841c041145d257f3af35a845ed498153f2667<br>Published 2026-11-19 03:10:20 UTC</p>
+<pre class="code">STK permission rules
+
+These rules are the same for every company. STK answers from these rules and from nothing else: not the
+words of the conversation (STK never receives them), not a confidence number.
+
+Each intent is one act. read: answer what is, and change nothing. change: change something. decide: make a
+decision. An intent is on the Never list only when a law names a person for that act; the law and its section,
+as STK reads them, are written beside it below. These rules are the same for every company, so where laws
+differ the strictest is followed. Every other intent is on the Permitted list. Whatever the intent, a trigger
+is a customer&#x27;s right to a person.
+
+0. Your account has an invoice still unpaid 60 days after its due date: escalate, until it is paid.
+1. trigger is not unknown: escalate. Pass unknown only when none of the Triggers below happened in the
+   conversation; when one did, pass its name.
+2. intent is on the Never list: escalate.
+3. intent is not on the Never list, the Permitted list or the Closed list: escalate.
+4. intent is on the Closed list: escalate.
+5. Otherwise: finish.
+
+Triggers (6), each one passed when it happened at any point in the conversation, whatever the intent:
+- customer_asked: the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.
+- distressed: the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.
+- angry: the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.
+- bereavement: the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.
+- threat: the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.
+- legal_claim: the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.
+
+Never (17): account.refuse, claim.deny_medical, claim.refuse, collections.refuse, coverage.deny_medical, coverage.refuse, credit.refuse, decision.appeal, decision.review, dispute.refuse, fraud.refuse, limit.lower, payment_arrangement.refuse, priorauth.deny_medical, priorauth.refuse, refund.refuse, transfer.error_refuse
+
+The law that names a person, for each intent on the Never list:
+- account.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- claim.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- claim.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- collections.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- coverage.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- coverage.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- credit.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- decision.appeal: 29 CFR § 2560.503-1(h)(3)(iii) and (h)(4); 42 CFR § 422.590; Cal. Health &amp; Safety Code § 1367.01; GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.590 https://www.ecfr.gov/current/title-29/subtitle-B/chapter-XXV/subchapter-F/part-2560/section-2560.503-1 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- decision.review: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C; C.R.S. § 6-1-1705(1)(a)(II) (Colorado SB 26-189: applies to decisions made on or after 2027-01-01; the attorney general&#x27;s rules under § 6-1-1705(3) not adopted as of 2026-11-18) [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80 https://leg.colorado.gov/bills/SB26-189]
+- dispute.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- fraud.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- limit.lower: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- payment_arrangement.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- priorauth.deny_medical: Cal. Health &amp; Safety Code § 1367.01 and Cal. Ins. Code § 10123.135 (SB 1120, Stats. 2024, ch. 879); 42 CFR § 422.566(d); GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1120 https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-B/part-422/subpart-M/section-422.566 https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- priorauth.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- refund.refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+- transfer.error_refuse: GDPR (Regulation (EU) 2016/679) Art. 22(1) and (3); UK GDPR Arts. 22A and 22C [https://eur-lex.europa.eu/eli/reg/2016/679/oj https://www.legislation.gov.uk/ukpga/2025/18/section/80]
+
+Permitted (66): account.close, account.login, account.open, account.password_reset, account.transactions, account.update, account.username, appointment.book, appointment.change, balance.inquiry, billing.payment_arrangement, billing.question, booking.cancel, booking.change, booking.new, card.activate, card.block, claim.decide, claim.new, claim.status, collections.balance, collections.dispute, complaint.record, coverage.benefits, coverage.decide, credit.decide, delivery.issue, denial.reason, dispute.decide, dispute.file, eligibility.check, feedback.general, fraud.decide, fraud.report, info.hours_location, limit.change, loan.details, loyalty.rewards, order.cancel, order.change, order.new, order.status, payment.method, payment.status, payment.stop, pricing.promotion, priorauth.decide, priorauth.status, privacy.change, privacy.read, product.availability, product.defect, product.question, provider.find, refund.request, refund.status, request.status, return.exchange, service.outage, subscription.cancel, subscription.change, tech.setup, tech.troubleshoot, transfer.error_decide, transfer.send, transfer.status
+
+Closed (15): benefit.denial (closed 2026-11-18), billing.dispute (closed 2026-11-18), complaint.escalation (closed 2026-11-18), complaint.general (closed 2026-11-18), contact.agent (closed 2026-11-18), credit.denial (closed 2026-11-18), credit.loan (closed 2026-11-18), insurance.coverage (closed 2026-11-18), other (closed 2026-11-18), payment.failed (closed 2026-11-18), payment.transfer (closed 2026-11-18), privacy.data_request (closed 2026-11-18), security.card_lost (closed 2026-11-18), security.fraud (closed 2026-11-18), transfer.error (closed 2026-11-18)
+
+Two locks and one bond. STK&#x27;s server does not start with a version of these rules that breaks any of them:
+- The bond (from Rule 3): an intent is on the Never list only with a law that names a person for it, its name,
+  its section and the address of its official text written beside it. While that law names a person, the intent
+  cannot be moved to the Permitted list: a new version that moves it must say, under &quot;No longer named by law&quot;,
+  which law stopped naming a person. An intent with no such law cannot be on the Never list.
+- Lock 1 (from Rule 5): no intent is added to the Permitted list, except one the bond lets off the Never list. No
+  new intent is made: a request that fits no intent above is answered escalate.
+- Lock 2 (from Rule 3): the Triggers list can only get longer: a new version may add a trigger, never take one off
+  or change its words.
+Both locks go against STK&#x27;s revenue: STK is paid for each permission, and each lock can only lower their number.
+So STK can move an intent only by pointing to a law, can make no new one, and anyone can check each one against
+the official text.
+</pre></details>
+</div>
+</main>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
+</div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
+</div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
+</body>
+</html>

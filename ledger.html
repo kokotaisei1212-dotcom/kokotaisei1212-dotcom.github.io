@@ -4,76 +4,152 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The ledger · STK</title>
-<meta name="description" content="Every answer comes with its row, signed by STK. You keep the rows; STK keeps a count a day.">
+<meta name="description" content="Your code keeps each permission: the row, 32 random bytes, and STK&#x27;s signed receipt of the seal. STK keeps a count a day.">
 <link rel="canonical" href="https://stk-evidence.com/ledger">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/ledger">
 <meta property="og:title" content="The ledger · STK">
-<meta property="og:description" content="Every answer comes with its row, signed by STK. You keep the rows; STK keeps a count a day.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:description" content="Your code keeps each permission: the row, 32 random bytes, and STK&#x27;s signed receipt of the seal. STK keeps a count a day.">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The ledger · STK">
-<meta name="twitter:description" content="Every answer comes with its row, signed by STK. You keep the rows; STK keeps a count a day.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="twitter:description" content="Your code keeps each permission: the row, 32 random bytes, and STK&#x27;s signed receipt of the seal. STK keeps a count a day.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <div class="doc">
 <div class="eyebrow">The ledger</div>
 <h1>The ledger</h1>
-<p class="lead">Every answer to a call with your key comes with its row and STK's signature of it. stk.py and stk.mjs keep both for you. STK keeps no row.</p>
+<p class="lead">Each permission is one line your code keeps: your row, the 32 random bytes that sealed it, and STK's receipt of the seal with its signature. STK has only the seal and its time, and keeps no line.</p>
 
-<h2 id="row">What a row holds</h2>
+<h2 id="row">What a receipt holds</h2>
 <div class="table"><table>
 <thead><tr><th>Field</th><th></th></tr></thead>
 <tbody>
-<tr><td><code>v</code></td><td>The form of the row: 1.</td></tr>
-<tr><td><code>ask_id</code></td><td>The answer's id: 32 hex.</td></tr>
-<tr><td><code>time_ms</code></td><td>When STK answered, in milliseconds since 1970 (UTC).</td></tr>
-<tr><td><code>account</code></td><td>Your account's id at STK. A report can be made only with a row of your own account.</td></tr>
-<tr><td><code>conversation_id</code></td><td>As your code sent it: a random id your code makes for each conversation.</td></tr>
-<tr><td><code>intent</code></td><td>As your code sent it.</td></tr>
-<tr><td><code>trigger</code></td><td>As your code sent it: one of five words.</td></tr>
-<tr><td><code>rule_version</code></td><td>The SHA-256 of the full text of the rules that gave the answer. <a href="/rules">The rules</a></td></tr>
-<tr><td><code>decision</code></td><td><code>finish</code> or <code>escalate</code>.</td></tr>
-<tr><td><code>clause</code></td><td>The numbered rule that gave the answer: 0 to 5 (0: an invoice of your account unpaid 60 days after its due date).</td></tr>
-<tr><td><code>which_key</code></td><td><code>test</code> or <code>live</code>. Only <code>live</code> answers are billed.</td></tr>
-<tr><td><code>human_joined</code></td><td><code>true</code> when your code said a person has joined the conversation.</td></tr>
-<tr><td><code>kid</code></td><td>The key that signed the row: one or more a day (UTC); a new STK process makes a new one.</td></tr>
+<tr><td><code>v</code></td><td>The form of the receipt: 2, with both times; 1, from before 2026-11-21 or from a call with the seal alone, without <code>recorded_ms</code>.</td></tr>
+<tr><td><code>seal</code></td><td>SHA-256 of the 32 random bytes followed by your row: 64 hex. With <code>recorded_ms</code>, the only thing of yours STK received.</td></tr>
+<tr><td><code>time_ms</code></td><td>When STK signed it, in milliseconds since 1970 (UTC). What STK attests, and the day it is billed for.</td></tr>
+<tr><td><code>recorded_ms</code></td><td>When your library recorded the action, in milliseconds since 1970 (UTC): your own claim, not STK's. The same moment as <code>time_ms</code> unless the seal waited in the library's queue while STK could not be reached.</td></tr>
+<tr><td><code>rule_version</code></td><td>The SHA-256 of the full text of the rules in use when STK signed it. <a href="/rules-full#all-texts">The rules</a></td></tr>
+<tr><td><code>account</code></td><td>Your account's id at STK.</td></tr>
+<tr><td><code>which_key</code></td><td><code>test</code> or <code>live</code>. Only <code>live</code> is billed.</td></tr>
+<tr><td><code>kid</code></td><td>The key that signed it: one or more a day (UTC); a new STK process makes a new one.</td></tr>
+</tbody>
+</table></div>
+<p>Beside the receipt, in what your code keeps: <code>row</code> (your row, as the text that was sealed: <code>intent</code>, <code>trigger</code> and any fields of yours), <code>nonce</code> (the 32 random bytes, hex), <code>sig</code>, and <code>cancelled</code> when your file told STK a person has it before it answered (newer rules say <code>escalate</code>, or it could not be kept).</p>
+
+<h2 id="check">How to check a row</h2>
+<p><strong>Your rows are only on your side. STK holds not one of them. Keep the files the library saved: if you lose one, that permission can no longer be checked afterwards.</strong></p>
+<p><a href="/stk_verify.py" download>stk_verify.py</a> (Python 3 with <code>pip install cryptography</code>) checks each line alone, three things, no secret needed:</p>
+<ol>
+<li><strong>The seal.</strong> SHA-256 of the random bytes and the row is the seal in the receipt. A row changed after it was sealed does not match.</li>
+<li><strong>The signature.</strong> The public key of the receipt's <code>kid</code>, from <code>GET https://api.stk-evidence.com/v1/rules?keys=1</code> or <a href="/keys.json">/keys.json</a>, checks STK's Ed25519 signature over the receipt's values in the order above, as a JSON array with no spaces.</li>
+<li><strong>The rules.</strong> The version named in the receipt, its text signed by STK (<code>GET /v1/rules?history=1</code>), answers <code>finish</code> for the row's <code>intent</code> and <code>trigger</code>. A row with a Never intent, an intent that version closed (<a href="/rules-full#closed">closed names</a>), or one that only an older version would pass, does not.</li>
+</ol>
+<p>A key is used for one day, and STK lets go of it when the day ends; its public key stays published, so a permission of years ago is checked with its day's key.</p>
+
+<h2 id="proves">What a receipt proves, and what it does not</h2>
+<p><strong>Proves:</strong></p>
+<ul>
+<li>STK signed this seal, at this time, under this version of the rules, with this key.</li>
+<li>With the row and its random bytes, that the row has not changed since it was signed.</li>
+<li>The version of the rules is public, so anyone can run the same judgment again and get the same answer.</li>
+</ul>
+<p><strong>Does not prove:</strong></p>
+<ul>
+<li>That every conversation was sealed. A company can choose not to call STK.</li>
+<li>That the row is a true record of the conversation.</li>
+<li>That a person actually took over, or what that person did.</li>
+<li>That the time is attested by anyone other than STK.</li>
+<li>When the action happened, if the receipt's two times differ: only when STK signed.</li>
+<li>That STK's handling of its signing keys has been audited. It has not.</li>
+<li>That the rules are sufficient for any one company's legal duties. Each company remains responsible for its own.</li>
+</ul>
+<p>STK attests to the time STK signed. The time the library recorded the action is the customer's own claim. In normal operation these are the same moment. When STK could not be reached, they differ, and the receipt shows both.</p>
+
+<h2 id="receipt">A receipt and its signature only</h2>
+<p>With a receipt and its signature, and no row and no random bytes, anyone can check whether STK signed it:</p>
+<pre class="code">python3 stk_verify.py --receipt receipt.json keys.json</pre>
+<p><code>receipt.json</code> is <code>{"receipt": {...}, "sig": "..."}</code> as STK returned them. <code>keys.json</code> is a copy of STK's public keys (<a href="/keys.json">/keys.json</a>); with it, nothing goes over the network. It tells one thing: that STK signed this seal, at this time, under this version of the rules, for this account. It cannot tell what the row was: the intent and the trigger are not in a receipt.</p>
+
+<h2 id="for-a-person">What a company can give a person, for the whole check</h2>
+<p>A company can give a person affected by an act of its AI these five things, in one line of JSON:</p>
+<pre class="code">{"row": "&lt;the row, as the text that was sealed&gt;", "nonce": "&lt;the 32 random bytes, 64 hex&gt;",
+ "receipt": {...}, "sig": "&lt;base64&gt;", "rule_version": "&lt;the version of the rules in the receipt&gt;"}</pre>
+<p>With the signed text of that version of the rules and STK's public key of that day in the same file (<code>{"rules": &lt;one item of "versions"&gt;}</code> from <code>GET /v1/rules?history=1</code> and <code>{"key": ...}</code> from <a href="/keys.json">/keys.json</a>), <code>python3 stk_verify.py --from-file person.jsonl</code> needs nothing else. A person given these five things can check, asking neither the company nor STK, whether the row the company declared was permitted by the rules (<a href="#proves">what a receipt proves, and what it does not</a>). How the company gives them is the company's choice; STK asks for nothing.</p>
+
+<h2 id="later">Seven years later</h2>
+<p>The same three checks, the same way: <code>python3 stk_verify.py &lt;file.jsonl&gt;</code>. Public keys are never deleted, and every version of the rules stays in <code>GET /v1/rules?history=1</code>, so what you kept on any day checks with its own day's key and its own Rule.</p>
+
+<h2 id="gone">If STK is gone</h2>
+<p>stk.py and stk.mjs already keep, beside your lines, the signed Rule they applied and the public key of every receipt they got, as they read them from STK at the time. <code>python3 stk_verify.py --from-file &lt;file.jsonl&gt;</code> checks your lines with those and nothing of STK running (put a month's files together into one first). A copy of every public key is also at <a href="/keys.json">/keys.json</a>.</p>
+
+<h2 id="forged">Where a forgery fails</h2>
+<div class="table"><table>
+<tbody>
+<tr><td>A row changed after it was sealed (another intent, another field)</td><td>Check 1: the seal does not match.</td></tr>
+<tr><td>A receipt changed (another time, account or Rule)</td><td>Check 2: the signature does not match.</td></tr>
+<tr><td>A receipt not made by STK</td><td>Check 2: no public key of STK's checks it.</td></tr>
+<tr><td>A row the rules do not permit, sealed anyway (a Never intent, a trigger other than <code>unknown</code>)</td><td>Check 3: its Rule does not answer <code>finish</code>.</td></tr>
+<tr><td>A row that only an older Rule would permit</td><td>Check 3: the receipt names the Rule in use when it was signed.</td></tr>
+<tr><td>A day whose signing key STK made invalid</td><td>Check 2: that key is marked invalid.</td></tr>
 </tbody>
 </table></div>
 
-<h2 id="check">How anyone checks a row</h2>
-<p>The signature is Ed25519, over the row's fields in the order above, as JSON with no spaces. The public key of each <code>kid</code> is in <code>GET https://api.stk-evidence.com/v1/rules?keys=1</code>, no key needed. A row checks alone: no other row, no order, no secret. <a href="/stk_verify.py" download>stk_verify.py</a> checks a file of rows.</p>
-<p>A key is used for one day only, and STK lets go of it when the day ends; its public key stays published, so a row of years ago is checked with its day's key.</p>
+<h2 id="fails">When a check fails</h2>
+<p>That line is not a permission STK can stand behind: leave it out of your count, and out of any reply to the invoice. One marked <code>cancelled</code> that fails check 3 is expected: your file told STK a person had it, and it was taken off the bill.</p>
 
-<h2 id="keep">Where the rows are kept</h2>
-<p>stk.py and stk.mjs write each row and its signature as one JSON line to <code>stk-rows/&lt;day&gt;.jsonl</code> next to your code, or give it to a function of yours (for a place where files are not kept, like a serverless function), or, when neither works, print it to standard output. An answer that arrives after your code stopped waiting is kept too.</p>
-<p>STK cannot give a row back: it has none. <a href="/limits#rows">Known limits</a></p>
+<h2 id="keep">Where your lines are kept</h2>
+<p>stk.py and stk.mjs write each line to <code>stk-rows/&lt;day&gt;.jsonl</code> next to your code, or give it to a function of yours (for a place where files are not kept, like a serverless function), or, if the folder cannot be written, print it to standard output. They also keep the signed rules they applied, the public key of each receipt, and a <code>joined</code> line each time they tell STK a person has a conversation. Each permission's line is kept before <code>ask()</code> returns. A permission that arrives after your code stopped waiting is kept as it came, followed by a <code>joined</code> line with its seal; if STK cannot be told, a <code>not_told</code> line: it stays billed. An intent on no list of the rules leaves a <code>not_listed</code> line, for your own count; STK is not told.</p>
+<p>Nobody can give one back: STK never had it. <a href="/limits#rows">Known limits</a></p>
 
 <h2 id="days">What STK keeps</h2>
-<p><code>GET /v1/ledger</code> with your key: one row a day, the day's finish and escalate counts. To compare with the rows you kept. <a href="/docs#ledger">Docs</a></p>
+<p><code>GET /v1/ledger</code> with your key: one row a day, the day's counts of permissions and of people joining, and what was billed. To compare with what you kept. <a href="/docs#ledger">Docs</a></p>
 </div>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

@@ -11,27 +11,32 @@
 <meta property="og:url" content="https://stk-evidence.com/limits">
 <meta property="og:title" content="Known limits · STK">
 <meta property="og:description" content="What STK cannot do today, or can get wrong, and who pays for it.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Known limits · STK">
 <meta name="twitter:description" content="What STK cannot do today, or can get wrong, and who pays for it.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits" aria-current="page">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <div class="doc">
 <div class="eyebrow">Known limits</div>
@@ -39,63 +44,150 @@
 <p class="lead">What STK cannot do today, or can get wrong. Each one is still true.</p>
 
 <h2>Why your AI hands a conversation over</h2>
-<p><strong>What happens.</strong> STK knows the reason only from the trigger your code sends. It cannot check it. If your code sends <code>unknown</code> for a conversation where the customer asked for a person, is angry, or needs someone's authority, and the intent is permitted, STK answers <code>finish</code>.</p>
+<p><strong>What happens.</strong> The reason is only the trigger your code puts in the row, and STK never sees it. If your code gives <code>unknown</code> for a conversation in which one of the triggers of <a href="/rules-full#triggers">The rules</a> happened (the customer asked for a person, is distressed or angry, spoke of a death, a threat or a legal claim), and the intent is permitted, the rules say <code>finish</code>.</p>
 <p><strong>Who pays.</strong> You, in that conversation.</p>
-<p><strong>What you can do.</strong> Send <code>unknown</code> only when the one reason is that your AI is not sure enough.</p>
+<p><strong>What you can do.</strong> Send <code>unknown</code> only when none of the triggers happened.</p>
 
 <h2>Your own names for intents</h2>
-<p><strong>What happens.</strong> STK knows only its own 56 intent ids. Any other name is answered <code>escalate</code>, so a name of your own never gets a permission.</p>
+<p><strong>What happens.</strong> STK knows only its own 83 intent ids. stk.py and stk.mjs take spaces off around a name and read it in lower case; any other name is answered <code>escalate</code>, so a name of your own never gets a permission. Each time, the file keeps a <code>not_listed</code> line with the name, next to your rows; STK is not told. When those lines grow, your names have moved away from STK's.</p>
 <p><strong>Who pays.</strong> Nobody is billed; your AI gets nothing from STK for it.</p>
 <p><strong>What you can do.</strong> Send STK's own intent ids (<a href="/rules">the list</a>).</p>
 
 <h2>A person joined a permitted conversation</h2>
-<p><strong>What happens.</strong> STK knows a person joined only when your code sends <code>human_joined: true</code>. Without it, the permission is billed. Sent on a later day (UTC) than the permission, it takes nothing off: that permission stays billed.</p>
+<p><strong>What happens.</strong> STK knows a person joined only when your code calls <code>stk.joined()</code> (<code>POST /v1/joined</code>, a count). Without it, the permission is billed. Told after 00:10 UTC the day after the permission, it takes nothing off that day: the permission stays billed.</p>
 <p><strong>Who pays.</strong> You.</p>
-<p><strong>What you can do.</strong> Send it before the month closes (its end, UTC). After the close it cannot be taken off.</p>
+<p><strong>What you can do.</strong> Call <code>stk.joined()</code> when the person joins, the same day (UTC).</p>
 
 <h2>STK does not know how a conversation ended</h2>
-<p><strong>What happens.</strong> STK does not see whether a customer came back after a permitted conversation. A permitted intent stays permitted until STK takes it off in a new version of the rules. A report does not take it off.</p>
+<p><strong>What happens.</strong> STK does not see whether a customer came back after a permitted conversation. A permitted intent stays permitted until a new version of the rules puts it on the Never list, with a law that names a person for it. A report does not take it off.</p>
 <p><strong>Who pays.</strong> You, in those conversations.</p>
-<p><strong>What you can do.</strong> Check your conversations against the rows you kept; stop calling STK for an intent whenever you choose. Report a <code>finish</code> that went wrong: <code>POST /v1/incident</code>, dated and public.</p>
+<p><strong>What you can do.</strong> Check your conversations against what you kept; stop calling STK for an intent whenever you choose. Report a <code>finish</code> that went wrong: <code>POST /v1/incident</code>, dated and public.</p>
 
 <h2>A report closes nothing</h2>
-<p><strong>What happens.</strong> A report is a dated, public row. Only STK closes an intent, in a new version of the rules, and a closed intent is never permitted again.</p>
-<p><strong>Who pays.</strong> Nobody is billed for a closed intent.</p>
+<p><strong>What happens.</strong> A report is a dated, public row. Only STK takes an intent off the Permitted list, in a new version of the rules, and only by putting it on the Never list with a law that names a person for it; when that law stops naming one, the intent is permitted again.</p>
+<p><strong>Who pays.</strong> Nobody is billed for an intent that is not permitted: the file does not call STK for it.</p>
 
 <h2>A leaked key works until you replace it</h2>
-<p><strong>What happens.</strong> STK cannot tell a leaked key from yours.</p>
-<p><strong>What you can do.</strong> To replace a key, leaked or not: <code>POST /v1/keys</code> with your account's email. The new key is sent there; its first call stops every older key of your account.</p>
+<p><strong>What happens.</strong> STK cannot tell a leaked key from yours. Until you replace it, a leaked live key can get up to 20,000,000 permissions a day signed (UTC), $100,000,000, billed to you; 10,000 a day, $50,000, until an invoice of yours has been paid.</p>
+<p><strong>What you can do.</strong> To replace your keys, leaked or not: <code>POST /v1/keys</code> with your account's email and your live key in <code>X-STK-Key</code>. The new keys come back once; the old ones stop at once. If your live key itself leaked, whoever has it can do the same.</p>
 
 <h2 id="rows">STK cannot give a row back</h2>
-<p><strong>What happens.</strong> STK keeps no row of an ask. Each row comes back with its answer, signed, and stk.py or stk.mjs keeps it where your code runs. A row you lose, or never kept, is gone: STK has no copy, and <code>GET /v1/ledger</code> gives only each day's counts.</p>
-<p><strong>What you can do.</strong> Keep the folder stk.py and stk.mjs write to (<code>stk-rows</code>), or give them a function that puts each row in your own store. Compare your rows each day with <code>GET /v1/ledger</code>: a day with fewer rows than its counts is a day you lost some.</p>
-<p><code>conversation_id</code> is a random id your code makes for each conversation. Do not derive it from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only.</p>
+<p><strong>What happens.</strong> STK never receives a row: only its seal and the time it was recorded. stk.py or stk.mjs keeps each line (the row, its random bytes, STK's receipt) where your code runs. What you lose, or never kept, is gone: nobody has a copy, and <code>GET /v1/ledger</code> gives only each day's counts.</p>
+<p><strong>What you can do.</strong> Keep the folder stk.py and stk.mjs write to (<code>stk-rows</code>), or give them a function that puts each line in your own store. Compare your lines each day with <code>GET /v1/ledger</code>: a day with fewer lines than its count is a day you lost some.</p>
 
 <h2 id="key-leak">A signing key that leaks</h2>
-<p><strong>What happens.</strong> STK signs with keys of one day (one, or more if STK started again that day) and lets go of them when the day ends. If a day's key leaks, someone could make rows that check as STK's for that day. STK then marks that key invalid in <code>GET /v1/rules?keys=1</code>, with the date, and lists it in <code>GET /v1/rules?history=1</code>. From then on no row of that day checks with STK's keys, yours included. The rows you keep are not touched, and no other day is: each day has its own key.</p>
+<p><strong>What happens.</strong> STK signs with keys of one day (one, or more if STK started again that day) and lets go of them when the day ends. If a day's key leaks, someone could make rows that check as STK's for that day. STK then marks that key invalid in <code>GET /v1/rules?keys=1</code>, with the date, and lists it in <code>GET /v1/rules?history=1</code>. From then on no row signed with that key checks with STK's keys, yours included; the day is billed nothing. If STK signs again that day, it is with a new key, and rows signed with that one check. The rows you keep are not touched, and no other day is: each day has its own keys.</p>
 <p><strong>Who acts.</strong> A person at STK: finding out that a key leaked, and running the one command that marks it invalid. Nothing finds a leak by itself.</p>
 
-<h2 id="lost-hour">A stop that loses up to an hour</h2>
-<p><strong>What happens.</strong> STK writes each day's counts once an hour, and when it stops cleanly. If it stops without that, what it counted since its last write is lost. That day (both days, if the lost time crosses midnight UTC) is billed nothing, for every company: a lost <code>human_joined</code> could otherwise make a bill too high. <code>GET /v1/ledger</code> marks the day <code>"zeroed": true</code>. A bill can come out lower than what was asked, never higher.</p>
+<h2 id="intent-not-checked">STK does not see the intent</h2>
+<p><strong>What happens.</strong> STK receives the seal and its time only, so it does not check that the intent and trigger your code put in the row are what the conversation was about, or that your code applied the rules before calling. A call with a seal is signed and billed whatever the row says. stk_verify.py later shows a row the rules did not permit as not a permission; STK cannot know of it.</p>
 
-<h2 id="no-records">STK that cannot reach its records</h2>
-<p><strong>What happens.</strong> STK signs only with keys whose public keys it has already written, seven days of them ahead. If it cannot reach where it keeps its records long enough for those to run out, or it starts again and cannot write new ones, it gives no permission: every ask with a key is answered <code>escalate</code>, with no row, and nothing is billed. Your conversations go to people, as your code does today. <code>GET /v1/health</code> says <code>"ok": false</code>. When it can write a public key again, the next ask is answered by the rules. Nobody has to do anything. The same happens for a moment when STK is deployed, until the process before it stops.</p>
+<h2 id="signing">What STK's keys can and cannot do</h2>
+<p><strong>What happens.</strong> STK can make a receipt with its own key for any seal it chooses. It cannot change a row you hold: the row is sealed, and your copy is yours. It cannot make a row it has never seen pass the checks: a receipt is only for a seal, and only your random bytes and row open it.</p>
+
+<h2 id="first-hour">A key made when STK starts</h2>
+<p><strong>What happens.</strong> When STK's server starts, it makes a signing key for that day and signs with it the same day. Until the next hourly copy, that key's public key is in Stripe, and in the files of the companies that got a receipt signed with it (stk.py and stk.mjs save it), only. If it were deleted in Stripe in that time, what was signed with it passes check 2 only with the company's own saved key.</p>
+
+<h2 id="card">An invoice is paid by card</h2>
+<p><strong>What happens.</strong> Each invoice is charged to the card registered with the live key, the Monday after its week. A week's amount the card does not cover is declined: the invoice stays open, Stripe tries the card again by the retry settings of STK's Stripe account (STK does not set when), and it can be paid from its link. Paying one invoice in several parts is not offered. STK has no other way to pay today; if it adds one, it says so here 14 days before.</p>
+<p><strong>What you can do.</strong> Register a card whose limit covers a week, or pay an open invoice from its page with a card that covers it.</p>
+<p><strong>A part paid.</strong> An invoice paid in part (by a credit note, for example) is unpaid until the rest is paid: 60 days after it was issued, STK signs nothing for your account, as for one not paid at all. The next ask after the rest is paid is signed.</p>
+
+<h2 id="email">A declined card</h2>
+<p><strong>What happens.</strong> STK sends no email. When the card is declined, Stripe tries the card again. STK asks Stripe to send an open invoice again to your account's address on its due date and 7, 30 and 53 days after; whether Stripe also emails you each time a charge fails is a setting of STK's Stripe account. Do not count on an email. Unpaid, the invoice is still open, and 60 days after it was issued STK signs nothing for your account.</p>
+<p><strong>What you can do.</strong> <code>GET /v1/health</code> with your key lists your unpaid invoices and the day STK stops signing.</p>
+
+<h2 id="test-live">A test key in production, a live key in a test</h2>
+<p><strong>What happens.</strong> STK cannot tell where a key is used. A test key in production gets the same answers, is never billed, and its rows check as a test key's, not as live permissions. A live key in a test is billed.</p>
+
+<h2 id="address-known">Whether an address has keys can be learned</h2>
+<p><strong>What happens.</strong> <code>POST /v1/keys</code> with an address that has keys answers 409. Anyone can learn that way, 10 addresses an hour from one place, whether an address has keys at STK. Not the account, its keys or its use.</p>
+<p><strong>What you can do.</strong> Get your keys with an address that does not name your company.</p>
+
+<h2 id="keys-json">The site's keys.json is late</h2>
+<p><strong>What happens.</strong> <a href="/keys.json">/keys.json</a> is as of the site's last deploy; a key made after it is in <code>GET /v1/rules?keys=1</code> only. From 2026-12-01 it is copied once an hour.</p>
+<p><strong>What you can do.</strong> Save <code>GET /v1/rules?keys=1</code> yourself.</p>
+
+<h2 id="render">What Render keeps</h2>
+<p><strong>What happens.</strong> Render runs STK's server, so every request passes through it, with the address it comes from. What Render keeps of a request, and for how long, is under Render's own terms; STK has not read it.</p>
+
+<h2 id="public-keys">Where the public keys are</h2>
+<p><strong>What happens.</strong> Every public key STK signs with is written to Stripe before it signs anything. Every hour it is copied, never shortened and never changed, into this site's public repository, and published at <a href="/keys.json">/keys.json</a> when the site is next deployed (from 2026-12-01, with each copy). The copy is a second place to check rows with; STK never takes keys from it. When STK starts, it compares the copy with Stripe: a key deleted or changed in Stripe is then missing or different in <code>GET /v1/rules?keys=1</code>, <code>/v1/health</code> says <code>"ok": false</code>, and the copy still has it as it was published. A key STK makes when it starts signs the same day: until the next hourly copy, it is in Stripe and in the files of the companies it signed for only.</p>
+
+<h2 id="start-day">A day STK started again on</h2>
+<p><strong>What happens.</strong> STK writes each company's count of the day to Stripe every 2 minutes. When its server starts again in a day (a deploy, or after it stopped), it cannot know which seals were counted before the start, so it never adds the two counts: the day is billed as the larger of them, less every person joining that day. The permissions of the smaller count, and those not yet written when the server stopped, are not billed. A person told to STK with a seal in the first 10 minutes of a day, by a server that started after the day before began, is taken off both days. A bill can come out lower than the number of actions STK permitted. It cannot come out higher: on a day the API restarted, the day is billed the larger of the counts before and after the restart, not their sum, so a seal sent again after the restart is not billed twice. STK's own libraries do not send the same seal twice. STK deploys at any time of day, each deploy in the <a href="/changelog">Changelog</a>; the later in a day it deploys, the more of that day's count can be left unbilled. While a deploy starts the server, a grant from STK's last answer lets stk.py and stk.mjs finish and queue the seals. A deploy is not counted as a stop. A start of the same commit again (a crash, a kill, a restart) is counted as an unexpected stop: more than 1 in 250 days makes <a href="/docs#health"><code>/v1/health</code></a> say <code>ok</code> false for 24 hours.</p>
+<p><strong>Who pays.</strong> STK.</p>
+
+<h2 id="anyone-signs-up">An address that is not yours</h2>
+<p><strong>What happens.</strong> STK does not check that whoever signs up owns the address: it sends no email. Someone could take keys under an address that is not theirs; the invoices for what they ask go to that address. Only the live key of an account can make new keys for it; or, while its keys have never been used, the same address again, 10 minutes after they were made (the keys before stop).</p>
+
+<h2 id="no-records">STK that cannot reach Stripe</h2>
+<p><strong>What happens.</strong> STK signs only with keys whose public keys it has already written to Stripe, seven days of them ahead. If it cannot reach Stripe long enough for those to run out, or cannot read whether an account is unpaid for two hours, or it starts again and cannot write new ones, it gives no permission: every ask with a key is answered <code>escalate</code>, with no row, and nothing is billed. Your conversations go to people, as your code does today. <code>GET /v1/health</code> says <code>"ok": false</code>. When it can write a public key again, the next ask is answered by the rules. Nobody has to do anything. The same happens for a moment when STK is deployed, until the process before it stops.</p>
 
 <h2 id="late-join">A person who joins on a later day</h2>
-<p><strong>What happens.</strong> A <code>human_joined: true</code> takes a permission of the same day (UTC) off the bill, and only of that day. A person who joins after midnight UTC takes nothing off: the permission of the day before stays billed.</p>
+<p><strong>What happens.</strong> A call to <code>POST /v1/joined</code> takes a permission of the same day (UTC) off the bill; with the seal of a permission of the day before, until 00:10 UTC, one of that day. A person told to STK after that takes nothing off the day before: its permission stays billed.</p>
 
 <h2 id="servers">The same conversation on two servers</h2>
-<p><strong>What happens.</strong> stk.py and stk.mjs do not ask again for a conversation STK answered <code>finish</code> the same day, and after a restart they read that day's file again. Each server remembers only its own. If the same conversation is asked on two servers, each asks STK, and each <code>finish</code> is a permission: two. With a function of yours in place of the file (<code>ON_ROW</code>, <code>setOnRow</code>), they remember only while the process runs.</p>
+<p><strong>What happens.</strong> stk.py and stk.mjs do not call STK again for a conversation and intent that got <code>finish</code> the same day, and after a restart they read that day's file again. Each server remembers only its own. If the same conversation is asked on two servers, each calls STK, and each signed seal is a permission: two. With a function of yours in place of the file (<code>ON_ROW</code>, <code>setOnRow</code>), they remember only while the process runs.</p>
+
+<h2 id="serverless">A function stopped as soon as it answers</h2>
+<p><strong>What happens.</strong> stk.py and stk.mjs keep a permission's line before <code>ask()</code> returns; one that cannot be kept is told to STK as a person joining, and <code>ask()</code> returns <code>escalate</code>. When STK's answer comes after 300 ms and no grant holds, the file tells STK a person has the conversation, after <code>ask()</code> has returned. Where your code runs as a function that is stopped as soon as it answers (a serverless function), it may be stopped before that: the permission stays billed.</p>
+<p><strong>Who pays.</strong> You.</p>
+<p><strong>What you can do.</strong> Let the function run on for a few seconds after <code>ask()</code> returns, so the file can tell STK. Do not call <code>stk.joined()</code> for every <code>escalate</code>: a conversation that got no <code>finish</code> would take another permission off the day.</p>
+<p>A seal waiting in the queue is sent only while the process runs: in such a function, by a later call of the same instance, or before it returns by <code>stk.flush()</code> (<code>await flush()</code> in stk.mjs), which waits up to 30 seconds.</p>
+
+<h2 id="grant">A permission finished before STK signed it</h2>
+<p><strong>What happens.</strong> While the grant of STK's last answer holds (10 minutes) and STK cannot be reached, stk.py and stk.mjs return <code>finish</code> and keep the seal in a queue. Until STK signs it, there is a <code>queued</code> line and no receipt. If STK then does not sign it (an invoice unpaid 60 days after its due date, a key replaced, the limits of a day, a grant STK refuses), the file writes a <code>not_signed</code> line: the action finished, and there is no permission for it. A queue kept only through <code>ON_ROW</code>, with no files, is lost when the process ends; with files, a restarted process sends the <code>queued</code> lines of today and yesterday. A receipt from the queue is signed under the version of the rules the grant named, and billed for the day STK signed it, not the day recorded. STK's clock is in the receipt; the recorded time is the company's own claim, and STK checks only that it falls within the grant.</p>
+<p><strong>Who pays.</strong> A seal STK signs is billed as any permission. One it does not sign is billed nothing; the action it was for has no permission.</p>
+
+<h2 id="shared-disk">One file on a network disk</h2>
+<p><strong>What happens.</strong> stk.py and stk.mjs add each line to the day's file in one write. On a disk of one machine, lines of several servers sharing the file never mix. On a network disk (NFS and the like) that is not assured.</p>
+<p><strong>What you can do.</strong> Give each server its own folder (<code>STK_ROWS_DIR</code>).</p>
+
+<h2 id="limits">How much STK signs</h2>
+<p><strong>What happens.</strong> STK signs up to 20,000,000 permissions a day (UTC) for a live key; 10,000 until an invoice of its account has been paid. A test key: 1,000. The seals of a day, of all accounts together, are each counted once, up to 46,930,325 in a day (46,930,325 seals in 511 MB, filled once on 2026-11-21 on a Mac; the next one was refused); past that, STK signs no new seal that day and the file answers <code>escalate</code>. They are kept in the API's memory only: when the API restarts they are lost, and a seal signed before the restart and sent again the same day is counted again in the count after the restart; the day is billed the larger of the two counts, not their sum, so it is not billed twice. Past the limits above, STK signs nothing more that day and the file answers <code>escalate</code>, with the reason in <code>not_signed</code>. 20 new accounts an hour are made in all; then <code>POST /v1/keys</code> answers 429 for a new address until the hour has passed (replacing keys is not held up). One account can make 10 reports in 24 hours.</p>
+<p><strong>Who pays.</strong> Nobody: what is not signed is not billed.</p>
+
+<h2 id="load-test">What a load test found</h2>
+<p><strong>What happens.</strong> In a load test of 150 companies, 450 company-days (from 2026-11-19), 300 days were billed less than the test counted, by 1.32% in all. No day was billed more. The cause is not known.</p>
+<p><strong>Who pays.</strong> Nobody is billed more: on those days the bill was lower than the test's own count.</p>
+
+<h2 id="unused">Keys never used</h2>
+<p><strong>What happens.</strong> An account with no day of <code>POST /v1/ask</code> or <code>POST /v1/joined</code> sent to Stripe in the 30 days after it was made is deleted, with its email address. A day lost when STK's server stopped does not count. The same address can get keys again.</p>
+<p><strong>What you can do.</strong> Make one <code>ask()</code> that gets <code>finish</code> with your live key within 30 days (one with the test key does not count).</p>
+<p><strong>A card page lost.</strong> The live key needs the card page's session, which the key form keeps only while its page is open. If the page is closed before the card step and the test key has been used, the same address cannot take keys again until the account is deleted, 30 days after it was made; another address can take keys at once. If the test key has not been used, the same address can take keys again 10 minutes after they were made.</p>
+
+<h2 id="receipt-limits">What a receipt does not prove</h2>
+<p><strong>What happens.</strong> A receipt does not prove that every conversation was sealed (a company can choose not to call STK); that the row is a true record of the conversation; that a person actually took over, or what that person did; that the time is attested by anyone other than STK; that STK's handling of its signing keys has been audited (it has not); or that the rules are sufficient for any one company's legal duties. <a href="/ledger#proves">What a receipt proves, and what it does not</a></p>
+<p><strong>Who answers for it.</strong> Each company, for its own records and its own legal duties.</p>
 
 <h2>No real bill yet</h2>
-<p><strong>What happens.</strong> No customer has been billed. One real invoice was raised, sent by Stripe to STK's own test company on 2026-11-17, and voided; every other bill has been checked in STK's tests.</p>
-<p><strong>Who pays.</strong> Not checked.</p>
+<p><strong>What happens.</strong> No customer has been billed. One real invoice was raised, sent by Stripe to STK's own test company on 2026-11-17, and voided.</p>
+
 </div>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

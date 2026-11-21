@@ -4,34 +4,39 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Docs · STK</title>
-<meta name="description" content="One call where your code is about to hand a conversation to a person: POST /v1/ask. The six calls of STK&#x27;s API, in full.">
+<meta name="description" content="Your code decides from STK&#x27;s public rules, on your side; STK receives a 32-byte seal and its time, and signs it. The calls of STK&#x27;s API, in full.">
 <link rel="canonical" href="https://stk-evidence.com/docs">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/docs">
 <meta property="og:title" content="Docs · STK">
-<meta property="og:description" content="One call where your code is about to hand a conversation to a person: POST /v1/ask. The six calls of STK&#x27;s API, in full.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:description" content="Your code decides from STK&#x27;s public rules, on your side; STK receives a 32-byte seal and its time, and signs it. The calls of STK&#x27;s API, in full.">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docs · STK">
-<meta name="twitter:description" content="One call where your code is about to hand a conversation to a person: POST /v1/ask. The six calls of STK&#x27;s API, in full.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="twitter:description" content="Your code decides from STK&#x27;s public rules, on your side; STK receives a 32-byte seal and its time, and signs it. The calls of STK&#x27;s API, in full.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs" aria-current="page">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs" aria-current="page">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <style>
 table{display:block;max-width:100%;overflow-x:auto} li code,td code{overflow-wrap:anywhere}
@@ -40,75 +45,153 @@ table{display:block;max-width:100%;overflow-x:auto} li code,td code{overflow-wra
 <div class="eyebrow">Docs</div>
 <h1>Plug STK in</h1>
 <ol class="steps">
-  <li>Get a key: enter your email on the <a href="/#key">home page</a>, or <code>POST /v1/keys</code>. The key comes by email.</li>
+  <li>Get your keys: enter your email in the form <a href="#get-keys">below</a>, or <code>POST /v1/keys</code>. The test key is shown once, there and then; the live key, once, after you register a card on Stripe's page. STK keeps only their hashes and sends no email.</li>
   <li>Put <a href="/stk.py">stk.py</a> (or <a href="/stk.mjs">stk.mjs</a>) next to your AI's code, and write your key in <code>KEY</code> at its top.</li>
-  <li>Where your code is about to hand a conversation to a person: <code>if ask(conversation_id, intent, trigger) == "finish":</code> your AI goes on; else it hands the conversation over, as it does today.</li>
-  <li>When a person joins a conversation STK permitted: <code>ask(conversation_id, intent, trigger, human_joined=True)</code>. The same day (UTC), that permission is not billed.</li>
+  <li>Where your code is about to hand a conversation to a person: <code>if stk.ask(intent, trigger, conversation_id=cid) == "finish":</code> your AI goes on; else it hands the conversation over, as it does today.</li>
+  <li>When a person joins a conversation that got <code>finish</code>: <code>stk.joined(cid)</code>. Told the same day (UTC), or by 00:10 UTC the day after, that permission is not billed. If STK cannot be told, <code>joined()</code> raises an error: call it again.</li>
 </ol>
-<p>Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code>.</p>
+<p>The file decides, on your side, from STK's public rules. Only on <code>finish</code> does it call STK, and it sends the seal and the time it recorded the action, and nothing else. Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code>, unless the last grant holds: then it returns <code>finish</code> and sends the seal from its queue when STK answers again (<a href="#ask">POST /v1/ask</a>). <code>stk.flush()</code> (stk.py) or <code>await flush()</code> (stk.mjs) waits until the queue is sent; call it before a process ends.</p>
+<p>The first <code>ask()</code> of a process reads the rules first, for up to 2 seconds; the 300 ms are counted after that.</p>
+<p>Try it without a key; it reads the public rules and sends nothing of yours: <code>curl -s https://stk-evidence.com/stk.py | python3 - conversation.balance.inquiry unknown</code></p>
+
+<p>The rules in detail: <a href="/rules-full">The rules in full</a> (the text, every version, the triggers, the locks, what else decides whether STK signs), and one page for each action, linked from <a href="/rules">The rules</a>.</p>
+
+<h2 id="get-keys">Get keys</h2>
+<style>#kf{display:flex;flex-wrap:wrap;gap:8px}#kf input,#kf button{font:inherit;font-size:16px;line-height:1.25;border-radius:4px;padding:11px 14px}#kf input{flex:1 1 14rem;min-width:0;max-width:26rem;color:var(--ink);background:var(--bg);border:1px solid var(--line)}#kf button{color:var(--bg);background:var(--ink);border:1px solid var(--ink);cursor:pointer;font-weight:500}#ks{margin:16px 0 0;font-size:14px;color:var(--muted)}#ks:empty{display:none}#keys{margin:16px 0 0;white-space:pre-wrap;word-break:break-all;font-family:var(--mono);font-size:13px;line-height:1.75;border:1px solid var(--line);border-radius:4px;padding:20px}</style>
+<form id="kf"><input id="em" type="email" required autocomplete="email" placeholder="email" aria-label="email"><button type="submit">Get keys</button></form>
+<p id="ks" role="status"></p>
+<pre id="keys" hidden></pre>
+<p class="note">The test key at once. The live key after a card is registered on Stripe's page. Each shown once; STK keeps only their hashes and sends no email.</p>
+<script>
+(function(){
+  var f = document.getElementById('kf'), s = document.getElementById('ks'), k = document.getElementById('keys');
+  var API = 'https://api.stk-evidence.com/v1/keys';
+  function post(body, key){
+    var h = {'Content-Type': 'application/json'}; if (key) h['X-STK-Key'] = key;
+    return fetch(API, {method: 'POST', headers: h, body: JSON.stringify(body)}).then(function(r){ return r.json().then(function(j){ return [r.status, j]; }); });
+  }
+  if (new URLSearchParams(location.search).get('card')) {
+    s.textContent = 'The card is registered. Go back to the page where you took the test key and press \u201cGet the live key\u201d.';
+  }
+  f.onsubmit = function(e){
+    e.preventDefault(); s.textContent = '';
+    var em = document.getElementById('em').value;
+    post({email: em}).then(function(a){
+      if (a[0] !== 200) {
+        s.textContent = a[0] === 409 ? 'This address has keys. New ones: POST /v1/keys with its live key (Docs). Keys never used: the same address again, 10 minutes after they were made.' : (a[1] && a[1].message) || 'STK cannot do this just now. Try again in a minute.';
+        return;
+      }
+      var test = a[1].test_key, url = a[1].card_url, m = (url || '').match(/cs_(live|test)_[A-Za-z0-9]+/);
+      k.textContent = 'Test key: ' + test + '\n\nShown once. Never billed. Keep this page open.';
+      k.hidden = false;
+      var p = document.createElement('p'), l = document.createElement('a'), btn = document.createElement('button');
+      l.href = url; l.target = '_blank'; l.rel = 'noopener'; l.textContent = '1. Register a card on Stripe\u2019s page';
+      btn.type = 'button'; btn.textContent = '2. Get the live key';
+      btn.onclick = function(){
+        post({email: em, card: m ? m[0] : ''}, test).then(function(b){
+          if (b[0] === 200) { k.textContent = 'Test key: ' + test + '\nLive key: ' + b[1].live_key + '\n\nShown once. STK keeps only their hashes. Invoices are charged each Monday to the card you registered.\nNext: put the live key in place of the test key in stk.py or stk.mjs (the steps at the top of this page).'; p.remove(); }
+          else { s.textContent = (b[1] && b[1].message) || 'STK cannot do this just now. Try again in a minute.'; }
+        }, function(){ s.textContent = 'STK cannot be reached. Try again in a minute.'; });
+      };
+      p.appendChild(l); p.appendChild(document.createTextNode(' ')); p.appendChild(btn); k.after(p);
+    }, function(){ s.textContent = 'STK cannot be reached. Try again in a minute.'; });
+  };
+})();
+</script>
+<p>Your code may hand any conversation to a person: STK never requires a <code>finish</code>. If STK cannot answer, your AI hands the conversation to a person, unless a grant holds. STK never sees the conversation.</p>
 
 <h2 id="trigger">trigger</h2>
 <div class="table"><table>
 <tbody>
-<tr><td><code>unknown</code></td><td>Your AI is not sure enough. The only trigger STK can answer <code>finish</code> to.</td></tr>
-<tr><td><code>customer_asked</code></td><td>The customer asked for a person.</td></tr>
-<tr><td><code>angry</code></td><td>The customer is angry.</td></tr>
-<tr><td><code>out_of_scope</code></td><td>The request is outside what your AI may do.</td></tr>
-<tr><td><code>authority</code></td><td>It needs a person's authority.</td></tr>
+<tr><td><code>unknown</code></td><td>None of the triggers below happened in the conversation. The only trigger the rules can answer <code>finish</code> to.</td></tr>
+<tr><td><code>customer_asked</code></td><td>the customer asked for a person (a human, an agent, a representative, a supervisor, a manager), or said they do not want to deal with the AI, in any words, once.</td></tr>
+<tr><td><code>distressed</code></td><td>the customer said they are frightened, panicking, crying or cannot cope, or spoke of a medical emergency, of harming themselves, or of a danger to someone&#x27;s life now.</td></tr>
+<tr><td><code>angry</code></td><td>the customer insulted or swore at the company, its staff or the AI, or said they are angry or furious.</td></tr>
+<tr><td><code>bereavement</code></td><td>the customer said that someone has died, or the conversation is about the account, the plan or the affairs of someone who has died.</td></tr>
+<tr><td><code>threat</code></td><td>the customer threatened harm to anyone or to property, or said someone is threatening or forcing them.</td></tr>
+<tr><td><code>legal_claim</code></td><td>the customer spoke of a lawyer, a lawsuit, a court, a regulator or an ombudsman, a formal complaint or a formal appeal, or of taking legal action.</td></tr>
 </tbody>
 </table></div>
-<p><code>intent</code> is one of the 56 ids in <a href="/rules">The rules</a>. Any other name is answered <code>escalate</code>.</p>
+<p><code>intent</code> is one of the 83 ids in <a href="/rules-full#intents">The rules in full</a> (each on its page from <a href="/rules">The rules</a>), by its full name (<code>conversation.order.status</code>) or the name listed (<code>order.status</code>). Pass <code>other</code> for a conversation that could not be told as any act: the rules answer <code>escalate</code> (<a href="/rules-full#other">other</a>). Any name not on the lists is answered <code>escalate</code>.</p>
 
-<p>Where the call goes in your platform: <a href="/setup-zendesk">Zendesk</a> · <a href="/setup-genesys">Genesys Cloud</a> · <a href="/setup-amazon-connect">Amazon Connect</a> · <a href="/setup-agentforce">Salesforce Agentforce</a> · <a href="/setup-intercom-fin">Intercom Fin</a> · <a href="/setup-sierra">Sierra</a> · <a href="/setup-decagon">Decagon</a> · <a href="/setup-own-code">Your own code</a></p>
+<h2 id="row">The row and the seal</h2>
+<p>The row is yours, in any shape: <code>intent</code> and <code>trigger</code> are all it must have. <code>ask()</code> puts in it whatever else you give it (<code>stk.ask(intent, trigger, conversation_id=cid, ticket=991)</code>), as JSON written one way only, the same in stk.py and stk.mjs: keys sorted by code point, no spaces, Unicode as it is, numbers as JavaScript writes them, NaN and infinities as <code>null</code>. It makes 32 random bytes, and the seal: SHA-256 of the random bytes followed by the row. The seal goes to STK; the row and the random bytes stay with you. Nothing can be read back from the seal.</p>
+<p><strong>Your rows are only on your side. STK holds not one of them.</strong> <a href="/ledger">Keep the files the library saved</a>.</p>
+<p>A conversation and intent that got <code>finish</code> today (UTC) get <code>finish</code> again without calling STK (on the same server): only a call to STK is a permission, and billed.</p>
+<p>An intent on no list of the rules is answered <code>escalate</code> and leaves a <code>not_listed</code> line next to your rows, with the name your code gave; STK is not told. When those lines grow, your names have moved away from STK's.</p>
+
+<p id="setup">Where the file goes in your platform: <a href="/setup-amazon-connect">Amazon Connect</a> · <a href="/setup-own-code">Your own code</a></p>
 
 <h2 id="reference">Reference</h2>
-<p>Base: <code>https://api.stk-evidence.com</code>. Your key goes in the header <code>X-STK-Key</code>. Bodies are JSON. These six calls are all of STK's API; a seventh address takes Stripe's events only.</p>
-
-<h3 id="ask"><code>POST /v1/ask</code></h3>
+<p>Base: <code>https://api.stk-evidence.com</code>. Your key goes in the header <code>X-STK-Key</code>. Bodies are JSON. These seven calls are all of STK's API; an eighth address takes Stripe's events only.</p>
 <div class="table"><table>
-<thead><tr><th>Field</th><th></th></tr></thead>
 <tbody>
-<tr><td><code>conversation_id</code></td><td>Required. 1 to 200 characters. A random id your code makes for each conversation: never derived from your customer's information (a name, an email address, a phone number, an account number). The table from these ids to your conversations stays with you only. Then the ledger holds no data about your customers, and no way to erase a row is needed; the API has none.</td></tr>
-<tr><td><code>intent</code></td><td>Required. 1 to 100 characters.</td></tr>
-<tr><td><code>trigger</code></td><td>Required. One of the five above.</td></tr>
-<tr><td><code>human_joined</code></td><td>Optional. <code>true</code> when a person has joined the conversation.</td></tr>
+<tr><td><a href="#ask"><code>POST /v1/ask</code></a></td><td>The seal of a finish your code decided. One call is one permission, and is billed.</td></tr>
+<tr><td><a href="#joined"><code>POST /v1/joined</code></a></td><td>A person joined a conversation.</td></tr>
+<tr><td><a href="#rules"><code>GET /v1/rules</code></a></td><td>The Rule in use, signed by STK. No key.</td></tr>
+<tr><td><a href="#ledger"><code>GET /v1/ledger</code></a></td><td>Your account's days, one row each.</td></tr>
+<tr><td><a href="#incident"><code>POST /v1/incident</code></a></td><td>One permission of your live key that went wrong.</td></tr>
+<tr><td><a href="#keys"><code>POST /v1/keys</code></a></td><td>Your test key and a card page; then your live key, once. No key.</td></tr>
+<tr><td><a href="#health"><code>GET /v1/health</code></a></td><td>Whether STK can sign as it should. No key.</td></tr>
 </tbody>
 </table></div>
-<p>Without <code>X-STK-Key</code>: the same answer, with <code>"ask_id": null</code>. Nothing is kept and nothing is billed; 60 asks an hour from one address (more: 429). A key is for a signed row with every answer, as evidence. A key that is not one of yours is refused with 401, never taken as no key.</p>
-<p>Any other field is refused with 422. Answer:</p>
-<pre class="code">{"decision": "finish", "rule_version": "&lt;SHA-256 of the rules' full text&gt;", "ask_id": "&lt;32 hex&gt;",
- "row": {"v": 1, "ask_id", "time_ms", "account", "conversation_id", "intent", "trigger", "rule_version", "decision",
-         "clause", "which_key", "human_joined", "kid"},
- "sig": "&lt;Ed25519 signature, base64&gt;"}</pre>
-<p>With your key, every answer carries its row and STK's signature of it. Keep both: STK keeps no row. stk.py and stk.mjs keep them for you. <a href="/ledger">What a row holds, and how anyone checks it</a></p>
-<p><code>human_joined: true</code>: a person has joined the conversation. It is counted as a person joining, never as a permission, whatever its answer, and takes one permission of the same day (UTC) off the bill.</p>
+
+<h3 id="ask"><code>POST /v1/ask</code></h3>
+<p>A <code>finish</code> your code decided from the rules. The body is <code>{"seal": "&lt;64 hex characters&gt;", "recorded_ms": &lt;when your library recorded the action, ms since 1970 UTC&gt;}</code>, and for a seal that waited in the library's queue also <code>"grant"</code> and <code>"grant_sig"</code>, the grant it finished under. Nothing else: any other field is refused with 422. One call is one permission, and is billed. The same seal again the same day is signed again and not counted again. Answer:</p>
+<pre class="code">{"receipt": {"v": 2, "seal", "time_ms", "recorded_ms", "rule_version", "account", "which_key", "kid"},
+ "sig": "&lt;Ed25519 signature of the receipt, base64&gt;",
+ "rule_version": "&lt;SHA-256 of the rules in use&gt;",
+ "rule": {"number": 5, "version": "&lt;the same SHA-256&gt;", "published": "&lt;its date&gt;"},
+ "grant": {"v": 1, "account", "rule_version", "kid", "issued_ms", "expires_ms"},
+ "grant_sig": "&lt;Ed25519 signature of the grant, base64&gt;"}</pre>
+<p>Two times in the receipt. <code>time_ms</code>: when STK signed, what STK attests. <code>recorded_ms</code>: when your library recorded the action, your own claim. They are the same moment unless the seal waited in the queue. Without a grant, a <code>recorded_ms</code> more than a minute from STK's clock is refused with 422 and STK's time in the <code>X-STK-Time-Ms</code> header; stk.py and stk.mjs then use STK's time and send once again. A body with the seal alone, as before, is signed with a receipt of version 1: <code>{"v": 1, "seal", "time_ms", "rule_version", "account", "which_key", "kid"}</code>, one time only.</p>
+<p>The grant: for this account and this version of the rules, from <code>issued_ms</code> for 10 minutes, signed by STK over <code>["stk-grant", v, account, rule_version, kid, issued_ms, expires_ms]</code> as JSON with no spaces. While it holds and STK cannot be reached, the libraries finish what the rules say finish and keep the seal in a queue (at most 10,000 seals; past it, <code>escalate</code>), then send it. A grant STK did not sign for this account, or a <code>recorded_ms</code> outside it, is refused with 422.</p>
+<p>Not signed, with <code>"receipt": null</code>, <code>"sig": null</code> and <code>not_signed</code> saying why: an invoice of your account unpaid 60 days after its due date (clause 0), STK without a published signing key for today, STK unable to read whether your account is unpaid, STK unable to sign just now (it cannot read its records in Stripe), a limit for the day (UTC) reached: STK signs up to 20,000,000 permissions a day for a live key (10,000 until an invoice of its account has been paid), 1,000 for a test key; or as many seals today, of all accounts, as STK can hold for a day (46,930,325). Nothing is billed; the file returns <code>escalate</code>.</p>
+<p>When <code>rule_version</code> is not the Rule your file applied, the file reads the rules again and applies them again; if they now say <code>escalate</code>, it returns <code>escalate</code> and calls <code>POST /v1/joined</code>, so that permission is not billed.</p>
+
+<h3 id="joined"><code>POST /v1/joined</code></h3>
+<p>A person joined a conversation. No body, <code>{}</code>, or <code>{"seal": "&lt;64 hex characters&gt;"}</code>: the seal of the permission the person took over, which STK already has; anything else is refused with 422. It is a count: one permission taken off the bill of a day (UTC), never below 0. With the seal of a permission signed the day before, in the first 10 minutes after that day ended: that day (both days, when STK's server started again after the day before began). Otherwise: today. stk.py and stk.mjs send the seal when they have it. Answer: <code>{"counted": true, "day": "2026-11-17"}</code>, the day it counted for.</p>
 
 <h3 id="rules"><code>GET /v1/rules</code></h3>
-<p>No key. The rules in use: <code>{"version", "published", "text"}</code>.</p>
-<p><code>?history=1</code>: every version the rules have had, every report and every signing key made invalid, oldest first: <code>{"versions": [{"version", "published", "change", "text"}], "reports": [{"report_id", "reported", "intent"}]}</code>. <code>?history=1&amp;format=csv</code>: every report, as CSV. A version is deleted 7 years after the next one replaced it, a report 7 years after it was made; the version in use stays.</p>
-<p><code>?keys=1</code>: every public key STK has signed rows with, one a day, never deleted: <code>{"keys": [{"kid", "day", "public_key", "algorithm": "Ed25519", "invalid", "invalid_note"}]}</code>.</p>
+<p>No key. The Rule in use, signed by STK: <code>{"number", "version", "published", "change", "summary", "text", "kid", "sig"}</code>. <code>number</code> goes 1, 2, 3 with no gap; <code>version</code> is the SHA-256 of <code>text</code>. The signature is Ed25519 over <code>["stk-rules", version, published, text]</code> as JSON with no spaces. When STK cannot sign just now, <code>kid</code> and <code>sig</code> are <code>null</code>: the text is the same, unsigned.</p>
+<p><code>?history=1</code>: every version the rules have had (each signed the same way), every report and every signing key made invalid, oldest first: <code>{"versions": [...], "reports": [{"report_id", "reported", "intent"}], "keys_made_invalid": [...]}</code>. <code>?history=1&amp;format=csv</code>: every report, as CSV.</p>
+<p><code>?keys=1</code>: every public key STK has made, one or more a day, published up to 7 days before its day, never deleted; a copy is at <a href="/keys.json">/keys.json</a>: <code>{"keys": [{"kid", "day", "public_key", "algorithm": "Ed25519", "invalid", "invalid_note"}]}</code>. <code>?keys=1&amp;kid=&lt;kid&gt;</code>: that key only (stk.py and stk.mjs save it this way beside your lines).</p>
 
 <h3 id="ledger"><code>GET /v1/ledger</code></h3>
-<p>Your account's days, one row each: <code>{"days": [{"day": "2026-11-17", "finish": 412, "human_joined": 9, "escalate": 588, "billed": 403, "zeroed": false, "test": {"finish", "human_joined", "escalate"}}]}</code>. <code>finish</code>: the permissions of your live key that day (UTC); <code>human_joined</code>: the asks that carried <code>human_joined: true</code> (never counted as permissions); <code>billed</code>: max(0, finish − human_joined), 0 on a zeroed day; <code>zeroed</code>: STK stopped that day without writing what it held, and bills that day nothing. <code>?from=2026-11-01&amp;to=2026-11-17</code>, dates (UTC), both included; a year at most (more: 422); without them, the last 31 days. STK keeps no row of an ask. <a href="/ledger">The ledger</a></p>
-<h4 id="check-the-bill">Check the invoice with your own rows</h4>
+<p>Your account's days, one row each: <code>{"days": [{"day": "2026-11-17", "finish": 412, "human_joined": 9, "billed": 403, "sent": true}]}</code>. <code>finish</code>: calls to <code>POST /v1/ask</code> signed; <code>human_joined</code>: calls to <code>POST /v1/joined</code>. Each day's numbers are written to Stripe every 2 minutes while they change. <code>"sent": true</code>: the day is final, written the last time 10 minutes after it ended (UTC); <code>"sent": false</code>: today, or the day before until then. On a day STK's server started again, <code>finish</code> is the larger of the counts before and after the start. A day missing has no permission and no person joining, or was billed 0 in a week already invoiced. <code>?from=2026-11-01&amp;to=2026-11-17</code>, dates (UTC), both included; a year at most; without them, the last 31 days. 60 calls an hour for one account; then 429.</p>
+<h4 id="check-the-bill">Check the invoice with your own lines</h4>
 <ol>
-<li>Gather the month's rows (UTC) from every server's <code>stk-rows</code> folder, or from the store your <code>ON_ROW</code> function writes to.</li>
-<li>Check each row's signature with <a href="/stk_verify.py" download>stk_verify.py</a>; leave out any that does not check.</li>
-<li>Keep the rows of your own <code>account</code> with <code>which_key: live</code>.</li>
-<li>For each day, count F: rows with <code>decision: finish</code> and <code>human_joined: false</code>; and H: rows with <code>human_joined: true</code> (whatever their decision).</li>
-<li>For each day, max(0, F − H); 0 for a day <code>GET /v1/ledger</code> marks <code>"zeroed": true</code>. The month's sum is the invoice's count.</li>
-<li>Put your days beside <code>GET /v1/ledger</code>'s. A day where you have more rows than STK's counts is a day STK lost some (it bills less). A day where the invoice counts more than your rows: send STK the signed rows of that day.</li>
+<li>Gather the week's lines (Monday to Sunday, UTC) from every server's <code>stk-rows</code> folder, or from the store your <code>ON_ROW</code> function writes to.</li>
+<li>Check each with <a href="/stk_verify.py" download>stk_verify.py</a>. Leave out any that does not check.</li>
+<li>Keep those of your own <code>account</code> with <code>which_key: live</code>.</li>
+<li>For each day (UTC, by each receipt's <code>time_ms</code>, not your server's clock), count F: your lines with a receipt; and H: your <code>joined</code> lines (the file writes one each time it tells STK a person has a conversation; one of the first 10 minutes of a day counts for the day before when that day has a permission not yet taken off).</li>
+<li>For each day, max(0, F − H); 0 for a day whose signing key was made invalid. On a day STK's server started again, the invoice can count less (see <code>GET /v1/ledger</code> above), never more. The week's sum is the most the invoice counts, less any credit note.</li>
+<li>Put your days beside <code>GET /v1/ledger</code>'s. A day where the invoice counts more than your lines: send that day's lines (receipts and <code>joined</code> lines) to <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a>.</li>
 </ol>
 
 <h3 id="incident"><code>POST /v1/incident</code></h3>
-<p><code>{"row": {...}, "sig": "..."}</code>: the row and signature that came back with one <code>finish</code> of your live key. Leaves one dated report, public in <code>GET /v1/rules?history=1</code> with its intent and date, never your name. It changes no rule and no answer. Answer: <code>{"report_id", "reported", "intent", "already_reported"}</code>. A row that is not STK's, not your account's, or not a <code>finish</code> of your live key is refused with 422. The same row again gives the same report.</p>
+<p><code>{"receipt": {...}, "sig": "...", "intent": "..."}</code>: the receipt and signature of one permission of your live key, and the intent it was for. Leaves one dated report, public in <code>GET /v1/rules?history=1</code> with its intent and date, never your name. It changes no rule and no answer. STK cannot see that the intent is the sealed row's: you say so. A receipt that is not STK's, not your account's or not of your live key, or an intent the receipt's rules do not answer <code>finish</code>, is refused with 422. The same receipt again gives the same report. 10 reports in 24 hours for one account; then 429. Answer: <code>{"report_id", "reported", "intent", "already_reported"}</code>; <code>already_reported</code> is <code>true</code> for the same receipt again.</p>
 
 <h3 id="keys"><code>POST /v1/keys</code></h3>
-<p>No key. <code>{"email": "you@example.com"}</code>. Two keys are sent to that address, a test key (<code>stk_test_…</code>) and a live key (<code>stk_live_…</code>); the answer says only where: <code>{"sent_to": "y***@example.com"}</code>. The test key gets the same answers as the live key and a signed row for each call, marked <code>which_key: test</code>; nothing asked with it is billed. Only <code>live</code> rows are billed. The same address again gets two new keys for the same account: the first call with a new key stops the older keys of its kind. That is how a leaked key is replaced. 10 per hour from one address on the internet; then 429.</p>
+<p>No key. Two steps. First <code>{"email": "you@example.com"}</code>: the answer is <code>{"test_key": "stk_test_…", "card_url": "https://checkout.stripe.com/…", "note": "…"}</code>. The test key is shown once and needs no card. <code>card_url</code> is Stripe's page where you register a card (nothing is charged there); STK never sees its number. When it is done, Stripe sends you back to <code>stk-evidence.com/docs?card=cs_…</code>, where the key form is. Then <code>{"email": "you@example.com", "card": "cs_…"}</code> with your test key in <code>X-STK-Key</code>: the answer is <code>{"live_key": "stk_live_…"}</code>, shown once; its invoices are charged to that card. The test key gets the same answers as the live key, marked <code>which_key: test</code>; nothing asked with it is billed. The address is taken without spaces around it, in lower case, with its domain as the DNS has it. The same address again: 409, unless the call carries that account's live key in <code>X-STK-Key</code> (then two new keys at once, on the same card, and the old ones stop at once), or the keys have never been used and were made at least 10 minutes before (then a new test key and a new card page). The card step: 409 if the page was not done, not this address's, or the live key was already given. That is how a leaked key is replaced. When STK cannot write to Stripe: 503, and no key was made. 10 an hour from one address on the internet; then 429, with the minutes to wait in the message and <code>Retry-After</code>. New accounts: 20 an hour in all; then 429 for a new address (replacing keys is not held up).</p>
+
+<h3 id="monthly">A month's report (written here; not yet built)</h3>
+<p>A report a company can use inside, made from what Stripe already holds for its account (the same numbers as <code>GET /v1/ledger</code>), one month (UTC) at a time. Only what STK has:</p>
+<ul>
+<li>Permissions STK signed in the month: the month's <code>finish</code>.</li>
+<li>Of those, the ones a person joined the same day: the month's <code>human_joined</code>, and its share of <code>finish</code>.</li>
+<li>Both against the month before.</li>
+</ul>
+<p>Not from STK; from the company's own records:</p>
+<ul>
+<li>The total of the month's determinations. STK cannot give it: an <code>escalate</code> is decided on the company's side and STK is not called.</li>
+<li>How many went to human review, and their share. STK cannot give them, for the same reason.</li>
+</ul>
+<p>A report from STK holds the first list only. It does not show the second as if STK had it.</p>
 
 <h3 id="health"><code>GET /v1/health</code></h3>
-<p>No key: <code>{"ok": true}</code>. <code>ok</code> is <code>false</code> when STK cannot answer as it should.</p>
-<p>With your key in <code>X-STK-Key</code>, also <code>your_account</code>: the invoices not paid, and whether STK answers <code>escalate</code> to every ask of your account because one is unpaid 60 days after its due date.</p>
+<p>No key: <code>{"ok": true}</code>. <code>ok</code> is <code>false</code> when STK cannot sign as it should, or something it keeps in Stripe or sends there did not go as it should, or for 24 hours after its server stopped unexpectedly a second time in 250 days (a start of the same commit again: a crash, a kill, a restart; a deploy is not a stop). While a starting server has not read its records yet: <code>{"ok": false}</code> with 503.</p>
+<p>With your key in <code>X-STK-Key</code>, also <code>your_account</code>: the invoices not paid, and whether STK signs nothing for your account because one is unpaid 60 days after its due date.</p>
 
 <h3 id="stripe"><code>POST /v1/stripe/webhook</code></h3>
 <p>For Stripe only: the events about STK's invoices, refused without Stripe's signature.</p>
@@ -117,17 +200,39 @@ table{display:block;max-width:100%;overflow-x:auto} li code,td code{overflow-wra
 <div class="table"><table>
 <tbody>
 <tr><td>401</td><td>No <code>X-STK-Key</code>, or not a key.</td></tr>
-<tr><td>422</td><td>A field missing, too long, not one of the allowed values, or a field that is not allowed.</td></tr>
-<tr><td>429</td><td><code>POST /v1/keys</code>: too many keys from one address this hour.</td></tr>
-<tr><td>502</td><td><code>POST /v1/keys</code>: the email could not be sent. No key was made.</td></tr>
+<tr><td>422</td><td>A field missing, not of the allowed form, or a field that is not allowed.</td></tr>
+<tr><td>429</td><td><code>POST /v1/keys</code>: too many keys from one address, or new accounts in all, this hour. <code>GET /v1/ledger</code>: 60 calls of your account this hour. <code>POST /v1/incident</code>: 10 reports of your account in 24 hours. Any call: more than 120 calls a minute from one address with a key that is not one of STK's.</td></tr>
+<tr><td>413</td><td>A body over 16,384 bytes.</td></tr>
+<tr><td>409</td><td><code>POST /v1/keys</code>: this address has keys; send its live key to make new ones (keys never used: again, 10 minutes after they were made).</td></tr>
+<tr><td>400</td><td><code>POST /v1/stripe/webhook</code>: not signed by Stripe.</td></tr>
+<tr><td>503</td><td>STK cannot do this just now (it cannot read its records in Stripe), with <code>Retry-After: 60</code>: <code>GET /v1/ledger</code>, <code>POST /v1/keys</code>, <code>GET /v1/rules?history=1</code> or <code>?keys=1</code>, and calls with a key. <code>POST /v1/ask</code> answers 200, not signed, instead.</td></tr>
+<tr><td>500</td><td>A fault in STK. <code>ask()</code> returns <code>escalate</code>.</td></tr>
 </tbody>
 </table></div>
 </div>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

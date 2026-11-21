@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vendor review · STK</title>
+<meta name="description" content="What procurement, information security and legal look for first: what STK receives, data protection, a security questionnaire answered, certifications, the MSA and continuity.">
+<link rel="canonical" href="https://stk-evidence.com/vendor-review">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STK">
+<meta property="og:url" content="https://stk-evidence.com/vendor-review">
+<meta property="og:title" content="Vendor review · STK">
+<meta property="og:description" content="What procurement, information security and legal look for first: what STK receives, data protection, a security questionnaire answered, certifications, the MSA and continuity.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vendor review · STK">
+<meta name="twitter:description" content="What procurement, information security and legal look for first: what STK receives, data protection, a security questionnaire answered, certifications, the MSA and continuity.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
+<main class="wrap">
+<div class="doc">
+<div class="eyebrow">Vendor review</div>
+<h1>Vendor review</h1>
+<p class="lead">What procurement, information security and legal look for first, on one page. Each answer is what STK's code and its other pages say. Where STK has nothing, the answer says so. The questions a review asks, one by one: <a href="/review">Review</a>.</p>
+
+<h2 id="receives">What STK receives</h2>
+<ul>
+<li>A 32-byte SHA-256 seal, sent as 64 hex characters, with the company's key in a header, and the time the company's library recorded the action. For a seal sent from the library's queue, also the grant STK signed. Nothing else: a request with any other field is refused.</li>
+<li>The row and the 32 random bytes that produced the seal stay with the company. STK never has them.</li>
+<li>STK has no database. Its records (the account, each billed day's counts, invoices, public keys, reports) are kept in Stripe.</li>
+</ul>
+<pre class="code" aria-label="Data flow">The company's code                         STK (api.stk-evidence.com)
+  row (intent, trigger, anything)
+  + 32 random bytes
+  seal = SHA-256(bytes + row)  --- seal, its time ---->  signs it: both times, rules version
+                               <--- receipt ---------   keeps no seal, no row
+  keeps: row, bytes, receipt                                 |
+                                                       counts of the day
+                                                             v
+                                                          Stripe</pre>
+
+<h2 id="not-received">What STK does not receive</h2>
+<ul>
+<li>The words of a conversation, as text or audio.</li>
+<li>A name, an email address, a phone number, a member number, an account number or any other identifier of the company's customers.</li>
+<li>Health or medical information.</li>
+<li>A card number or a bank account number, of anyone. The company's own card is registered on Stripe's page and kept by Stripe.</li>
+<li>The intent and the trigger, unless the company reports a permission with <code>POST /v1/incident</code>.</li>
+<li>A confidence number, the AI's name or version, or the row in any form.</li>
+</ul>
+<p>Every HTTPS request also carries the address it comes from and its headers. STK writes neither down for <code>POST /v1/ask</code>.</p>
+
+<h2 id="data">Data protection</h2>
+<p>What STK receives is a hash made from a row and 32 random bytes that only the company holds. STK does not have the random bytes, so it has no means to recover the row from the hash. Whether that is personal data in a given jurisdiction is for the company's legal team to decide. This is not legal advice.</p>
+<p>For a company whose process needs a data processing agreement, STK has one standard <a href="/dpa">DPA</a>. It is the same for every company and is not negotiated. It covers what STK does hold: the account's email address and the keys' hashes.</p>
+<p>Business associate agreement: STK receives none of the health information listed above and does not offer a business associate agreement. Whether one is needed for a company's use of STK is that company's legal team's decision. STK does not have one today; a company that concludes one is needed can write to <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a>.</p>
+
+<h2 id="questionnaire">Security questionnaire, answered</h2>
+<div class="table"><table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>
+<tr><td>Where is data stored?</td><td>STK's records: Stripe. The API runs on Render in Singapore and keeps the day's seal set in memory only. <a href="/subprocessors">Subprocessors</a></td></tr>
+<tr><td>How long is it kept?</td><td>A seal: not written down; the day's set in memory is let go 10 minutes after the day ends (UTC). The account's email address and keys' hashes: until 7 years after its last day with an ask or a person joining, or 30 days after it was made if its live key was never used. Billing records: kept by Stripe as payment records. Reports: 7 years.</td></tr>
+<tr><td>Encryption in transit</td><td>HTTPS only, port 443. Every answer carries Strict-Transport-Security.</td></tr>
+<tr><td>Encryption at rest</td><td>STK stores nothing at rest of its own. Its records are held by Stripe under Stripe's terms; STK does not encrypt them itself.</td></tr>
+<tr><td>Access management</td><td>One person operates STK and is the only one with access to Render, Stripe, GitHub and the domain. Secrets are kept as owner-only files and in Render's environment, never in a repository. Whether each account uses multi-factor authentication is not recorded here: cannot answer.</td></tr>
+<tr><td>Key management</td><td>Receipts are signed with Ed25519 keys made in the API process and kept in memory only. Their public keys are written to Stripe 7 days ahead and copied every hour, never shortened, to the public site repository. Customer keys are kept only as HMAC-SHA256 hashes and are replaced with <code>POST /v1/keys</code>.</td></tr>
+<tr><td>Staff and background checks</td><td>One person, the operator, Taisei Izawa, an individual in Toyama, Japan. No background check process.</td></tr>
+<tr><td>Incident response</td><td>An hourly check of <code>/v1/health</code> emails the operator when it fails. Each incident is written in the <a href="/changelog">Changelog</a> with what it could do to a company. No on-call rotation, no response time promised.</td></tr>
+<tr><td>Business continuity</td><td>One API instance in one region, no failover. State is in Stripe; a redeploy took about 40 seconds on 2026-11-18. If STK does not answer within 300 ms, the libraries hand the conversation to a person, unless a grant from STK's last answer holds (10 minutes): then they finish and send the seal when STK answers again. See Continuity below.</td></tr>
+<tr><td>Subprocessors</td><td>Render, Stripe and Vercel; from 2026-12-01, GitHub and Name.com in Vercel's place (GitHub already keeps the copy of STK's public keys): what each holds is on <a href="/subprocessors">Subprocessors</a>. A new or replaced one is listed at least 14 days before it starts.</td></tr>
+<tr><td>Further subcontracting</td><td>None beyond the subprocessors listed.</td></tr>
+<tr><td>Audit rights</td><td>None offered. No audit or inspection clause.</td></tr>
+<tr><td>Data deletion</td><td>On request by email (<a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a>), the account's email address and keys' hashes; billing records stay with Stripe as payment records. STK holds no row and nothing of the company's customers to delete.</td></tr>
+<tr><td>Availability</td><td>No uptime commitment and no service level. <code>GET /v1/health</code> is public.</td></tr>
+<tr><td>Penetration test</td><td>None by an outside firm.</td></tr>
+<tr><td>Written security policies</td><td>Seven, mapped to SOC 2 and ISO 27001 Annex A, with their gaps written in them; given to a reviewer on request. No audit of them has been done.</td></tr>
+</tbody></table></div>
+
+<h2 id="certifications">Certifications</h2>
+<ul>
+<li>SOC 2: none.</li>
+<li>ISO 27001: none.</li>
+<li>HITRUST: none.</li>
+<li>Insurance covering the service: none.</li>
+<li>SIG, CAIQ: none filled in.</li>
+<li>Any other certification: none.</li>
+</ul>
+<p>How STK's claims can be checked without one:</p>
+<ul>
+<li>The rules are public, and each version is fixed by its SHA-256 and STK's signature.</li>
+<li>Every receipt is signed with a public key published seven days before it signs.</li>
+<li>The company keeps its own rows and can check each one, and STK's invoice, without STK: <a href="/ledger">How to check a row</a>.</li>
+<li>stk.py, stk.mjs and stk_verify.py are files the company reads and runs on its own side.</li>
+<li>What STK cannot do, or does not do, is written on <a href="/limits">Known limits</a>; its mistakes are in the <a href="/changelog">Changelog</a>.</li>
+</ul>
+
+
+
+<h2 id="msa">MSA</h2>
+<p>STK has one <a href="/msa">master services agreement</a>, the same for every company and not negotiated. It is for a company whose process needs one. A key is given without it, as before.</p>
+
+<h2 id="continuity">If STK is gone</h2>
+<p>What stays with the company:</p>
+<ul>
+<li>Its rows, their random bytes and STK's receipts, in the files stk.py and stk.mjs keep (or wherever its own <code>ON_ROW</code> function writes them).</li>
+<li>In the same files, the signed text of each version of the rules applied and the public key of each receipt, saved by the library as it read them.</li>
+<li>STK's public keys in the public site repository (<code>keys.json</code>), and every version of the rules on <a href="/rules-full#all-texts">The rules</a>.</li>
+<li>stk_verify.py, a file the company already has.</li>
+</ul>
+<p>The check needs nothing of STK's: <code>python3 stk_verify.py --from-file &lt;the file&gt;</code> reads the keys and the rules from the file itself and checks each permission's seal, signature and rules with no network. <a href="/ledger#check">How to check a row</a></p>
+</div>
+</main>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
+</div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
+</div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
+</body>
+</html>

@@ -4,70 +4,139 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Your own code · STK</title>
-<meta name="description" content="Where the two lines go when your AI and its handover to a person are your own code.">
+<meta name="description" content="Where stk.py goes when your AI and its handover to a person are your own code, and a server of yours for a platform that only calls an address.">
 <link rel="canonical" href="https://stk-evidence.com/setup-own-code">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/setup-own-code">
 <meta property="og:title" content="Your own code · STK">
-<meta property="og:description" content="Where the two lines go when your AI and its handover to a person are your own code.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:description" content="Where stk.py goes when your AI and its handover to a person are your own code, and a server of yours for a platform that only calls an address.">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Your own code · STK">
-<meta name="twitter:description" content="Where the two lines go when your AI and its handover to a person are your own code.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="twitter:description" content="Where stk.py goes when your AI and its handover to a person are your own code, and a server of yours for a platform that only calls an address.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <div class="doc">
 <div class="eyebrow">Where it goes</div>
 <h1>Your own code</h1>
-<p class="lead">Your AI and the step that hands a conversation to a person are code you run. The two lines go in that step, before the handover.</p>
+<p class="lead">Your AI and the step that hands a conversation to a person are code you run. The file goes next to it, and two lines in that step, before the handover.</p>
 <h2>Which file, where</h2>
 <p>The file where your code decides to hand a conversation to a person: the function that puts it in a queue, opens a ticket for an agent, or transfers the call. Put the call to <code>ask()</code> right before that, and do the handover only when it does not return <code>finish</code>.</p>
 <h2>Python</h2>
 <p>Put <a href="/stk.py" download>stk.py</a> next to that file. Set <code>KEY</code> in it to your test key.</p>
-<pre class="code">from stk import ask
+<pre class="code">import stk
 
 def hand_over(conversation):            # your function, as it is today
-    if ask(conversation.id, conversation.intent, "unknown") == "finish":
+    if stk.ask(conversation.intent, conversation.trigger, conversation_id=conversation.id) == "finish":   # trigger: a trigger that happened, or "unknown"
         return                          # your AI goes on with the conversation
-    ...                                 # the handover, as your code does it today</pre>
+    ...                                 # the handover, as your code does it today
+
+def person_joined(conversation):        # where a person takes a conversation over
+    stk.joined(conversation.id)         # a finish of it is taken off its day's bill</pre>
 <h2>Node</h2>
-<p>Put <a href="/stk.mjs" download>stk.mjs</a> next to that file. Set <code>KEY</code> in it to your test key.</p>
-<pre class="code">import { ask } from "./stk.mjs";
+<p>Put <a href="/stk.mjs" download>stk.mjs</a> next to that file. Set <code>config.key</code> in it to your test key.</p>
+<pre class="code">import { ask, joined } from "./stk.mjs";
 
 async function handOver(conversation) {   // your function, as it is today
-  if (await ask(conversation.id, conversation.intent, "unknown") === "finish") return;   // your AI goes on
+  if (await ask(conversation.intent, conversation.trigger, { conversationId: conversation.id }) === "finish") return;   // trigger: a trigger that happened, or "unknown"   // your AI goes on
   // the handover, as your code does it today
+}
+
+async function personJoined(conversation) {   // where a person takes a conversation over
+  await joined(conversation.id);              // a finish of it is taken off its day's bill
 }</pre>
+<h2 id="keep">Where the rows are kept</h2>
+<p>By default, a folder <code>stk-rows</code> next to your code, one file a day (UTC). Nobody else has them: three ways to keep them.</p>
+<p>1. On a disk that is backed up. Set the folder before your code starts; one folder for each server:</p>
+<pre class="code">STK_ROWS_DIR=/var/lib/yourapp/stk-rows/$(hostname)</pre>
+<p>2. A second copy every night, of the day that ended (in the server's crontab, 00:30 UTC):</p>
+<pre class="code">30 0 * * * cp /var/lib/yourapp/stk-rows/$(hostname)/$(date -u -d yesterday +\%F).jsonl /mnt/backup/stk-rows/</pre>
+<p>3. Where no file is kept (a serverless function): give each line to your own store. One that cannot be kept is told to STK as a person joining, and <code>ask()</code> returns <code>escalate</code>.</p>
+<pre class="code">import json, stk
+
+def keep(line):                      # each line, before ask() returns
+    your_table.insert(json.dumps(line, ensure_ascii=False))
+
+stk.ON_ROW = keep</pre>
+<p>Keep them as long as you may be asked about a conversation. STK's public keys are never deleted and every version of the rules stays published, so a row of any year can be checked.</p>
 <h2>What to pass</h2>
 <ul>
-  <li><code>conversation.id</code>: a random id your code makes for each conversation. Never your customer's name, email address, phone number or account number.</li>
-  <li><code>conversation.intent</code>: one of the 56 ids in <a href="/rules">The rules</a>. Map your own intent names to these on your side.</li>
-  <li>The trigger: <code>"unknown"</code> when the handover is because your AI is not sure enough. When the customer asked for a person, is angry, the request is outside what your AI may do, or it needs a person's authority, pass <code>customer_asked</code>, <code>angry</code>, <code>out_of_scope</code> or <code>authority</code>: STK answers <code>escalate</code> to those.</li>
+  <li>The intent: one of the 83 ids in <a href="/rules-full#intents">The rules in full</a> (each on its page from <a href="/rules">The rules</a>). Map your own intent names to these on your side.</li>
+  <li>The trigger: one of the 6 triggers in <a href="/rules-full#triggers">The rules</a> when it happened in the conversation (each says exactly what counts), or <code>"unknown"</code> when none did. The rules say <code>escalate</code> to every trigger.</li>
+  <li>Anything else you give <code>ask()</code> goes in your row, which stays with you; STK receives only its seal and its time.</li>
 </ul>
-<p>Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code> and your handover runs as it does today. <a href="/docs">Docs</a></p>
+<p>Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code> and your handover runs as it does today, unless <a href="/rules-full#else">a grant</a> holds. <a href="/docs">Docs</a></p>
+
+<h2 id="server">A server of yours, for a platform that only calls an address</h2>
+<p>Put this next to <a href="/stk.py" download>stk.py</a> on a server of yours that the platform can reach over HTTPS, and point the platform's step at it. Python 3.8 or later, nothing to install. What the platform sends it stays on that server.</p>
+<pre class="code">import json, stk
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+class Ask(BaseHTTPRequestHandler):
+    def do_POST(self):
+        try:
+            b = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0))))
+            if self.path == "/joined":          # a person took the conversation over
+                d = "told" if stk.joined(b.get("conversation_id")) else "not told"
+            else:
+                d = stk.ask(str(b["intent"]), str(b.get("trigger", "unknown")), conversation_id=b.get("conversation_id"))
+        except Exception:
+            d = "not told" if self.path == "/joined" else "escalate"
+        out = json.dumps({"decision": d}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(out)))
+        self.end_headers()
+        self.wfile.write(out)
+
+ThreadingHTTPServer(("0.0.0.0", 8787), Ask).serve_forever()</pre>
+<p><code>POST /stk</code> (any path but <code>/joined</code>) with <code>{"intent", "trigger", "conversation_id"}</code> answers <code>{"decision": "finish"}</code> or <code>"escalate"</code>. <code>POST /joined</code> with <code>{"conversation_id"}</code>, when a person takes the conversation over, tells STK. It answers on port 8787; put it behind HTTPS (a load balancer or a proxy) and, if the platform can send one, check a secret header before answering.</p>
 </div>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

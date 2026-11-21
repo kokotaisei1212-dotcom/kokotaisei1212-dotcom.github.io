@@ -11,52 +11,86 @@
 <meta property="og:url" content="https://stk-evidence.com/changelog">
 <meta property="og:title" content="Changelog · STK">
 <meta property="og:description" content="One timeline, newest first: every change to the rules, every mistake STK found in itself, every report from a company.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Changelog · STK">
 <meta name="twitter:description" content="One timeline, newest first: every change to the rules, every mistake STK found in itself, every report from a company.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog" aria-current="page">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <style>
 .k{display:inline-block;min-width:7.5em;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid currentColor;text-align:center;white-space:nowrap}
 .k-rules{color:var(--ink)}
-.k-mistake{color:var(--bad)}
+.k-mistake{color:var(--ink)}
 .k-report{color:var(--muted)}
+.k-notice{color:var(--muted)}
+.k-change{color:var(--muted)}
+#rows td:first-child{white-space:nowrap}
 </style>
 <div class="doc">
 <div class="eyebrow">Trust</div>
 <h1>Changelog</h1>
-<p class="lead">One timeline, newest first. Three kinds of row, mixed: <span class="k k-rules">Rules</span> STK changed the rules. <span class="k k-mistake">Our mistake</span> STK found a mistake of its own. <span class="k k-report">Report</span> a company reported a <code>finish</code> that went wrong.</p>
+<p class="lead">One timeline, newest first. Five kinds of row, mixed: <span class="k k-rules">Rules</span> STK changed the rules. <span class="k k-mistake">Our mistake</span> STK found a mistake of its own. <span class="k k-report">Report</span> a company reported a <code>finish</code> that went wrong. <span class="k k-notice">Notice</span> a change STK announces ahead, with the day it starts. <span class="k k-change">Change</span> a change to the service or the site that takes effect when it is published.</p>
 <div class="table"><table>
 <thead><tr><th>Date (UTC)</th><th>Kind</th><th>What</th></tr></thead>
 <tbody id="rows">
 <!-- Our mistake rows go here, the day each is fixed: <tr data-at="YYYY-MM-DDTHH:MM:SSZ" data-kind="mistake"> -->
-<tr data-at="2026-11-17T05:25:00Z" data-kind="mistake"><td>2026-11-17 05:25:00</td><td><span class="k k-mistake">Our mistake</span></td><td>From about 04:25 to 05:25 UTC, STK's API answered every call with 503. STK's own work had used up the storage the API wrote to. What it could do to you: every ask got no answer, so stk.py and stk.mjs answered escalate and your code handed the conversation to a person. Fixed: since 05:25 UTC the API writes to storage of its own, and STK's own work never runs on it.</td></tr>
+<tr data-at="2026-11-21T05:52:14Z" data-kind="change"><td>2026-11-21 05:52:14</td><td><span class="k k-change">Change</span></td><td>The first page has three short blocks: the tool, the rules, and the institution (who approves the rules: STK's operator; when they can change; that no version is deleted), each with one link. The Price page no longer works out what a company would save: it gives the price and how it is worked out (35% of the published cost of the same action performed by a person, with its source).</td></tr>
+<tr data-at="2026-11-21T05:45:33Z" data-kind="mistake"><td>2026-11-21 05:45:33</td><td><span class="k k-mistake">Our mistake</span></td><td>The Price page's description, the text search engines show, still said "Invoice on the first, card, thirty days", from monthly billing. Billing has been weekly since 2026-11-19: each week (Monday to Sunday, UTC) is invoiced the next Monday and charged that day. The description now says so.</td></tr>
+<tr data-at="2026-11-21T05:30:30Z" data-kind="mistake"><td>2026-11-21 05:30:30</td><td><span class="k k-mistake">Our mistake</span></td><td>The rules pages said that in US financial rules the law does not name a person, and that the law naming a person for financial actions is European and British. That holds for US federal law, not for all US law: Colorado (C.R.S. § 6-1-1705, meaningful human review of a consequential decision, including a financial or lending service) and California's rules under the CCPA (11 CCR § 7221(b), an appeal to a human reviewer offered in place of an opt-out) name a person, both from 2027-01-01. The sentence now says so. The rules pages also now say which US states' laws have been read; the others are being read, and until then STK does not say that the rules follow every law that names a person. The rules are unchanged.</td></tr>
+<tr data-at="2026-11-21T04:39:31Z" data-kind="change"><td>2026-11-21 04:39:31</td><td><span class="k k-change">Change</span></td><td>The first page is shorter: STK, its headline, one sentence on what STK is, the version of the rules (its hash is on the rules page), the two entries by industry, and five links: Rules, Docs, Price, Contact, All pages. Every page is listed on All pages; no page was removed.</td></tr>
+<tr data-at="2026-11-21T04:30:09Z" data-kind="change"><td>2026-11-21 04:30:09</td><td><span class="k k-change">Change</span></td><td>Deployed: when a company's customer is deleted at Stripe, its day's counts are dropped and written to STK's log, the other companies' days are written as before, and <code>/v1/health</code> stays <code>ok: true</code>. The card page now returns to Docs, where the key form is; under a grant, a late answer STK did not sign leaves a <code>not_signed</code> line; the invoice footer no longer says that Stripe emails you. Known limits say what a load test found: 300 of 450 company-days billed less than the test counted, by 1.32% in all, none more, the cause not known. The rules and the price are unchanged.</td></tr>
+<tr data-at="2026-11-21T04:30:09Z" data-kind="change"><td>2026-11-21 04:30:09</td><td><span class="k k-change">Change</span></td><td>What counts as an unexpected stop of STK's server changed. Before: any start after 00:15 UTC, or one without a clean stop before it. Now: a deploy (a start running another commit) is not a stop, at any hour; only a start of the same commit again (a crash, a kill, a restart) is. Why: with the grant, stk.py and stk.mjs finish and queue the seals while a deploy starts the server, so a deploy does not stop a company's work. Deploys are made at any time of day, each in this Changelog. Counted again by the new rule: the two starts recorded as unexpected, 2026-11-19 03:10 and 2026-11-21 02:55 UTC, were both deploys (by Render's deploy history), so 0 unexpected stops in the last 250 days. They are kept in the record as deploys, not removed. <code>/v1/health</code> was <code>ok: false</code> from 03:15 UTC today by the old rule; it is judged again by the new one from this deploy.</td></tr>
+<tr data-at="2026-11-21T05:00:00Z" data-kind="change"><td>2026-11-21 05:00</td><td><span class="k k-change">Change</span></td><td>The site in two layers. The first page: what STK is, the version of the rules with its SHA-256, and two entries by industry. The rules page: each action on one line, its side and why (a law names a person, or no law does), linking to a page of its own with the law, its official text, the clock and duties, the names by industry and the two industries' difference. Everything else of the rules page moved to The rules in full, under Docs; the key form moved to Docs. Removed: the setup guides for Zendesk, Genesys Cloud, Salesforce Agentforce and Intercom Fin (they said little beyond "not known"), the duplicate lists of certifications (kept on Vendor review), a duplicate contact line, sentences written twice, and a paragraph on how the monthly report may be used. The rules and the price are unchanged.</td></tr>
+<tr data-at="2026-11-21T03:40:00Z" data-kind="mistake"><td>2026-11-21 03:40</td><td><span class="k k-mistake">Our mistake</span></td><td>From 02:57 UTC, The rules said that a seal sent again after the API restarted is counted and billed again. It is counted again, but not billed twice: a restart day is billed the larger of the counts before and after the restart, not their sum. Known limits and the Terms now say the same in one way: a bill can come out lower than the number of actions STK permitted, and cannot come out higher.</td></tr>
+<tr data-at="2026-11-21T02:56:12Z" data-kind="change"><td>2026-11-21 02:56:12</td><td><span class="k k-change">Change</span></td><td>A grant: each answer of STK now carries one, signed, for 10 minutes. While it holds and STK cannot be reached, stk.py and stk.mjs finish what the rules say finish and send the seal from a queue (at most 10,000) when STK answers again; the grant expired or the queue full, escalate, as before. Receipts now have two times: when the library recorded the action (the company's claim) and when STK signed (what STK attests); they differ only for a seal that waited in the queue, and the receipt shows both. Each seal of a day is now counted once; past the number of seals STK can hold for a day, STK does not sign. Until now, past about 20 million seals in a day, some were signed and not billed. The DPA no longer shows a street address (a signed copy with the full registered address on request), and its contact is email. The rules are unchanged.</td></tr>
+<tr data-at="2026-11-21T02:36:00Z" data-kind="mistake"><td>2026-11-21 02:36</td><td><span class="k k-mistake">Our mistake</span></td><td>We deleted 200 test companies of a load test from Stripe while the server still held their counts. Its writes of those counts then failed, and <code>/v1/health</code> answered <code>ok: false</code> from 02:36 UTC until the server started again at a deploy at 02:55 UTC the same day. Signing went on: no server error in that time. It is the second time: the rule was to delete test companies only after the server lets go of their counts, and we deleted them after their last write instead.</td></tr>
+<tr data-at="2026-11-21T02:00:28Z" data-kind="notice"><td>2026-11-21 02:00:28</td><td><span class="k k-notice">Notice</span></td><td>New: a Vendor review page (what STK receives and does not, data protection, a security questionnaire answered, certifications, continuity) and an MSA, the same for every company and not negotiated; a key is given without it, as before. The Price page now says what STK charges for, the same 35% in every domain, how counting works, and why weekly. The rules and the price are unchanged.</td></tr>
+<tr data-at="2026-11-21T01:25:02Z" data-kind="notice"><td>2026-11-21 01:25:02</td><td><span class="k k-notice">Notice</span></td><td>The rules page lists each action by its permanent ID with its clock, the citation that names a person, and why human review is required, under the names health plans and financial institutions use. It says which version applies to an action (the one named in its receipt) and how the two industries differ. The price page puts the principle first: 35% of the published cost of the same action performed by a person. Docs describe a month's report, not yet built. The rules themselves are unchanged.</td></tr>
+<tr data-at="2026-11-19T12:58:46Z" data-kind="mistake"><td>2026-11-19 12:58:46</td><td><span class="k k-mistake">Our mistake</span></td><td>What a receipt proves, and what it does not, is now written on How to check a row and in Known limits. Sentences that said more than a receipt shows were corrected: a person given the five things checks whether the row the company declared was permitted, not whether the act itself was; a lost file means a permission can no longer be checked. Terms now say that using STK does not mean a company complies with any law. What it could do to you: a reader could have taken a receipt for more than it is. Nothing was billed differently.</td></tr>
+<tr data-at="2026-11-19T07:16:43Z" data-kind="notice"><td>2026-11-19 07:16:43</td><td><span class="k k-notice">Notice</span></td><td>How a new version of the rules is published, from today. Additions (an intent permitted, a trigger, a clause, a reason or an explanation added, an error corrected, a new domain) are published the day they are made. Restrictions (an act permitted yesterday no longer permitted) take effect only on April 15 and October 15, published here 30 days before, on March 15 and September 15. The one exception is a law that took effect or a court's decision: such a restriction can take effect on another day, marked here as an urgent change by law, with its provision and the date it takes effect. A version is named by its number and the day it was published, written "Rule", the number, a slash and the date; its SHA-256 is given below the name. The rules themselves are unchanged.</td></tr>
+<tr data-at="2026-11-19T06:41:23Z" data-kind="notice"><td>2026-11-19 06:41:23</td><td><span class="k k-notice">Notice</span></td><td>From today: the live key is given only after a card is registered on Stripe's page; the test key needs no card. Each week (Monday to Sunday, UTC) is invoiced the next Monday, due when issued, and charged that day to that card. If the card is declined, Stripe tries again and emails the customer; STK sends no email. The price, $5 a permission in conversations, and the rules are unchanged. Before: one invoice a month, emailed by Stripe on the 1st, due in 30 days, paid by card from its link, with no card asked for beforehand. STK had no customer.</td></tr>
+<tr data-at="2026-11-19T04:41:08Z" data-kind="notice"><td>2026-11-19 04:41:08</td><td><span class="k k-notice">Notice</span></td><td>A new version of the rules, approved by the CEO before it was published. A conversation goes to a person for two reasons only: a law names a person for its act, or a trigger happened. A conversation that could not be told as any act (<code>other</code>) has its own clause and goes to a person. Each law on the Never list has the address of its official text beside it. Every intent a version adds to the Permitted list is published with its reasons: that it is not a refusal or a contest, that no law names a person for it (with the laws checked), and whether it came from <code>other</code>. The intents permitted and never permitted are the same as before. These are the last changes to the rules until STK's owner decides otherwise.</td></tr>
+<tr data-at="2026-11-19T03:15:02Z" data-kind="mistake"><td>2026-11-19 03:15:02</td><td><span class="k k-mistake">Our mistake</span></td><td>A new version of the rules was published at 03:10 UTC on 2026-11-19 by mistake, before STK had finished reviewing it, and was withdrawn at 03:15 UTC: the version before it is in force again, and the withdrawn one is kept in the history beside it. What it could do to you: none; it permitted the same intents. STK had no customer.</td></tr>
+<tr data-at="2026-11-19T03:10:20Z" data-kind="mistake"><td>2026-11-19 03:10:20</td><td><span class="k k-mistake">Our mistake</span></td><td>From about 16:50 UTC on 2026-11-18 until STK's server started again at 03:10 UTC on 2026-11-19, <code>/v1/health</code> said <code>ok</code> false. STK deleted its own load-test companies from Stripe while its server still held counts of theirs, and every write of those counts failed. What it could do to you: a check of <code>/v1/health</code> in that time read false. Asks were signed and billed as usual. From now on STK deletes test companies only after their day's last write.</td></tr>
+<tr data-at="2026-11-18T15:57:49Z" data-kind="notice"><td>2026-11-18 15:57:49</td><td><span class="k k-notice">Notice</span></td><td>The rules now follow the strictest law of the US, the EU and the UK: a refusal of credit, of a claim or of an account, and the contest of a decision, go to a person under GDPR Art. 22 and UK GDPR Arts. 22A and 22C; the list of what is permitted is held by that law instead of only getting shorter. This replaced the version of the rules published at 15:48 UTC the same day. Done when STK had no customer.</td></tr>
+<tr data-at="2026-11-18T15:47:00Z" data-kind="mistake"><td>2026-11-18 15:47:00</td><td><span class="k k-mistake">Our mistake</span></td><td>Two rows of this Changelog, dated 2026-11-18 09:45:29 and 15:04:14 UTC, were written where the page does not show them, and appeared only now. What it could do to you: until now you could not read here those corrections and the new version of the rules. Nothing was billed differently.</td></tr>
+<tr data-at="2026-11-18T15:45:16Z" data-kind="notice"><td>2026-11-18 15:45:16</td><td><span class="k k-notice">Notice</span></td><td>The intents sent to a person because someone must answer for them were looked at again by whether a law names a person; each intent kept on the Never list has its law and section beside it. This replaced the version of the rules published at 15:03 UTC the same day. Done when STK had no customer.</td></tr>
+<tr data-at="2026-11-18T15:04:14Z" data-kind="notice"><td>2026-11-18 15:04:14</td><td><span class="k k-notice">Notice</span></td><td>A new version of the rules. The intents were divided by topic; they are now divided by act: read and change are permitted, decide is Never. 24 intents were added to the Permitted list. At the same time the triggers were written into the rules, each with what counts, and two locks were put on them: the Permitted list can only get shorter, and the Triggers list can only get longer. STK's server does not start with a version that breaks either, so STK cannot move what is permitted for its own revenue. Done when STK had no customer. Every earlier version stays in the history. (Replaced twice the same day; see the rows above.)</td></tr>
+<tr data-at="2026-11-18T09:45:29Z" data-kind="mistake"><td>2026-11-18 09:45:29</td><td><span class="k k-mistake">Our mistake</span></td><td>Some sentences on this site did not say what STK and its files do. Corrected: an account is deleted 30 days after it was made if its <em>live</em> key was never used (a finish with the test key does not keep it); the permission kept for an answer that came after <code>ask()</code> returned is followed by a <code>joined</code> line, not marked <code>cancelled</code>; when an answer never reached your code, no line is kept for it; lines go to standard output only when the folder cannot be written; a start after 00:15 UTC, or one without a clean stop before it, is counted as an unexpected stop. What it could do to you: an account used only with the test key, kept on the strength of the old sentence, would be deleted after 30 days. Nothing was billed differently.</td></tr>
+<tr data-at="2026-11-18T09:15:24Z" data-kind="notice"><td>2026-11-18 09:15:24</td><td><span class="k k-notice">Notice</span></td><td>From today: each company's count of the day is written to Stripe every 2 minutes, and a day STK's server starts again on is billed as the larger count before or after the start, less every person joining that day (it was billed nothing). A live key is signed up to 20,000,000 permissions a day (it was 100,000); the limit for all accounts together is gone. The same seal sent twice the same day is signed again, and counted once. An address whose keys were never used can take keys again 10 minutes after they were made. stk.py and stk.mjs keep each line before <code>ask()</code> returns, write the row one way in both, read an intent without spaces around it and in lower case, and keep a <code>not_listed</code> line for an intent on no list; stk_verify.py marks a test key's row as not a live permission. STK counts its server's unexpected stops: more than 1 in 250 days makes <code>/v1/health</code> say <code>ok</code> false for 24 hours.</td></tr>
+<tr data-at="2026-11-17T16:53:22Z" data-kind="notice"><td>2026-11-17 16:53:22</td><td><span class="k k-notice">Notice</span></td><td>From today, Stripe keeps your account, the keys' hashes, each day's count, STK's public keys and the reports, as Subprocessors says.</td></tr>
+<tr data-at="2026-11-17T05:25:00Z" data-kind="mistake"><td>2026-11-17 05:25:00</td><td><span class="k k-mistake">Our mistake</span></td><td>From about 04:25 to 05:25 UTC, STK's API answered every call with 503. STK's own work had used up the storage the API wrote to. What it could do to you: every ask got no answer, so stk.py and stk.mjs answered escalate and your code handed the conversation to a person. Fixed at 05:25 UTC the same day.</td></tr>
+<tr data-at="2026-11-17T13:27:48Z" data-kind="notice"><td>2026-11-17 13:27:48</td><td><span class="k k-notice">Notice</span></td><td>From 2026-12-01, the company that serves this site changes from Vercel to GitHub, and the domain's DNS from Vercel to Name.com.</td></tr>
 <tr id="none"><td colspan="3">Nothing yet.</td></tr>
 </tbody>
 </table></div>
-<p id="more">Rules and Report rows come from <code>GET /v1/rules?history=1</code> each time this page opens: every version of the rules, and the latest 100 reports. Every report, as CSV: <a href="/v1/rules?history=1&amp;format=csv">stk-reports.csv</a>. A report changes no rule and no answer; only STK changes the rules, in a new version.</p>
+<p id="more">Rules and Report rows come from <code>GET /v1/rules?history=1</code> each time this page opens: every version of the rules, and the latest 100 reports. Every report, as CSV: <a href="https://api.stk-evidence.com/v1/rules?history=1&amp;format=csv">stk-reports.csv</a>. A report changes no rule and no answer; only STK changes the rules, in a new version.</p>
 </div>
 <script>
 (function(){
   var t = document.getElementById('rows');
-  var label = {rules: 'Rules', mistake: 'Our mistake', report: 'Report'};
+  var label = {rules: 'Rules', mistake: 'Our mistake', report: 'Report', notice: 'Notice', change: 'Change'};
   function row(at, kind, what){
     var tr = document.createElement('tr'); tr.setAttribute('data-at', at); tr.setAttribute('data-kind', kind);
     var a = document.createElement('td'); a.textContent = at.replace('T', ' ').replace('Z', '');
@@ -70,9 +104,9 @@
     rs.sort(function(x, y){ return x.getAttribute('data-at') < y.getAttribute('data-at') ? 1 : -1; }).forEach(function(r){ t.appendChild(r); });
   }
   sort();
-  fetch('/v1/rules?history=1', {cache: 'no-store'}).then(function(r){ if (!r.ok) throw r.status; return r.json(); }).then(function(h){
+  fetch('https://api.stk-evidence.com/v1/rules?history=1', {cache: 'no-store'}).then(function(r){ if (!r.ok) throw r.status; return r.json(); }).then(function(h){
     if (!h || !Array.isArray(h.versions) || !Array.isArray(h.reports)) return;
-    h.versions.forEach(function(v, i){ t.appendChild(row(v.published, 'rules', i ? 'A new version of the rules: ' + v.change + '. Version ' + v.version.slice(0, 12) + '.' : 'The first version of the rules. Version ' + v.version.slice(0, 12) + '.')); });
+    h.versions.forEach(function(v, i){ t.appendChild(row(v.published, 'rules', 'Rule ' + v.number + ' · ' + v.version.slice(0, 12) + (v.summary ? ': ' + v.summary + '.' : ': the first.'))); });
     h.reports.slice(-100).forEach(function(x){ t.appendChild(row(x.reported, 'report', 'A company reported a finish that went wrong. Intent: ' + x.intent + '.')); });
     (h.keys_made_invalid || []).forEach(function(k){ t.appendChild(row(k.invalid, 'mistake', 'The signing key of ' + k.day + ' (' + k.kid + ') was made invalid: no row of that day checks with STK\'s keys any more. ' + (k.note || ''))); });
     sort();
@@ -80,10 +114,28 @@
 })();
 </script>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

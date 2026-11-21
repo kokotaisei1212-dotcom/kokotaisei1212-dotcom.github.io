@@ -4,50 +4,148 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Price · STK</title>
-<meta name="description" content="$5 a permission. A person joining the same day (UTC): not billed. Invoice on the first, card, thirty days.">
+<meta name="description" content="35% of the cost of a contact handled by a person, rounded: in conversations, $5 a permission. A person joining the same day (UTC): not billed. Each week (Monday to Sunday, UTC) invoiced the next Monday and charged that day to the card registered, in US dollars.">
 <link rel="canonical" href="https://stk-evidence.com/price">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/price">
 <meta property="og:title" content="Price · STK">
-<meta property="og:description" content="$5 a permission. A person joining the same day (UTC): not billed. Invoice on the first, card, thirty days.">
-<meta property="og:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="STK">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:description" content="35% of the cost of a contact handled by a person, rounded: in conversations, $5 a permission. A person joining the same day (UTC): not billed. Each week (Monday to Sunday, UTC) invoiced the next Monday and charged that day to the card registered, in US dollars.">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Price · STK">
-<meta name="twitter:description" content="$5 a permission. A person joining the same day (UTC): not billed. Invoice on the first, card, thirty days.">
-<meta name="twitter:image" content="https://stk-evidence.com/stk-og-1200x630.png">
-<meta name="theme-color" content="#ffffff">
+<meta name="twitter:description" content="35% of the cost of a contact handled by a person, rounded: in conversations, $5 a permission. A person joining the same day (UTC): not billed. Each week (Monday to Sunday, UTC) invoiced the next Monday and charged that day to the card registered, in US dollars.">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="/site.css">
-<script src="/copy.js" defer></script>
 </head>
-<body>
-<nav class="sitebar"><div class="wrap">
-  <a class="logo" href="/"><img class="mark-img" src="/stk-logo.png" alt="STK" height="28"> <span class="logo-tag">Voice and language</span></a>
-  <div class="right"><div class="menu" id="menu"><a href="/rules">The rules</a><a href="/price" aria-current="page">Price</a><a href="/trust">Trust</a><a href="/docs">Docs</a></div><a class="btn" id="hdr-btn" href="/#key">Get a key</a><button class="burger" type="button" aria-label="Menu" aria-controls="menu" aria-expanded="false" onclick="var n=this.closest('nav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))"><span></span><span></span><span></span></button></div>
-</div></nav>
+<body class="page">
+<header class="bar" id="bar"><div class="wrap">
+<a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK</span></span><span class="nub"></span></a>
+<button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+</div></header>
+<div class="menu" id="menu" hidden><nav class="wrap" aria-label="Pages"><ul>
+<li><a href="/rules">Rules</a></li>
+<li><a href="/ledger#check">How to check a row</a></li>
+<li><a href="/receive">What we receive</a></li>
+<li><a href="/when">What happens when</a></li>
+<li><a href="/docs">Docs</a></li>
+<li><a href="/docs#setup">Setup guides</a></li>
+<li><a href="/vendors">For AI vendors</a></li>
+<li><a href="/price" aria-current="page">Price</a></li>
+<li><a href="/limits">Known limits</a></li>
+<li><a href="/changelog">Changelog</a></li>
+</ul></nav></div>
 <main class="wrap">
 <div class="doc">
 <div class="eyebrow">Price</div>
 <h1>Price</h1>
 <ul class="no">
-  <li><strong>$5 when STK says finish.</strong></li>
-  <li><strong>$0 when a person joins it the same day (UTC).</strong> A person who joins on a later day: it stays billed.</li>
-  <li>An invoice on the first of the month, by email. Paid by card from its link. Due in thirty days.</li>
-  <li>Unpaid sixty days after its due date: STK answers escalate to every ask of your account until it is paid.</li>
+  <li><strong>Price is 35% of the published cost of the same action performed by a person.</strong> <a href="#why-5">The table</a>.</li>
+  <li><strong>Conversations: $5 for each permission</strong> under these rules (the domain <code>conversation</code>, <a href="/rules-full#scope">what it covers</a>): each seal your live key sends that STK signs.</li>
+  <li><strong>$0 when a person joins it the same day (UTC).</strong> Told by 00:10 UTC the day after, with the permission's seal (stk.py and stk.mjs send it while the process that got the permission still runs), it still counts for its day. Told on a later day after that: it stays billed.</li>
+  <li>Each Monday, Stripe makes the invoice for the week before (Monday to Sunday, UTC) and charges it the same day to the card you registered when you took your live key. STK has no screen for it and sends no email. It is due when issued.</li>
 </ul>
+
+<h2 id="example">An example</h2>
+<div class="table"><table>
+<thead><tr><th>Day (UTC)</th><th>Permissions</th><th>A person joined</th><th>Billed</th></tr></thead>
+<tbody>
+<tr><td>3 March</td><td>4</td><td>1</td><td>max(0, 4 − 1) = 3</td></tr>
+<tr><td>4 March</td><td>1</td><td>2</td><td>max(0, 1 − 2) = 0</td></tr>
+<tr><td>5 March</td><td>2</td><td>0</td><td>2</td></tr>
+</tbody>
+</table></div>
+<p>March so far: 3 + 0 + 2 = 5 permissions, $25. A person who joins on 4 March after 00:10 UTC takes nothing off 3 March.</p>
+
+<h2 id="not-billed">Not billed</h2>
+<ul>
+  <li>Anything with your test key.</li>
+  <li>Every ask the rules answer <code>escalate</code>: the file does not call STK.</li>
+  <li>The same conversation and intent asked again the same day (UTC) on the same server: the file does not call STK again.</li>
+  <li>A seal STK did not sign: unpaid 60 days, no published key, or STK not answering.</li>
+  <li>An answer that came after your code stopped waiting, or never reached it, while no grant held: the file tells STK a person has it. Under a grant the file finishes, and the permission is billed. If STK cannot be told then, it stays billed, and the file's line says so.</li>
+  <li>On a day (UTC) STK's server started again (a deploy, or after it stopped): the permissions of the smaller of the two counts, before and after the start. The day is billed as the larger count less every person joining that day. Each count is written to Stripe every 2 minutes; what was not written when the server stopped is not billed.</li>
+  <li>A day whose signing key STK made invalid, for every company. Not yet on an invoice: taken off. Already on one: a credit note from Stripe (an open invoice owes less; a paid one is refunded, or credited to the next invoice when it cannot be).</li>
+</ul>
+
+<h2 id="unpaid">If an invoice is not paid</h2>
+<ol>
+  <li>If the card is declined, the invoice stays open: Stripe tries the card again, and the invoice can be paid from its link. STK asks Stripe to send an open invoice again on its due date and 7, 30 and 53 days after. <code>GET /v1/health</code> with your key lists your unpaid invoices.</li>
+  <li>Sixty days after it was issued and still unpaid, STK signs nothing for your account: the file answers <code>escalate</code> to every ask, and nothing is billed.</li>
+  <li>When it is paid, STK signs again.</li>
+</ol>
+
+<h2 id="why-5">How the price is worked out</h2>
+<p>Price is 35% of the published cost of the same action performed by a person, rounded to the dollar.</p>
+
+<h2 id="charges">What STK charges for</h2>
+<p>STK charges for one thing: a permission it signed. Nothing else.</p>
+<p>STK does not decide what a company routes through it. Every action it routes that STK signs is billed the same.</p>
+
+<h2 id="domains">The same 35% in every domain</h2>
+<p>The ratio is fixed at 35%. What changes is the action. Each domain has its own published cost for the same action performed by a person. The price for that domain is 35% of it, rounded to the dollar. A domain stays blank here until a published source for that cost exists. We do not estimate.</p>
+<div class="table"><table><thead><tr><th>Domain</th><th>Published cost of the action by a person</th><th>What the cost counts</th><th>× 35%</th><th>Price</th></tr></thead><tbody>
+<tr><td>conversation</td><td>$13.50 (<a href="https://www.gartner.com/en/documents/5164231">Gartner, February 2024</a>)</td><td>The median cost of one contact in an assisted channel (handled by a person). What the median includes beyond that is not stated in Gartner's public abstract.</td><td>$4.73</td><td>$5</td></tr>
+<tr><td>claims adjudication</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>prior authorization</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>underwriting</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>credit decision</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>internal approval</td><td></td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p>Only the domain conversation has rules and a price. A rule that covers other acts will have its price worked out with the same 35%, rounded the same way, and published, with what its published cost counts.</p>
+
+<h2 id="why-card">Why a card, not an invoice</h2>
+<ul>
+  <li>STK has no collections function. No dunning, no legal, no negotiation. One dunning action costs more than a $5 charge is worth, so STK does not do it.</li>
+  <li>A card is charged weekly, on the Monday after the week closes. The customer does nothing after the first minute.</li>
+  <li>STK never receives a bank account number or a card number. The card is held by Stripe.</li>
+</ul>
+
+<p><strong>Why an invoice the company pays itself would not work.</strong> An invoice needs someone to chase it; STK has no collections function, one chase costs more than the charge, and a card removes the need.</p>
+
+<h2 id="why-stripe">Why Stripe</h2>
+<ul>
+  <li>STK holds no billing ledger and has no store of its own. Every count is written to Stripe, where the customer can read it without asking STK.</li>
+  <li>The record is Stripe's, so it survives STK disappearing, and STK cannot quietly revise its own numbers.</li>
+  <li>The invoice and the payment page are Stripe's. STK has no billing screen of its own.</li>
+</ul>
+
+<p><strong>Counting.</strong> Every billed day appears on the company's Stripe invoice as its own entry, with that day's count of permissions. The company reads the count on its own invoice, without asking STK. STK holds no billing ledger of its own; once an invoice is issued, its lines are fixed, and a correction can only be a credit note the company sees. If a count is wrong, it is wrong in a place the company can see.</p>
+<p><strong>Why weekly.</strong> A week (Monday to Sunday, UTC) is closed the following Monday and charged that day. This is STK's own condition, not a requirement on the company. Its effect for the company: the amount is small and frequent rather than large and monthly, the first charge arrives within days of the first use, and stopping costs nothing: there is no term and no notice period.</p>
+
+<h2 id="holds">What STK holds</h2>
+<ul>
+  <li>One right only: if an account is unpaid for 60 days, STK stops signing. That is clause 0 of the rules. There is no other remedy and no interest.</li>
+</ul>
+
+<h2 id="currency">Currency and tax</h2>
+<p>US dollars. The invoice is $5 times the week's count of permissions in conversations. STK adds no tax to it.</p>
 </div>
 </main>
-<footer><div class="wrap">
-  <div class="cols"><div class="col"><div class="h">Trust</div><a href="/trust">Trust</a><a href="/review">Vendor review</a><a href="/subprocessors">Subprocessors</a><a href="/limits">Known limits</a><a href="/changelog">Changelog</a><a href="/security">Security</a></div><div class="col"><div class="h">Legal</div><a href="/terms">Legal</a><a href="/privacy">Privacy</a><a href="/dpa">DPA</a></div><div class="col"><div class="h">Developers</div><a href="/docs">Docs</a><a href="/rules">The rules</a><a href="/ledger">The ledger</a><a href="/price">Price</a></div></div>
-  <div class="base"><img class="mark-img" src="/stk-logo.png" alt="STK" height="24"><span>© 2026 STK. All rights reserved.</span>
+<footer class="dark"><div class="wrap">
+<div class="top">
+<div class="brand"><a class="mark" href="/" aria-label="STK, the first page"><span class="case"><span class="cell">STK.</span></span><span class="nub"></span></a></div>
+<div><h2>The rule</h2><ul><li><a href="/rules">Rules</a></li><li><a href="/changelog">Changelog</a></li></ul></div>
+<div><h2>Check</h2><ul><li><a href="/ledger#check">How to check a row</a></li><li><a href="/receive">What we receive</a></li><li><a href="/when">What happens when</a></li></ul></div>
+<div><h2>Build</h2><ul><li><a href="/docs">Docs</a></li><li><a href="/docs#setup">Setup guides</a></li><li><a href="/vendors">For AI vendors</a></li></ul></div>
+<div><h2>Terms</h2><ul><li><a href="/price">Price</a></li><li><a href="/limits">Known limits</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/dpa">DPA</a></li><li><a href="/security">Security</a></li><li><a href="/subprocessors">Subprocessors</a></li><li><a href="/trust">Trust</a></li><li><a href="/review">Review</a></li><li><a href="/vendor-review">Vendor review</a></li><li><a href="/msa">MSA</a></li></ul></div>
+<div><h2>Contact</h2><ul><li><a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></li><li><a href="https://www.linkedin.com/in/taisei-izawa-8140123b9">LinkedIn</a></li></ul></div>
 </div>
+<div class="end"><p>© 2026 STK</p>
+<p class="last">the line between AI and a person</p></div>
 </div></footer>
+<script>
+(function(){
+  var bar = document.getElementById('bar'), menu = document.getElementById('menu'), btn = document.getElementById('burger');
+  function line(){ bar.classList.toggle('scrolled', window.scrollY > 0); }
+  window.addEventListener('scroll', line, {passive: true}); line();
+  function open(v){ menu.hidden = !v; btn.setAttribute('aria-expanded', v ? 'true' : 'false'); document.documentElement.classList.toggle('locked', v); }
+  btn.addEventListener('click', function(){ open(menu.hidden); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+  menu.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+})();
+</script>
 </body>
 </html>

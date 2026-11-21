@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /404
+Sitemap: https://stk-evidence.com/sitemap.xml
