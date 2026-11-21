@@ -48,7 +48,7 @@
 <p>Contact: <a href="https://www.linkedin.com/in/taisei-izawa-8140123b9" rel="noopener">LinkedIn</a>.<br>Email: <a href="mailto:izatai12@icloud.com">izatai12@icloud.com</a></p>
 
 <h2>2. Your account</h2>
-<p>When you take a key we keep your email address, the time the account was made, and later your Stripe customer id. The key itself is not kept: only a keyed hash of it (HMAC-SHA256). Stripe uses the address to send you the invoice. STK sends no email.</p>
+<p>When you take a key we keep your email address, the time the account was made, and later your Stripe customer id. The key itself is not kept: only a keyed hash of it (HMAC-SHA256). Stripe uses the address to send you the invoice. STK sends one email only: from 2026-12-05 12:00 UTC, when new keys are asked for your account without a key and with a card other than its own, one notice to the account's address, sent through Resend (<a href="/subprocessors">Subprocessors</a>), so that an account not in use still hears of it. When your keys are stopped or made again, or your card is changed, the event is kept in Stripe with its time, naming a card only by its brand and last 4 digits; your keys read it in <code>GET /v1/ledger</code>.</p>
 <p>To limit how many keys are taken, STK keeps the IP address of each <code>POST /v1/keys</code> in memory for one hour, dropped within the next 10 minutes, and writes it nowhere.</p>
 
 
@@ -56,7 +56,7 @@
 <p>For these we act as your processor under the <a href="/dpa">DPA</a>. STK receives, for each permission, the seal: SHA-256 of 32 random bytes and your row, from which nothing can be read back; and the time your library recorded the action (for a seal from its queue, also the grant STK signed). Not the intent, not the trigger, not an id, no words of a conversation: your code decides from the public rules on your side, and a request with any other field is refused. A person joining is a call with no body, or with the seal of the permission it is for. STK keeps no row and never receives one (<a href="/ledger">The ledger</a>); it keeps each day's counts.</p>
 
 <h2>4. This website</h2>
-<p>The site is served by Vercel, which receives your IP address. It sets no tracking cookies, runs no analytics and loads nothing from anyone else.</p>
+<p>The site is served by GitHub Pages, which receives your IP address. It sets no tracking cookies, runs no analytics and loads nothing from anyone else.</p>
 
 <h2>5. Who else sees data</h2>
 <p>The companies on <a href="/subprocessors">Subprocessors</a>. Nobody else.</p>

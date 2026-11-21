@@ -62,7 +62,7 @@ _sender = {"on": False}
 
 
 def decide(text, intent, trigger):
-    """The rules, read from their text: "finish" or "escalate". (Rule 0, an unpaid invoice, is STK's: it does not sign.)"""
+    """The rules, read from their text: "finish" or "escalate". (An invoice unpaid 60 days is in STK's Terms: STK does not sign.)"""
     def lst(name):
         m = re.search(r"^" + name + r" \((\d+)\): (.*)$", text, re.M)
         items = [] if m.group(2) == "none" else [x.strip().split(" (closed")[0] for x in m.group(2).split(",")]

@@ -67,7 +67,7 @@
 <li><strong>The signature.</strong> The public key of the receipt's <code>kid</code>, from <code>GET https://api.stk-evidence.com/v1/rules?keys=1</code> or <a href="/keys.json">/keys.json</a>, checks STK's Ed25519 signature over the receipt's values in the order above, as a JSON array with no spaces.</li>
 <li><strong>The rules.</strong> The version named in the receipt, its text signed by STK (<code>GET /v1/rules?history=1</code>), answers <code>finish</code> for the row's <code>intent</code> and <code>trigger</code>. A row with a Never intent, an intent that version closed (<a href="/rules-full#closed">closed names</a>), or one that only an older version would pass, does not.</li>
 </ol>
-<p>A key is used for one day, and STK lets go of it when the day ends; its public key stays published, so a permission of years ago is checked with its day's key.</p>
+<p>A key signs for one day only; its private half stays in Stripe, encrypted, and STK signs with it only on its day. Its public key stays published, so a permission of years ago is checked with its day's key.</p>
 
 <h2 id="proves">What a receipt proves, and what it does not</h2>
 <p><strong>Proves:</strong></p>
