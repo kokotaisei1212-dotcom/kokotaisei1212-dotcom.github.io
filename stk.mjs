@@ -33,7 +33,7 @@ import { appendFile, mkdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 export const config = {
-  key: "stk_test_...",   // your test key, shown once when you took it; the live key in its place when you go live
+  key: (typeof process !== "undefined" && process.env && process.env.STK_KEY) || "",   // your key, from the environment (STK_KEY): the test key first, the live key when you go live
   api: process.env.STK_API || "https://api.stk-evidence.com",
   timeout: 300,
   rowsDir: process.env.STK_ROWS_DIR || "stk-rows",

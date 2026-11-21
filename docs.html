@@ -39,63 +39,71 @@
 </ul></nav></div>
 <main class="wrap">
 <style>
+.tool .copyline{position:relative;margin:0 0 18px}
+.tool pre{box-sizing:border-box;width:100%;margin:0;white-space:pre;overflow-x:auto;font-family:var(--mono);font-size:12px;line-height:1.6;border:1px solid var(--line);border-radius:4px;padding:12px 76px 12px 14px}
+.tool .copyline button{position:absolute;top:6px;right:6px;font-size:12px;padding:4px 10px}
+.tool .tabs{display:flex;gap:4px;margin:18px 0 6px}
+.tool .tabs button{color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:6px 12px}
+.tool .tabs button[aria-selected="true"]{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+.tool button{font:inherit;border-radius:4px;color:var(--bg);background:var(--ink);border:1px solid var(--ink);cursor:pointer}
+.tool p{margin:0 0 10px}
 table{display:block;max-width:100%;overflow-x:auto} li code,td code{overflow-wrap:anywhere}
 </style>
 <div class="doc">
 <div class="eyebrow">Docs</div>
 <h1>Plug STK in</h1>
 <ol class="steps">
-  <li>Get your keys: enter your email in the form <a href="#get-keys">below</a>, or <code>POST /v1/keys</code>. The test key is shown once, there and then; the live key, once, after you register a card on Stripe's page. STK keeps only their hashes and sends no email.</li>
-  <li>Put <a href="/stk.py">stk.py</a> (or <a href="/stk.mjs">stk.mjs</a>) next to your AI's code, and write your key in <code>KEY</code> at its top.</li>
+  <li>Get your keys: enter your email on the <a href="/#keys">first page</a>, or <code>POST /v1/keys</code>. The test key is shown once, there and then; the live key, once, after you register a card on Stripe's page. STK keeps only their hashes and sends no email.</li>
+  <li>Put <a href="/stk.py">stk.py</a> (or <a href="/stk.mjs">stk.mjs</a>) next to your AI's code, and set the environment variable <code>STK_KEY</code> to your key (never write it into the file).</li>
   <li>Where your code is about to hand a conversation to a person: <code>if stk.ask(intent, trigger, conversation_id=cid) == "finish":</code> your AI goes on; else it hands the conversation over, as it does today.</li>
   <li>When a person joins a conversation that got <code>finish</code>: <code>stk.joined(cid)</code>. Told the same day (UTC), or by 00:10 UTC the day after, that permission is not billed. If STK cannot be told, <code>joined()</code> raises an error: call it again.</li>
 </ol>
 <p>The file decides, on your side, from STK's public rules. Only on <code>finish</code> does it call STK, and it sends the seal and the time it recorded the action, and nothing else. Without an answer within 300 ms, or on any error, <code>ask()</code> returns <code>escalate</code>, unless the last grant holds: then it returns <code>finish</code> and sends the seal from its queue when STK answers again (<a href="#ask">POST /v1/ask</a>). <code>stk.flush()</code> (stk.py) or <code>await flush()</code> (stk.mjs) waits until the queue is sent; call it before a process ends.</p>
 <p>The first <code>ask()</code> of a process reads the rules first, for up to 2 seconds; the 300 ms are counted after that.</p>
-<p>Try it without a key; it reads the public rules and sends nothing of yours: <code>curl -s https://stk-evidence.com/stk.py | python3 - conversation.balance.inquiry unknown</code></p>
+<p>Try it without a key; it reads the public rules and sends nothing of yours:</p>
+<div class="tool">
+<div class="copyline"><pre id="try">curl -s https://stk-evidence.com/stk.py | python3 - conversation.balance.inquiry unknown</pre><button type="button" data-copy="try">Copy</button></div>
+<div class="tabs" role="tablist"><button type="button" role="tab" data-tab="py" aria-selected="true">Python</button><button type="button" role="tab" data-tab="js" aria-selected="false">JavaScript</button></div>
+<div class="copyline"><pre id="py">import stk   # reads your key from STK_KEY
+if stk.ask(intent, trigger, conversation_id=cid) == "finish":
+    ...   # your AI goes on
+else:
+    ...   # hand it to a person</pre><pre id="js" hidden>import { ask } from "./stk.mjs";   // reads your key from STK_KEY
+if (await ask(intent, trigger, { conversationId: cid }) === "finish") {
+  // your AI goes on
+} else {
+  // hand it to a person
+}</pre><button type="button" data-copy="code">Copy</button></div>
+<p>$5 per permitted action, billed weekly to the card.</p>
+</div>
+<script>
+(function(){
+  document.querySelectorAll('[data-tab]').forEach(function(t){
+    t.onclick = function(){
+      document.querySelectorAll('[data-tab]').forEach(function(u){ u.setAttribute('aria-selected', String(u === t)); document.getElementById(u.getAttribute('data-tab')).hidden = u !== t; });
+    };
+  });
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.onclick = function(){
+      var id = b.getAttribute('data-copy');
+      if (id === 'code') id = document.getElementById('py').hidden ? 'js' : 'py';
+      var el = document.getElementById(id), t = el.textContent;
+      (navigator.clipboard && window.isSecureContext ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){
+        b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1500);
+      }, function(){ var r = document.createRange(); r.selectNodeContents(el); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); });
+    };
+  });
+})();
+</script>
 
 <p>The rules in detail: <a href="/rules-full">The rules in full</a> (the text, every version, the triggers, the locks, what else decides whether STK signs), and one page for each action, linked from <a href="/rules">The rules</a>.</p>
 
 <h2 id="get-keys">Get keys</h2>
-<style>#kf{display:flex;flex-wrap:wrap;gap:8px}#kf input,#kf button{font:inherit;font-size:16px;line-height:1.25;border-radius:4px;padding:11px 14px}#kf input{flex:1 1 14rem;min-width:0;max-width:26rem;color:var(--ink);background:var(--bg);border:1px solid var(--line)}#kf button{color:var(--bg);background:var(--ink);border:1px solid var(--ink);cursor:pointer;font-weight:500}#ks{margin:16px 0 0;font-size:14px;color:var(--muted)}#ks:empty{display:none}#keys{margin:16px 0 0;white-space:pre-wrap;word-break:break-all;font-family:var(--mono);font-size:13px;line-height:1.75;border:1px solid var(--line);border-radius:4px;padding:20px}</style>
-<form id="kf"><input id="em" type="email" required autocomplete="email" placeholder="email" aria-label="email"><button type="submit">Get keys</button></form>
-<p id="ks" role="status"></p>
-<pre id="keys" hidden></pre>
-<p class="note">The test key at once. The live key after a card is registered on Stripe's page. Each shown once; STK keeps only their hashes and sends no email.</p>
+<p>On the <a href="/#keys">first page</a>, or with <a href="#keys"><code>POST /v1/keys</code></a> below.</p>
 <script>
-(function(){
-  var f = document.getElementById('kf'), s = document.getElementById('ks'), k = document.getElementById('keys');
-  var API = 'https://api.stk-evidence.com/v1/keys';
-  function post(body, key){
-    var h = {'Content-Type': 'application/json'}; if (key) h['X-STK-Key'] = key;
-    return fetch(API, {method: 'POST', headers: h, body: JSON.stringify(body)}).then(function(r){ return r.json().then(function(j){ return [r.status, j]; }); });
-  }
-  if (new URLSearchParams(location.search).get('card')) {
-    s.textContent = 'The card is registered. Go back to the page where you took the test key and press \u201cGet the live key\u201d.';
-  }
-  f.onsubmit = function(e){
-    e.preventDefault(); s.textContent = '';
-    var em = document.getElementById('em').value;
-    post({email: em}).then(function(a){
-      if (a[0] !== 200) {
-        s.textContent = a[0] === 409 ? 'This address has keys. New ones: POST /v1/keys with its live key (Docs). Keys never used: the same address again, 10 minutes after they were made.' : (a[1] && a[1].message) || 'STK cannot do this just now. Try again in a minute.';
-        return;
-      }
-      var test = a[1].test_key, url = a[1].card_url, m = (url || '').match(/cs_(live|test)_[A-Za-z0-9]+/);
-      k.textContent = 'Test key: ' + test + '\n\nShown once. Never billed. Keep this page open.';
-      k.hidden = false;
-      var p = document.createElement('p'), l = document.createElement('a'), btn = document.createElement('button');
-      l.href = url; l.target = '_blank'; l.rel = 'noopener'; l.textContent = '1. Register a card on Stripe\u2019s page';
-      btn.type = 'button'; btn.textContent = '2. Get the live key';
-      btn.onclick = function(){
-        post({email: em, card: m ? m[0] : ''}, test).then(function(b){
-          if (b[0] === 200) { k.textContent = 'Test key: ' + test + '\nLive key: ' + b[1].live_key + '\n\nShown once. STK keeps only their hashes. Invoices are charged each Monday to the card you registered.\nNext: put the live key in place of the test key in stk.py or stk.mjs (the steps at the top of this page).'; p.remove(); }
-          else { s.textContent = (b[1] && b[1].message) || 'STK cannot do this just now. Try again in a minute.'; }
-        }, function(){ s.textContent = 'STK cannot be reached. Try again in a minute.'; });
-      };
-      p.appendChild(l); p.appendChild(document.createTextNode(' ')); p.appendChild(btn); k.after(p);
-    }, function(){ s.textContent = 'STK cannot be reached. Try again in a minute.'; });
-  };
+(function(){                                       // back from Stripe's card page: the first page tells the tab with the keys
+  var q = new URLSearchParams(location.search).get('card');
+  if (q) location.replace('/?card=' + encodeURIComponent(q) + '#keys');
 })();
 </script>
 <p>Your code may hand any conversation to a person: STK never requires a <code>finish</code>. If STK cannot answer, your AI hands the conversation to a person, unless a grant holds. STK never sees the conversation.</p>

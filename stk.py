@@ -43,7 +43,7 @@ Try it without a key: python3 stk.py conversation.order.status unknown   (it rea
 Python 3.8 or later, nothing to install."""
 import hashlib, json, os, re, secrets, sys, threading, time, urllib.error, urllib.request
 
-KEY = "stk_test_..."   # your test key, shown once when you took it; the live key in its place when you go live
+KEY = os.environ.get("STK_KEY", "")   # your key, from the environment (STK_KEY): the test key first, the live key when you go live
 API = os.environ.get("STK_API", "https://api.stk-evidence.com")
 TIMEOUT = 0.3
 QUEUE_MAX = 10000      # seals waiting for STK at most; past it, "escalate"

@@ -45,7 +45,7 @@
 <h2>Which file, where</h2>
 <p>The file where your code decides to hand a conversation to a person: the function that puts it in a queue, opens a ticket for an agent, or transfers the call. Put the call to <code>ask()</code> right before that, and do the handover only when it does not return <code>finish</code>.</p>
 <h2>Python</h2>
-<p>Put <a href="/stk.py" download>stk.py</a> next to that file. Set <code>KEY</code> in it to your test key.</p>
+<p>Put <a href="/stk.py" download>stk.py</a> next to that file. Set the environment variable <code>STK_KEY</code> to your test key; never write a key into the file.</p>
 <pre class="code">import stk
 
 def hand_over(conversation):            # your function, as it is today
@@ -56,7 +56,7 @@ def hand_over(conversation):            # your function, as it is today
 def person_joined(conversation):        # where a person takes a conversation over
     stk.joined(conversation.id)         # a finish of it is taken off its day's bill</pre>
 <h2>Node</h2>
-<p>Put <a href="/stk.mjs" download>stk.mjs</a> next to that file. Set <code>config.key</code> in it to your test key.</p>
+<p>Put <a href="/stk.mjs" download>stk.mjs</a> next to that file. Set the environment variable <code>STK_KEY</code> to your test key; never write a key into the file.</p>
 <pre class="code">import { ask, joined } from "./stk.mjs";
 
 async function handOver(conversation) {   // your function, as it is today

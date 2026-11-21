@@ -44,7 +44,7 @@
 <p class="lead">In the flow, an AWS Lambda function block before the transfer to the queue. The two lines go in that Lambda.</p>
 <h2>Where</h2>
 <ol>
-<li>Make a Lambda function (Python or Node.js). Put <a href="/stk.py" download>stk.py</a> or <a href="/stk.mjs" download>stk.mjs</a> in its package, with your key.</li>
+<li>Make a Lambda function (Python or Node.js). Put <a href="/stk.py" download>stk.py</a> or <a href="/stk.mjs" download>stk.mjs</a> in its package, and set <code>STK_KEY</code> to your key in the function's environment variables.</li>
 <li>In the flow, before <strong>Transfer to queue</strong>, add the <strong>AWS Lambda function</strong> block (Integrate), Execution mode <strong>Synchronous</strong>, pointing to that Lambda.</li>
 <li>After it, <strong>Check contact attributes</strong> on <code>$.External.decision</code>: <code>finish</code> goes back to your bot; anything else, and the block's Error and Timeout branches, go on to <strong>Transfer to queue</strong>.</li>
 </ol>

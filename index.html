@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>STK · The line between AI and a person</title>
-<meta name="description" content="Rules, published and signed by version, for when an action may complete without human review. Rule 5 / 2026-11-19.">
+<meta name="description" content="Published rules for what an AI may finish alone, and signed proof you followed them. Rule 5 / 2026-11-19.">
 <link rel="canonical" href="https://stk-evidence.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STK">
 <meta property="og:url" content="https://stk-evidence.com/">
 <meta property="og:title" content="STK · The line between AI and a person">
-<meta property="og:description" content="Rules, published and signed by version, for when an action may complete without human review. Rule 5 / 2026-11-19.">
+<meta property="og:description" content="Published rules for what an AI may finish alone, and signed proof you followed them. Rule 5 / 2026-11-19.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="STK · The line between AI and a person">
-<meta name="twitter:description" content="Rules, published and signed by version, for when an action may complete without human review. Rule 5 / 2026-11-19.">
+<meta name="twitter:description" content="Published rules for what an AI may finish alone, and signed proof you followed them. Rule 5 / 2026-11-19.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/favicon-32-dark.png" type="image/png" sizes="32x32">
 <link rel="icon" href="/stk-icon-512-dark.png" type="image/png" sizes="512x512">
@@ -47,27 +47,80 @@
 .hero .desc{margin:20px 0 0;font-size:15px;line-height:1.5;color:var(--muted);max-width:34em}
 .hero .ver{margin:32px 0 0;font-size:14px;color:var(--muted);overflow-wrap:anywhere;max-width:100%}
 @media (min-width:768px){.hero h1{font-size:64px}}
+.band{background:#000000;color:#FFFFFF;text-align:center;padding:56px 0;margin:32px 0;box-shadow:0 0 0 100vmax #000000;clip-path:inset(0 -100vmax)}
+.band p{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.01em}
+.tool{max-width:760px;margin:0 auto;padding:48px 0 24px}
+.tool h2{margin:0 0 14px;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.04em}
+.tool p{margin:0 0 10px;font-size:15px;line-height:1.55}
+.tool #keysout{box-sizing:border-box;width:100%;margin:0;white-space:pre-wrap;word-break:break-all;font-family:var(--mono);font-size:12px;line-height:1.6;border:1px solid var(--line);border-radius:4px;padding:12px 14px}
+.tool button,.tool #kf button{font:inherit;font-size:14px;border-radius:4px;padding:8px 12px;color:var(--bg);background:var(--ink);border:1px solid var(--ink);cursor:pointer}
+.tool #kf{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.tool #kf input{flex:1 1 14rem;min-width:0;font:inherit;font-size:16px;border-radius:4px;padding:10px 12px;color:var(--ink);background:var(--bg);border:1px solid var(--line)}
+.tool #ks:empty{display:none}
+.tool #card{margin-top:10px}
 .three{display:grid;grid-template-columns:1fr;gap:40px;max-width:1040px;margin:0 auto;padding:48px 0 96px}
 .three h2{margin:0 0 14px;font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.04em}
 .three p{margin:0 0 8px;font-size:15px;line-height:1.55}
 .three .more{margin-top:14px;font-size:14px}
-@media (min-width:768px){.three{grid-template-columns:repeat(3,1fr);gap:48px}}
+@media (min-width:768px){.three{grid-template-columns:repeat(2,1fr);gap:48px}}
 
 </style>
 <section class="hero">
 <p class="name">STK</p>
-<h1>The line between AI and a person.</h1>
-<p class="desc">Rules, published and signed by version, for when an action may complete without human review.</p>
-<p class="ver"><a href="/rules">Rule 5 / 2026-11-19</a></p>
+<h1>Published rules for what an AI may finish alone,<br> and signed proof you followed them.</h1>
 <nav class="entries" aria-label="By industry"><a href="/rules-full#health">Health plans</a><a href="/rules-full#finance">Banks, card issuers, lenders, insurers</a></nav>
 </section>
 
+<section class="tool wrap" id="keys" aria-label="The tool">
+<h2>The tool</h2>
+<form id="kf"><input id="em" type="email" required autocomplete="email" placeholder="email" aria-label="email"><button type="submit">Get keys</button></form>
+<p id="ks" role="status"></p>
+<pre id="keysout" hidden></pre>
+</section>
+<script>
+(function(){
+  var f = document.getElementById('kf'), s = document.getElementById('ks'), k = document.getElementById('keysout');
+  var API = 'https://api.stk-evidence.com/v1/keys', ch = window.BroadcastChannel ? new BroadcastChannel('stk_card') : null;
+  function post(body, key){
+    var h = {'Content-Type': 'application/json'}; if (key) h['X-STK-Key'] = key;
+    return fetch(API, {method: 'POST', headers: h, body: JSON.stringify(body)}).then(function(r){ return r.json().then(function(j){ return [r.status, j]; }); });
+  }
+  function show(v){
+    k.textContent = 'Test key: ' + v.test + (v.live ? '\nLive key: ' + v.live : '') + '\n\nShown once. Set one as STK_KEY.';
+    k.hidden = false;
+  }
+  var q = new URLSearchParams(location.search).get('card');
+  if (q) {                                        // this tab is back from Stripe's page: tell the tab with the keys, and close
+    if (ch) ch.postMessage(q);
+    s.textContent = 'The card is registered. Your keys are on the page where you took them.';
+    setTimeout(function(){ window.close(); }, 300);
+  }
+  f.onsubmit = function(e){
+    e.preventDefault(); s.textContent = '';
+    var em = document.getElementById('em').value;
+    post({email: em}).then(function(a){
+      if (a[0] !== 200) { s.textContent = a[0] === 409 ? 'This address has keys. New ones: POST /v1/keys with its live key (Docs).' : (a[1] && a[1].message) || 'STK cannot do this just now. Try again in a minute.'; return; }
+      var v = {test: a[1].test_key, live: a[1].live_key || ''}, url = a[1].card_url, m = (url || '').match(/cs_(live|test)_[A-Za-z0-9]+/), done = false;
+      show(v);
+      var b = document.createElement('button');
+      b.type = 'button'; b.id = 'card'; b.textContent = 'Register a card';
+      b.onclick = function(){ window.open(url, '_blank'); };
+      k.after(b);
+      function check(id){                         // the card done: the live key, if it was not given at once
+        if (done || !m || (id && id !== m[0])) return;
+        if (v.live) { if (id) { done = true; b.remove(); } return; }
+        post({email: em, card: m[0]}, v.test).then(function(r){
+          if (r[0] === 200 && r[1].live_key) { done = true; v.live = r[1].live_key; show(v); b.remove(); }
+        }, function(){});
+      }
+      if (ch) ch.onmessage = function(ev){ check(ev.data); };
+      window.addEventListener('focus', function(){ check(''); });
+    }, function(){ s.textContent = 'STK cannot be reached. Try again in a minute.'; });
+  };
+})();
+</script>
+<div class="band" role="presentation"><p>The line between AI and a person.</p></div>
 <section class="three wrap" aria-label="STK">
-<div><h2>The tool</h2>
-<p>Your code decides from STK's public rules, on its own side.</p>
-<p>On <code>finish</code> it sends STK a seal of the row; the row stays with you.</p>
-<p>STK signs the seal: that receipt is the permission.</p>
-<p class="more"><a href="/docs">Docs</a></p></div>
 <div><h2>The rules</h2>
 <p>Each of 83 actions is on one side: completed without human review, or human review required.</p>
 <p>An action goes to a person only where a law names one, or a trigger happened.</p>
